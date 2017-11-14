@@ -16,13 +16,16 @@
 		var userLocation = Observable('');
 		var itemList = Observable('');
 
-		var timeout_ms = 8000;
+		var timeout_ms = 6000;
 		
 		// Get location, then hit the Yelp API for results
 		GeoLocation.getLocation(timeout_ms).then((location) => {
+		console.log('*** 2 ***');
+
 			userLocation.value = JSON.stringify(location);
 			
-			console.log(" got the location sonnn.!!!");
+			console.log(" >>> LOCATION ");
+			Common.log(userLocation.value);
 
 			// Make the API call for nearby businesses
 			var urlParams = 
@@ -47,13 +50,14 @@
 			// nearby coffee shops
 			Common.fetchDataFromApi('search', urlParams)
 				.then((items) => {
-					logArray(items);
+					log(items);
 					itemList.addAll(items);
 				});
 
 		}).catch((fail) => {
 			console.log(" (x) getLocation failed ... " + fail);
 		});
+
 		console.log(JSON.stringify(GeoLocation.location));
 	</JavaScript>
 	

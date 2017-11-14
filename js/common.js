@@ -63,5 +63,5 @@ function fetchDataFromApi(endpoint, urlParams) {
 
 module.exports = {
 	fetchDataFromApi: fetchDataFromApi,
-	logArray: logArray,
+	log: logArray,
 };
