@@ -3,6 +3,7 @@
   "Packages": [
   	"Fuse",
   	"FuseJS",
+    "Fuse.Launcher",
     "Fuse.GeoLocation"
   ],
   "Mobile": {

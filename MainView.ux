@@ -1,64 +1,52 @@
 <App Background="#F5F5F5">
 	<iOS.StatusBarConfig Style="Light" />
 	
-	<JavaScript File="js/data.js" />
-	<!-- <JavaScript File="common.js" /> -->
+	<JavaScript File="js/main.js" />
+
 	<Panel ux:Name="contentPlaceholder" />
 	
 	<JavaScript>
-		var GeoLocation = require("FuseJS/GeoLocation");
-		var Observable = require("FuseJS/Observable");
-		var Common = require("./js/common.js");
-	
 		console.log('*** loaded ***');
-		
-		// Wait for Geolocation (with Timeout)
-		var userLocation = Observable('');
-		var itemList = Observable('');
+		// Route telephone number cliks to Dial app
+		var InterApp = require("FuseJS/InterApp");
+		// Route clicks on place address to Maps
+		var Maps = require("FuseJS/Maps");
 
-		var timeout_ms = 6000;
-		
-		// Get location, then hit the Yelp API for results
-		GeoLocation.getLocation(timeout_ms).then((location) => {
-		console.log('*** 2 ***');
+		/**
+		 * On phone number click, route to telephone app
+		 */
+		function callPhoneNumber(args) {
+			console.log('*** callPhoneNumber ***');
+			InterApp.launchUri("tel:" + args.data.phone);
+		}
 
-			userLocation.value = JSON.stringify(location);
-			
-			console.log(" >>> LOCATION ");
-			Common.log(userLocation.value);
+		/**
+		 * Get directions to the place
+		 * @param  {[type]} args [description]
+		 * @return {[type]}      [description]
+		 */
+		function getDirections(args) {
+			console.log('*** getDirections ***');
+			console.log(JSON.stringify(args.data.mapsURL));
+			InterApp.launchUri("maps:" + JSON.stringify(args.data.mapsURL));
+		}
 
-			// Make the API call for nearby businesses
-			var urlParams = 
-				`term=coffee&` + 
+		function searchMap(args) {
+			console.log('*** searchMap ***');
+			const lat = args.data.coordinates.latitude;
+			const lon = args.data.coordinates.longitude;
+			console.log(lat + " , " + lon);
+			console.log(args.data.composite_address);
 
-				// Need either location OR lat/lon
-				// `location=Los Angeles, CA&` +
-				`lat=${location.latitude}&` + 
-				`lon=${location.longitude}&` +
+			Maps.searchNear(lat, lon, args.data.composite_address);
+		}
 
-				// List of comma delimited pricing levels (1,2,3,4)
-				`price=1,2,3,4&` +
-				
-				// Defaults to best_match if not provided
-				//   { best_match, rating, review_count, distance }
-				`sort_by=distance&` +
-
-				// Always set a limit!
-				`limit=3`;
-
-			// Api method returns a promise containing 
-			// nearby coffee shops
-			Common.fetchDataFromApi('search', urlParams)
-				.then((items) => {
-					log(items);
-					itemList.addAll(items);
-				});
-
-		}).catch((fail) => {
-			console.log(" (x) getLocation failed ... " + fail);
-		});
-
-		console.log(JSON.stringify(GeoLocation.location));
+		module.exports = {
+			// Methods
+			callPhoneNumber: callPhoneNumber,
+			getDirections: getDirections,
+			searchMap: searchMap,
+		};
 	</JavaScript>
 	
 	<DockPanel>
@@ -67,7 +55,8 @@
 		<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
 			<StackPanel Margin="0,0,0,15">
 				<Selection MinCount="0" MaxCount="1" />
-				
+					
+				<!-- Loop through items -->
 				<Each Items="{itemList}">
 					<EventCard layoutTarget="contentPlaceholder">
 						<Selectable Value="{id}" />
@@ -77,6 +66,8 @@
 						</WhileSelected>
 					</EventCard>
 				</Each>
+				<!-- End loop through items -->
+
 			</StackPanel>
 		</ScrollView>
 		
@@ -115,9 +106,9 @@
 		<Panel ux:Name="contentLimitPanel" Height="{ReadProperty ImageHeight}">
 			<DockPanel ux:Name="imageAndContent" ClipToBounds="true" HitTestMode="LocalBoundsAndChildren">
 				<LayoutAnimation>
-					<Move X="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.2" Easing="QuadraticInOut" />
-					<Move Y="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.2" Easing="SinusoidalIn" />
-					<Resize X="1" Y="1" RelativeTo="SizeChange" DelayBack="0" Duration="0.25" Easing="QuadraticIn" />
+					<Move X="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="QuadraticInOut" />
+					<Move Y="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="SinusoidalIn" />
+					<Resize X="1" Y="1" RelativeTo="SizeChange" DelayBack="0" Duration="0.15" Easing="QuadraticIn" />
 				</LayoutAnimation>
 				
 				<Panel Dock="Top" Height="{ReadProperty ImageHeight}">
@@ -135,34 +126,29 @@
 							<ToggleSelection Mode="AddOnly" />
 						</Clicked>
 						
-						<StackPanel Margin="56,15,30,15" Alignment="BottomLeft">
-							<!-- Event Date -->
-							<Text Value="{=toUpper({date})}" 
-								Color="#fffb" FontSize="14" 
-							/>
-							<!-- Artist Name -->
-							<Text Value="{artist}" 
-								Color="#fff" FontSize="27" TextWrapping="Wrap"
+						<StackPanel Margin="35,20,20,20" Alignment="BottomLeft">
+							<!-- Business Name -->
+							<Text Value="{name}" 
+								Color="#fff" FontSize="22" TextWrapping="Wrap"
 								Alignment="CenterLeft" 
 							/>
-							<!-- Venue -->
-							<Text Value="{venue}"
-								Color="#fff" FontSize="18" TextWrapping="Wrap" Alignment="CenterLeft" 
+							<Text Value="{distance}" 
+								Color="#fff" FontSize="12" TextWrapping="Wrap"
+								Alignment="CenterLeft" 
 							/>
 						</StackPanel>
 						
 						<!-- Show Image -->
-						<Rectangle ux:Name="image" Layer="Background" CornerRadius="2,2,0,0" Margin="15,15,15,0">
+						<Rectangle ux:Name="image" Layer="Background" CornerRadius="2,2,0,0" Margin="10,10,10,10">
 							<PlusButton ux:Name="plusButton" 
 								Layer="Overlay" Alignment="BottomLeft"
 								Anchor="0%,50%" Margin="10,0" 
 							/>
-							
 							<SolidColor Color="#333" />
 							<ImageFill Url="{image_url}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
 							<LinearGradient>
-								<GradientStop Color="0,0,0, 0.1" Offset="0" />
-								<GradientStop Color="0,0,0, 0.92" Offset="1" />
+								<GradientStop Color="0,0,0, 0.0" Offset=".5" />
+								<GradientStop Color="0,0,0, 0.45" Offset="1" />
 							</LinearGradient>
 						</Rectangle>
 						
@@ -172,29 +158,53 @@
 				<!-- MODAL -->
 				<ScrollView ux:Name="contentScrollView" Background="#fff">
 					<StackPanel ux:Name="content" Margin="54,20,20,20" ItemSpacing="10">
-						<SmallHeaderText>VENUE</SmallHeaderText>
-						<BodyText Value="{venue}" />
 						
-						<SmallHeaderText>TICKETS</SmallHeaderText>
+						<SmallHeaderText>Info</SmallHeaderText>
 						<Grid Columns="1*,auto">
-							<Text Color="#212121" FontSize="30" Alignment="VerticalCenter">${ticketPrice}</Text>
-							<FlatButton Text="BUY TICKETS" />
+							<!-- PHONE NUMBER -->
+							<Text 
+								Color="#212121" 
+								FontSize="16" 
+								Alignment="VerticalCenter"
+								Font="RobotoMedium"
+							>Call</Text>
+
+							<FlatButton 
+								Text="{phone}" 
+								HitTestMode="LocalBounds" 
+								Clicked="{callPhoneNumber}"
+								Margin="2,10,2,10"
+							/>
+							<!-- MAP DIRECTIONS -->
+							<Text 
+								Color="#212121" 
+								FontSize="16" 
+								Alignment="VerticalCenter"
+								Font="RobotoMedium"
+							>Visit</Text>
+							<FlatButton 
+								HitTestMode="LocalBounds" 
+								Clicked="{searchMap}"
+								Text="DIRECTIONS" 
+								Margin="2,10,2,10"
+							/>
 						</Grid>
 						
-						<SmallHeaderText>ABOUT</SmallHeaderText>
-						<BodyText Value="{description}" />
 					</StackPanel>
 				</ScrollView>
 			</DockPanel>
 		</Panel>
+	
 		<!-- Margin: Left, Top, Right, Bottom -->
-		<StackPanel Margin="30,20,30,20" ItemSpacing="10">
-			<MutedText Value="{description}" />
-			<BodyText Value="{price}" Font="RobotoMedium" Margin="0,10" />
+		<StackPanel Margin="30,00,10,10" ItemSpacing="10">
+			<SmallHeaderText>Rating</SmallHeaderText>
+			<BodyText Value="{rating}" Font="RobotoMedium" Margin="0,4" />
+			<BodyText Value="{review_count} reviews" Font="RobotoMedium" Margin="0,4" />
 			<!-- <TextButton Alignment="Right" Text="ADD TO CALENDAR" /> -->
 		</StackPanel>
 		
-		<Rectangle Layer="Background" Color="#fff" CornerRadius="2" Margin="15,15,15,0">
+		<!-- Bottom Rectangle -->
+		<Rectangle Layer="Background" Color="#fff" CornerRadius="2" Margin="10,40,10,0">
 			<Shadow Size="2" Distance="2" Color="#0003" />
 		</Rectangle>
 	</StackPanel>

@@ -3,7 +3,7 @@
  * @param  {[type]} items [description]
  * @return {[type]}       [description]
  */
-function logArray(items) {
+function log(items) {
 	items.forEach((item) => {
 		for (var propName in item) {
 			console.log(propName + ' : ' + item[propName]);
@@ -18,13 +18,14 @@ function logArray(items) {
  * @param {string} requestUrl GET url params to be appended
  * @return {Promise} 
  */
-function fetchDataFromApi(endpoint, urlParams) {
+function fetchData(endpoint, urlParams) {
 	var requestUrl = 
 		'https://api.findsomecoffee.com/' 
 		+ endpoint + '?' + urlParams;
 	
-	console.log(requestUrl);
-	
+	// console.log(" >>> API URL ");
+	// console.log(requestUrl);
+
 	return fetch(requestUrl)
 		.then(function(response) { 
 			return response.json();
@@ -32,7 +33,8 @@ function fetchDataFromApi(endpoint, urlParams) {
 		.then(function(response) {
 			if (typeof response.businesses === 'object') {
 				var items = response.businesses;
-				
+				log(items);
+
 				// Sort based on proximity
 				items.sort(function(a, b) {		
 					// sort by proximity (closest first)
@@ -40,28 +42,29 @@ function fetchDataFromApi(endpoint, urlParams) {
 				});
 
 				// Convert meters to miles, customize display value
-				items.forEach((item) => {
-					logArray(item.name);
+				// items.forEach((item) => {
+				// 	console.log(item.name);
 
-					// Add a custom distance parameter
-					var thisFarAway = (item.distance * 0.000621371).toFixed(1);
-					item.distance = thisFarAway < 0.1 
-					 	? `* Really Close *`
-					 	: `${thisFarAway} miles away`;
+				// 	// Add a custom distance parameter
+				// 	var thisFarAway = (item.distance * 0.000621371).toFixed(1);
+				// 	item.distance = thisFarAway < 0.1 
+				// 	 	? `* Really Close *`
+				// 	 	: `${thisFarAway} miles away`;
 
-					// Replace the larger original image with a smaller one
-					const pattern = /o.jpg/;
-					const smaller_img = item.image_url.replace( pattern, "l.jpg" );
-					item.image_url = smaller_img;
-				});
+				// 	// Replace the larger original image with a smaller one
+				// 	const pattern = /o.jpg/;
+				// 	const smaller_img = item.image_url.replace( pattern, "l.jpg" );
+				// 	item.image_url = smaller_img;
+				// });
 				return items;
 			} else {
 				return {};
 			}
 	});
-} // End fetchDataFromApi
+} // End fetchData
+
 
 module.exports = {
-	fetchDataFromApi: fetchDataFromApi,
-	log: logArray,
+	fetchData: fetchData,
+	log: log,
 };
