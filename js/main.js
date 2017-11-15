@@ -10,7 +10,6 @@ var itemList = Observable();
 var userLocation = Observable();
 var timeout_ms = 6000;
 
-
 // Get location, then hit the Yelp API for results
 GeoLocation.getLocation(timeout_ms).then((location) => {
 	// TODO: keep an eye on location, periodically calling
@@ -36,54 +35,23 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 		`sort_by=distance&` +
 
 		// Always set a limit!
-		`limit=3`;
+		`limit=30`;
 
 	// Api method returns a promise containing 
 	// nearby coffee shops
 	Common.fetchData('search', urlParams)
 		.then((data) => {
-			// Sort based on proximity
-			data.sort(function(a, b) {		
-				// sort by proximity (closest first)
-				return parseFloat(a.distance) - parseFloat(b.distance);
-			});
-
-			// Convert meters to miles, 
-			// customize display values
-			data.forEach((item) => {
-				let thisFarAway = (item.distance * 0.000621371).toFixed(1);
-				item.distance = thisFarAway < 0.1 
-					? `* Really Close *`
-					: `${thisFarAway} miles away`;
-
-				// Replace the larger original image with a smaller one
-				const pattern = /o.jpg/;
-				const smaller_img = item.image_url.replace(pattern, 'l.jpg');							
-				item.image_url = smaller_img;				
-
-				// Set directions url
-				item.composite_address = `${item.name}, ${item.location.address1}, ${item.location.city}, ${item.location.country}`
-				item.mapsURL = 
-					'https://www.google.com/maps/search/?api=1&query=' +
-				 	item.composite_address;
-			});
-
-			console.log(">>>>>>>>>>>>>>>>");
-			console.log(data[0].id);
-			console.log(data[0].name);
-			// console.log(data[0].image_url);
-			// console.log(data[0].url);
-			console.log(data[0].rating + " stars");
-			console.log(data[0].distance);
-			console.log(">>>>>>>>>>>>>>>>");
-			itemList.replaceAll(data);
+			// Remove crappy coffee shops
+			var legitCoffeeShops = Common.stripCoffeeShops(data);
+			// console.log(">>>>>>>>>>>>>>>>");
+			// console.log(JSON.stringify(data[0]));
+			// console.log(">>>>>>>>>>>>>>>>");
+			itemList.replaceAll(legitCoffeeShops);
 		});
 
 }).catch((fail) => {
 	console.log(" (x) getLocation failed ... " + fail);
 });
-// console.log(JSON.stringify(GeoLocation.location));
-
 
 module.exports = {
 	// Methods

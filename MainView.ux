@@ -126,14 +126,11 @@
 							<ToggleSelection Mode="AddOnly" />
 						</Clicked>
 						
-						<StackPanel Margin="35,20,20,20" Alignment="BottomLeft">
+						<!-- Business Name and such-->
+						<StackPanel Margin="25,20,20,20" Alignment="BottomLeft">
 							<!-- Business Name -->
 							<Text Value="{name}" 
 								Color="#fff" FontSize="22" TextWrapping="Wrap"
-								Alignment="CenterLeft" 
-							/>
-							<Text Value="{distance}" 
-								Color="#fff" FontSize="12" TextWrapping="Wrap"
 								Alignment="CenterLeft" 
 							/>
 						</StackPanel>
@@ -173,6 +170,7 @@
 								Text="{phone}" 
 								HitTestMode="LocalBounds" 
 								Clicked="{callPhoneNumber}"
+								Width="100%"
 								Margin="2,10,2,10"
 							/>
 							<!-- MAP DIRECTIONS -->
@@ -185,7 +183,9 @@
 							<FlatButton 
 								HitTestMode="LocalBounds" 
 								Clicked="{searchMap}"
+								Alignment="Center" 
 								Text="DIRECTIONS" 
+								Width="100%"
 								Margin="2,10,2,10"
 							/>
 						</Grid>
@@ -196,15 +196,17 @@
 		</Panel>
 	
 		<!-- Margin: Left, Top, Right, Bottom -->
-		<StackPanel Margin="30,00,10,10" ItemSpacing="10">
-			<SmallHeaderText>Rating</SmallHeaderText>
-			<BodyText Value="{rating}" Font="RobotoMedium" Margin="0,4" />
-			<BodyText Value="{review_count} reviews" Font="RobotoMedium" Margin="0,4" />
+		<StackPanel Margin="30,0,0,20" ItemSpacing="10">
+			<!-- Distance from busines -->
+			<SmallHeaderText Value="{distance}" TextWrapping="Wrap" Alignment="CenterLeft">
+			</SmallHeaderText>
+			<BodyText Value="{rating} stars" Font="RobotoMedium" Margin="0" />
+			<BodyText Value="{review_count} reviews" Font="RobotoMedium" Margin="0" />
 			<!-- <TextButton Alignment="Right" Text="ADD TO CALENDAR" /> -->
 		</StackPanel>
 		
 		<!-- Bottom Rectangle -->
-		<Rectangle Layer="Background" Color="#fff" CornerRadius="2" Margin="10,40,10,0">
+		<Rectangle Layer="Background" Color="#fff" CornerRadius="2" Margin="10,30,10,0">
 			<Shadow Size="2" Distance="2" Color="#0003" />
 		</Rectangle>
 	</StackPanel>
