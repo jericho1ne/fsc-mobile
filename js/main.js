@@ -42,7 +42,7 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 	Common.fetchData('search', urlParams)
 		.then((data) => {
 			// Remove crappy coffee shops
-			var legitCoffeeShops = Common.stripCoffeeShops(data);
+			// var legitCoffeeShops = Common.stripCoffeeShops(data);
 			// console.log(">>>>>>>>>>>>>>>>");
 			// console.log(JSON.stringify(data[0]));
 			// console.log(">>>>>>>>>>>>>>>>");

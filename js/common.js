@@ -75,8 +75,8 @@ function fetchData(endpoint, urlParams) {
  * @param  {array} items Array of cofee shops returned from API
  * @return {array} Stripped down list that passes QC ;)
  */
-stripCoffeeShops: function(items) {
-	let goodCoffeeShops = [];
+function stripCoffeeShops(items) {
+	var goodCoffeeShops = [];
 	items.forEach((item, index) => {
 		const itemName = item.name.trim().toLowerCase();
 		const imgUrl = item.image_url.trim();
@@ -99,9 +99,10 @@ stripCoffeeShops: function(items) {
 		}
 	});
 	return goodCoffeeShops;
-}, // End stripCoffeeShops()
+} // End stripCoffeeShops()
 
 module.exports = {
 	fetchData: fetchData,
+	stripCoffeeShops: stripCoffeeShops,
 	log: log,
 };
