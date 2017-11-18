@@ -107,31 +107,27 @@
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
-				<StackPanel Alignment="TopLeft" Height="30" Opacity="1">
-					
-					<!-- <ParagraphText>
-						Blaow!
-					</ParagraphText> -->
-					<!-- Scrollable List of coffee shops -->
-					<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
-						<StackPanel Margin="0,0,0,15">
-							<Selection MinCount="0" MaxCount="1" />
-								
-							<!-- Loop through items -->
-							<Each Items="{itemList}">
-								<EventCard layoutTarget="contentPlaceholder">
-									<Selectable Value="{id}" />
-									<WhileSelected>
-										<Change mainScrollView.UserScroll="false" DelayBack="0" />
-										<Move Target="statusAndAppBar" Y="-1" RelativeTo="Size" Duration="1.2" Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" />
-									</WhileSelected>
-								</EventCard>
-							</Each>
-							<!-- End loop through items -->
 
-						</StackPanel>
-					</ScrollView>
-				</StackPanel>
+				<!-- List of coffee shops (scrollable) -->
+				<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
+					<StackPanel Margin="0,0,0,15">
+						<Selection MinCount="0" MaxCount="1" />
+							
+						<!-- Loop through items -->
+						<Each Items="{itemList}">
+							<EventCard layoutTarget="contentPlaceholder">
+								<Selectable Value="{id}" />
+								<WhileSelected>
+									<Change mainScrollView.UserScroll="false" DelayBack="0" />
+									<Move Target="statusAndAppBar" Y="-1" RelativeTo="Size" Duration="1.2" Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" />
+								</WhileSelected>
+							</EventCard>
+						</Each>
+						<!-- End loop through items -->
+
+					</StackPanel>
+				</ScrollView>
+				<!-- End list of coffee shops -->
 			</Page>
 
 			<!-- Map View -->
