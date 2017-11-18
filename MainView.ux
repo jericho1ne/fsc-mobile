@@ -51,28 +51,25 @@
 		};
 	</JavaScript>
 
-	
-
-	
-	
 	<DockPanel>
 		<StatusBarBackground Dock="Top" />
 		<BottomBarBackground Dock="Bottom" />
 		
 		<!-- NAVIGATION TABS -->
 		<Panel ux:Name="statusAndAppBar" Dock="Top">
-			<Grid ColumnCount="3" Height="40" Background="#b7e0ed">
+			<Grid ColumnCount="3" Height="34" Background="#84C2D6">
 				<!-- STATIC RESOURCES -->
 				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
-				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,4" Background="#fafafa">
+				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
 					<string ux:Property="Text" />
-					<Text Value="{ReadProperty Text}" Color="PrimaryColor" Font="RobotoMedium" Alignment="Center" />
+					<Text Value="{ReadProperty Text}" 
+						Color="PrimaryColor" Font="MontserratRegular" Alignment="Center" />
 				</Panel>
 				<Rectangle ux:Name="indicator" Color="#FF9A9A"
-					LayoutMaster="page1Tab" Alignment="Bottom" Height="5" 
+					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
 					<LayoutAnimation>
-						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.2" Easing="BackIn"/>
+						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.1" Easing="BackIn"/>
 					</LayoutAnimation>
 				</Rectangle>
 
@@ -103,14 +100,14 @@
 		<PageControl ux:Name="navigation">
 
 			<!-- List View -->
-			<Page ux:Name="page1" Background="#eee" Padding="10,10">
+			<Page ux:Name="page1" Background="#eee" Padding="10,0">
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
 
 				<!-- List of coffee shops (scrollable) -->
 				<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
-					<StackPanel Margin="0,0,0,15">
+					<StackPanel Margin="0,10,0,15">
 						<Selection MinCount="0" MaxCount="1" />
 							
 						<!-- Loop through items -->
@@ -118,8 +115,13 @@
 							<EventCard layoutTarget="contentPlaceholder">
 								<Selectable Value="{id}" />
 								<WhileSelected>
+									<!-- Block background scroll while detail is up -->
 									<Change mainScrollView.UserScroll="false" DelayBack="0" />
-									<Move Target="statusAndAppBar" Y="-1" RelativeTo="Size" Duration="1.2" Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" />
+									<Move 
+										Target="statusAndAppBar" Y="-1" 
+										RelativeTo="Size" Duration=".5" 
+										Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" 
+									/>
 								</WhileSelected>
 							</EventCard>
 						</Each>
@@ -169,8 +171,7 @@
 				</WhileActive>
 				
 				<StackPanel Alignment="TopLeft" Height="80" Opacity="1">
-					<H1Text>Find Artisanal Coffee Nearby.</H1Text>
-					<!-- <H1Text>Read reviews you trust. </H1Text> -->
+					<H1Text>Artisanal Coffee Near You.</H1Text>
 					
 					<ParagraphText>
 						FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
@@ -179,7 +180,7 @@
 						No coffee shop gets a review after one or two visits. We visit our baristas until they smile when we walk in and say “you _have_ to try what I’m making today.” 
 					</ParagraphText>
 					<ParagraphText>
-						The baristas are our inspiration and we review the experience of drinking their artisanal coffee.
+						Soon, you'll have the ability to filter by preferred coffee bean profile and "Barista Availability".  After all, knowing which days you can rely on your favorite barista is paramount.
 					</ParagraphText>
 				</StackPanel>
 			</Page>

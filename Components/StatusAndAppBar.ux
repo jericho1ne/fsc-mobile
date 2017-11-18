@@ -1,6 +1,6 @@
 <StackPanel ux:Class="StatusAndAppBar" Color="PrimaryColor">
 	<StatusBarBackground Background="#0003" />
-	<StackPanel Orientation="Horizontal" Alignment="Left" Height="48">
+	<StackPanel Orientation="Horizontal" Alignment="Left" Height="36">
 		<HamburgerIcon IconColor="#555" />
 		<Text Alignment="VerticalCenter" 
 			Color="White" 
