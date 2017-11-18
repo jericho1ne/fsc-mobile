@@ -1,0 +1,136 @@
+<StackPanel ux:Class="EventCard" ImageHeight="200">
+	<float ux:Property="ImageHeight" />
+	<Panel ux:Dependency="layoutTarget" />
+
+	<OnBackButton>
+		<ToggleSelection Mode="RemoveOnly" />
+	</OnBackButton>
+	
+	<WhileSelected>
+		<Change imageAndContent.LayoutMaster="layoutTarget" DelayBack="0" Delay="0" />
+		<BringToFront />
+		
+		<Change image.CornerRadius="0" Duration="0.1" DelayBack="0" />
+		<Change image.Margin="0" Duration="0.25" Delay="0" DelayBack="0" Easing="CubicInOut" />
+	</WhileSelected>
+	
+	<WhileSelected Invert="true">
+		<Change contentScrollView.Opacity="0.4" Duration="0.3" DelayBack="0" />
+		<Change content.Opacity="0.5" Duration="0.5" DelayBack="0" />
+		<Move Target="content" Y="30" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
+	
+		<Scale Target="plusButton" Factor="0.01" Delay="0" Duration="0.2" DelayBack="0.25" DurationBack="0.55" Easing="CubicInOut" />
+		<Rotate Target="plusButton" Degrees="-90" Delay="0" Duration="0.5" DelayBack="0.25" DurationBack="1.1" EasingBack="CubicIn" />
+		<Change plusButton.Opacity="0" Duration="0.2" DelayBack="0.2" DurationBack="0.5" />
+		
+		<Change detailNavigationBar.Opacity="0" Duration="0.2" Delay="0" />
+		<Change detailNavigationBar.HitTestMode="None" />
+	</WhileSelected>
+	
+	<Panel ux:Name="contentLimitPanel" Height="{ReadProperty ImageHeight}">
+		<DockPanel ux:Name="imageAndContent" ClipToBounds="true" HitTestMode="LocalBoundsAndChildren">
+			<LayoutAnimation>
+				<Move X="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="QuadraticInOut" />
+				<Move Y="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="SinusoidalIn" />
+				<Resize X="1" Y="1" RelativeTo="SizeChange" DelayBack="0" Duration="0.15" Easing="QuadraticIn" />
+			</LayoutAnimation>
+			
+			<Panel Dock="Top" Height="{ReadProperty ImageHeight}">
+				<StackPanel ux:Name="detailNavigationBar" Alignment="Top">
+					<StatusBarBackground />
+					<BackButton Alignment="Left">
+						<Clicked>
+							<ToggleSelection Mode="RemoveOnly" />
+						</Clicked>
+					</BackButton>
+				</StackPanel>
+			
+				<Panel>
+					<Clicked>
+						<ToggleSelection Mode="AddOnly" />
+					</Clicked>
+					
+					<!-- Business Name and such-->
+					<StackPanel Margin="25,20,20,20" Alignment="BottomLeft">
+						<!-- Business Name -->
+						<Text Value="{name}" 
+							Color="#fff" FontSize="22" TextWrapping="Wrap"
+							Alignment="CenterLeft" 
+						/>
+					</StackPanel>
+					
+					<!-- Show Image -->
+					<Rectangle ux:Name="image" Layer="Background" CornerRadius="2,2,0,0" Margin="10,10,10,10">
+						<PlusButton ux:Name="plusButton" 
+							Layer="Overlay" Alignment="BottomLeft"
+							Anchor="0%,50%" Margin="10,0" 
+						/>
+						<SolidColor Color="#333" />
+						<ImageFill Url="{image_url}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
+						<LinearGradient>
+							<GradientStop Color="0,0,0, 0.0" Offset=".5" />
+							<GradientStop Color="0,0,0, 0.45" Offset="1" />
+						</LinearGradient>
+					</Rectangle>
+					
+				</Panel>
+			</Panel>
+			
+			<!-- MODAL -->
+			<ScrollView ux:Name="contentScrollView" Background="#fff">
+				<StackPanel ux:Name="content" Margin="54,20,20,20" ItemSpacing="10">
+					
+					<SmallHeaderText>Info</SmallHeaderText>
+					<Grid Columns="1*,auto">
+						<!-- PHONE NUMBER -->
+						<Text 
+							Color="#212121" 
+							FontSize="16" 
+							Alignment="VerticalCenter"
+							Font="RobotoMedium"
+						>Call</Text>
+
+						<FlatButton 
+							Text="{phone}" 
+							HitTestMode="LocalBounds" 
+							Clicked="{callPhoneNumber}"
+							Width="100%"
+							Margin="2,10,2,10"
+						/>
+						<!-- MAP DIRECTIONS -->
+						<Text 
+							Color="#212121" 
+							FontSize="16" 
+							Alignment="VerticalCenter"
+							Font="RobotoMedium"
+						>Visit</Text>
+						<FlatButton 
+							HitTestMode="LocalBounds" 
+							Clicked="{searchMap}"
+							Alignment="Center" 
+							Text="DIRECTIONS" 
+							Width="100%"
+							Margin="2,10,2,10"
+						/>
+					</Grid>
+					
+				</StackPanel>
+			</ScrollView>
+		</DockPanel>
+	</Panel>
+
+	<!-- Margin: Left, Top, Right, Bottom -->
+	<StackPanel Margin="30,0,0,20" ItemSpacing="10">
+		<!-- Distance from busines -->
+		<SmallHeaderText Value="{distance}" TextWrapping="Wrap" Alignment="CenterLeft">
+		</SmallHeaderText>
+		<BodyText Value="{rating} stars" Font="RobotoMedium" Margin="0" />
+		<BodyText Value="{review_count} reviews" Font="RobotoMedium" Margin="0" />
+		<!-- <TextButton Alignment="Right" Text="ADD TO CALENDAR" /> -->
+	</StackPanel>
+	
+	<!-- Bottom Rectangle -->
+	<Rectangle Layer="Background" Color="#fff" CornerRadius="2" Margin="10,30,10,0">
+		<Shadow Size="2" Distance="2" Color="#0003" />
+	</Rectangle>
+</StackPanel>

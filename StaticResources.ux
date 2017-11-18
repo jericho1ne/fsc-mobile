@@ -1,10 +1,41 @@
 <Panel ux:Class="StaticResources">
+	<!-- FONTS -->
 	<Font ux:Global="RobotoMedium" File="Assets/Roboto-Medium.ttf" />
-
-	<float4 ux:Global="PrimaryColor" ux:Value="#29B6F6" />
-	<float4 ux:Global="AccentColor" ux:Value="#E91E63" />
+	<Font ux:Global="MontserratLight" File="Assets/Montserrat-UltraLight.otf" />
+	<Font ux:Global="MontserratRegular" File="Assets/Montserrat-Light.otf" />
+	<Font ux:Global="MontserratBold" File="Assets/Montserrat-Regular.otf" />
 	
-	<Text ux:Class="SmallHeaderText" Font="RobotoMedium" FontSize="17" Color="PrimaryColor" Margin="0,15,0,0" />
-	<Text ux:Class="BodyText" FontSize="14" Color="#263238" TextWrapping="Wrap" />
+
+	<!-- COLORS -->
+	<!-- Blue -->
+	<float4 ux:Global="PrimaryColor" ux:Value="#84C2D6" />
+	<!-- DK Blue -->
+	<float4 ux:Global="SecondaryColor" ux:Value="#1d1e48" />
+	<!-- Pinkish red -->
+	<float4 ux:Global="AccentColor" ux:Value="#E91E63" />
+
+	<!-- Create reusable custom header text for each page -->
+	<Text ux:Class="SmallHeaderText" 
+		Font="RobotoMedium" FontSize="17" 
+		Color="PrimaryColor" Margin="0,15,0,0" 
+	/>
+	<Text ux:Class="BodyText" 
+		FontSize="14" 
+		Color="#263238" 
+		TextWrapping="Wrap" 
+	/>
+	<Text ux:Class="H1Text" 
+		FontSize="19" 
+		Font="MontserratRegular" TextColor="#999" 
+		TextWrapping="Wrap" TextAlignment="Left" Alignment="TopLeft"
+		Margin="0,10,0,10"
+	/>
+	<Text ux:Class="ParagraphText" 
+		Font="MontserratLight"
+		FontSize="12" TextColor="#000" 
+		TextWrapping="Wrap" TextAlignment="Left" Alignment="TopLeft"
+		Margin="0,10"
+		LineSpacing="8"
+	/>
 	<BodyText ux:Class="MutedText" Color="#888" />
 </Panel>

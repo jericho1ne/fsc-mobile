@@ -1,6 +1,8 @@
 <App Background="#F5F5F5">
+	<!-- Assets and Styles are in StaticResources.ux-->
+
 	<iOS.StatusBarConfig Style="Light" />
-	
+
 	<JavaScript File="js/main.js" />
 
 	<Panel ux:Name="contentPlaceholder" />
@@ -28,7 +30,7 @@
 		function getDirections(args) {
 			console.log('*** getDirections ***');
 			console.log(JSON.stringify(args.data.mapsURL));
-			InterApp.launchUri("maps:" + JSON.stringify(args.data.mapsURL));
+			InterApp.launchUri(JSON.stringify(args.data.mapsURL));
 		}
 
 		function searchMap(args) {
@@ -48,166 +50,148 @@
 			searchMap: searchMap,
 		};
 	</JavaScript>
+
+	
+
+	
 	
 	<DockPanel>
-		<StatusAndAppBar ux:Name="statusAndAppBar" Dock="Top" />
-		
-		<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
-			<StackPanel Margin="0,0,0,15">
-				<Selection MinCount="0" MaxCount="1" />
-					
-				<!-- Loop through items -->
-				<Each Items="{itemList}">
-					<EventCard layoutTarget="contentPlaceholder">
-						<Selectable Value="{id}" />
-						<WhileSelected>
-							<Change mainScrollView.UserScroll="false" DelayBack="0" />
-							<Move Target="statusAndAppBar" Y="-1" RelativeTo="Size" Duration="1.2" Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" />
-						</WhileSelected>
-					</EventCard>
-				</Each>
-				<!-- End loop through items -->
-
-			</StackPanel>
-		</ScrollView>
-		
+		<StatusBarBackground Dock="Top" />
 		<BottomBarBackground Dock="Bottom" />
+		
+		<!-- NAVIGATION TABS -->
+		<Panel ux:Name="statusAndAppBar" Dock="Top">
+			<Grid ColumnCount="3" Height="40" Background="#b7e0ed">
+				<!-- STATIC RESOURCES -->
+				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
+				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,4" Background="#fafafa">
+					<string ux:Property="Text" />
+					<Text Value="{ReadProperty Text}" Color="PrimaryColor" Font="RobotoMedium" Alignment="Center" />
+				</Panel>
+				<Rectangle ux:Name="indicator" Color="#FF9A9A"
+					LayoutMaster="page1Tab" Alignment="Bottom" Height="5" 
+				>
+					<LayoutAnimation>
+						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.2" Easing="BackIn"/>
+					</LayoutAnimation>
+				</Rectangle>
+
+				<Panel ux:Name="page1Tab">
+					<Tab Text="List">
+						<Clicked>
+							<Set navigation.Active="page1" />
+						</Clicked>
+					</Tab>
+				</Panel>
+				<Panel ux:Name="page2Tab">
+					<Tab Text="Map">
+						<Clicked>
+							<Set navigation.Active="page2" />
+						</Clicked>
+					</Tab>
+				</Panel>
+				<Panel ux:Name="page3Tab">
+					<Tab Text="About">
+						<Clicked>
+							<Set navigation.Active="page3" />
+						</Clicked>
+					</Tab>
+				</Panel>
+			</Grid>
+		</Panel>
+		<!-- PAGE CONTROL - CHANGES ON TAB SELECTION -->
+		<PageControl ux:Name="navigation">
+
+			<!-- List View -->
+			<Page ux:Name="page1" Background="#eee" Padding="10,10">
+				<WhileActive Threshold="0.5">
+					<Set indicator.LayoutMaster="page1Tab" />
+				</WhileActive>
+				<StackPanel Alignment="TopLeft" Height="30" Opacity="1">
+					
+					<!-- <ParagraphText>
+						Blaow!
+					</ParagraphText> -->
+					<!-- Scrollable List of coffee shops -->
+					<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
+						<StackPanel Margin="0,0,0,15">
+							<Selection MinCount="0" MaxCount="1" />
+								
+							<!-- Loop through items -->
+							<Each Items="{itemList}">
+								<EventCard layoutTarget="contentPlaceholder">
+									<Selectable Value="{id}" />
+									<WhileSelected>
+										<Change mainScrollView.UserScroll="false" DelayBack="0" />
+										<Move Target="statusAndAppBar" Y="-1" RelativeTo="Size" Duration="1.2" Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" />
+									</WhileSelected>
+								</EventCard>
+							</Each>
+							<!-- End loop through items -->
+
+						</StackPanel>
+					</ScrollView>
+				</StackPanel>
+			</Page>
+
+			<!-- Map View -->
+			<Page ux:Name="page2" Background="#abb7b7">
+				<WhileActive Threshold="0.5">
+					<Set indicator.LayoutMaster="page2Tab" />
+				</WhileActive>
+				<!-- <H1Text>Welcome to Page 2</H1Text> -->
+				<NativeViewHost Width="100%" Height="100%" Margin="0" Padding="0">
+					<MapView ux:Name="myMapView" Latitude="34.04" Longitude="-118.37" Zoom="11">
+						
+						<MapMarker 
+							Latitude="34.07239" 
+							Longitude="-118.3672" 
+							Label="Verve Coffee Roasters"
+						/>
+						<MapMarker 
+							Latitude="34.0388" 
+							Longitude="-118.23605" 
+							Label="The Wheelhouse"
+						/>
+					</MapView>
+				</NativeViewHost>
+				<JavaScript>
+					myMapView.setMarkers([
+						{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },
+						{ latitude: 34.02818, longitude: -118.47837, label: "Good Boy Bob" },
+						{ latitude: 34.0614, longitude: -118.3109858, label: "Document Coffee Bar" },
+						{ latitude: 34.07239, longitude: -118.3672, label: "Verve Coffee Roasters" },
+						{ latitude: 34.0388, longitude: -118.23605, label: "The Wheelhouse" }
+					]);
+				</JavaScript>
+			</Page>
+
+			<!-- About Page -->
+			<Page ux:Name="page3" Background="#f2f1ef" Padding="20,20">
+				<WhileActive Threshold="0.5">
+					<Set indicator.LayoutMaster="page3Tab" />
+				</WhileActive>
+				
+				<StackPanel Alignment="TopLeft" Height="80" Opacity="1">
+					<H1Text>Find Artisanal Coffee Nearby.</H1Text>
+					<!-- <H1Text>Read reviews you trust. </H1Text> -->
+					
+					<ParagraphText>
+						FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
+					</ParagraphText>
+					<ParagraphText>
+						No coffee shop gets a review after one or two visits. We visit our baristas until they smile when we walk in and say “you _have_ to try what I’m making today.” 
+					</ParagraphText>
+					<ParagraphText>
+						The baristas are our inspiration and we review the experience of drinking their artisanal coffee.
+					</ParagraphText>
+				</StackPanel>
+			</Page>
+		</PageControl>
+
 	</DockPanel>
 	
-	<StackPanel ux:Class="EventCard" ImageHeight="200">
-		<float ux:Property="ImageHeight" />
-		<Panel ux:Dependency="layoutTarget" />
 	
-		<OnBackButton>
-			<ToggleSelection Mode="RemoveOnly" />
-		</OnBackButton>
-		
-		<WhileSelected>
-			<Change imageAndContent.LayoutMaster="layoutTarget" DelayBack="0" Delay="0" />
-			<BringToFront />
-			
-			<Change image.CornerRadius="0" Duration="0.1" DelayBack="0" />
-			<Change image.Margin="0" Duration="0.25" Delay="0" DelayBack="0" Easing="CubicInOut" />
-		</WhileSelected>
-		
-		<WhileSelected Invert="true">
-			<Change contentScrollView.Opacity="0.4" Duration="0.3" DelayBack="0" />
-			<Change content.Opacity="0.5" Duration="0.5" DelayBack="0" />
-			<Move Target="content" Y="30" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
-		
-			<Scale Target="plusButton" Factor="0.01" Delay="0" Duration="0.2" DelayBack="0.25" DurationBack="0.55" Easing="CubicInOut" />
-			<Rotate Target="plusButton" Degrees="-90" Delay="0" Duration="0.5" DelayBack="0.25" DurationBack="1.1" EasingBack="CubicIn" />
-			<Change plusButton.Opacity="0" Duration="0.2" DelayBack="0.2" DurationBack="0.5" />
-			
-			<Change detailNavigationBar.Opacity="0" Duration="0.2" Delay="0" />
-			<Change detailNavigationBar.HitTestMode="None" />
-		</WhileSelected>
-		
-		<Panel ux:Name="contentLimitPanel" Height="{ReadProperty ImageHeight}">
-			<DockPanel ux:Name="imageAndContent" ClipToBounds="true" HitTestMode="LocalBoundsAndChildren">
-				<LayoutAnimation>
-					<Move X="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="QuadraticInOut" />
-					<Move Y="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="SinusoidalIn" />
-					<Resize X="1" Y="1" RelativeTo="SizeChange" DelayBack="0" Duration="0.15" Easing="QuadraticIn" />
-				</LayoutAnimation>
-				
-				<Panel Dock="Top" Height="{ReadProperty ImageHeight}">
-					<StackPanel ux:Name="detailNavigationBar" Alignment="Top">
-						<StatusBarBackground />
-						<BackButton Alignment="Left">
-							<Clicked>
-								<ToggleSelection Mode="RemoveOnly" />
-							</Clicked>
-						</BackButton>
-					</StackPanel>
-				
-					<Panel>
-						<Clicked>
-							<ToggleSelection Mode="AddOnly" />
-						</Clicked>
-						
-						<!-- Business Name and such-->
-						<StackPanel Margin="25,20,20,20" Alignment="BottomLeft">
-							<!-- Business Name -->
-							<Text Value="{name}" 
-								Color="#fff" FontSize="22" TextWrapping="Wrap"
-								Alignment="CenterLeft" 
-							/>
-						</StackPanel>
-						
-						<!-- Show Image -->
-						<Rectangle ux:Name="image" Layer="Background" CornerRadius="2,2,0,0" Margin="10,10,10,10">
-							<PlusButton ux:Name="plusButton" 
-								Layer="Overlay" Alignment="BottomLeft"
-								Anchor="0%,50%" Margin="10,0" 
-							/>
-							<SolidColor Color="#333" />
-							<ImageFill Url="{image_url}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
-							<LinearGradient>
-								<GradientStop Color="0,0,0, 0.0" Offset=".5" />
-								<GradientStop Color="0,0,0, 0.45" Offset="1" />
-							</LinearGradient>
-						</Rectangle>
-						
-					</Panel>
-				</Panel>
-				
-				<!-- MODAL -->
-				<ScrollView ux:Name="contentScrollView" Background="#fff">
-					<StackPanel ux:Name="content" Margin="54,20,20,20" ItemSpacing="10">
-						
-						<SmallHeaderText>Info</SmallHeaderText>
-						<Grid Columns="1*,auto">
-							<!-- PHONE NUMBER -->
-							<Text 
-								Color="#212121" 
-								FontSize="16" 
-								Alignment="VerticalCenter"
-								Font="RobotoMedium"
-							>Call</Text>
 
-							<FlatButton 
-								Text="{phone}" 
-								HitTestMode="LocalBounds" 
-								Clicked="{callPhoneNumber}"
-								Width="100%"
-								Margin="2,10,2,10"
-							/>
-							<!-- MAP DIRECTIONS -->
-							<Text 
-								Color="#212121" 
-								FontSize="16" 
-								Alignment="VerticalCenter"
-								Font="RobotoMedium"
-							>Visit</Text>
-							<FlatButton 
-								HitTestMode="LocalBounds" 
-								Clicked="{searchMap}"
-								Alignment="Center" 
-								Text="DIRECTIONS" 
-								Width="100%"
-								Margin="2,10,2,10"
-							/>
-						</Grid>
-						
-					</StackPanel>
-				</ScrollView>
-			</DockPanel>
-		</Panel>
 	
-		<!-- Margin: Left, Top, Right, Bottom -->
-		<StackPanel Margin="30,0,0,20" ItemSpacing="10">
-			<!-- Distance from busines -->
-			<SmallHeaderText Value="{distance}" TextWrapping="Wrap" Alignment="CenterLeft">
-			</SmallHeaderText>
-			<BodyText Value="{rating} stars" Font="RobotoMedium" Margin="0" />
-			<BodyText Value="{review_count} reviews" Font="RobotoMedium" Margin="0" />
-			<!-- <TextButton Alignment="Right" Text="ADD TO CALENDAR" /> -->
-		</StackPanel>
-		
-		<!-- Bottom Rectangle -->
-		<Rectangle Layer="Background" Color="#fff" CornerRadius="2" Margin="10,30,10,0">
-			<Shadow Size="2" Distance="2" Color="#0003" />
-		</Rectangle>
-	</StackPanel>
 </App>

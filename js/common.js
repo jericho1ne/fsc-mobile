@@ -23,8 +23,7 @@ function fetchData(endpoint, urlParams) {
 		'https://api.findsomecoffee.com/' 
 		+ endpoint + '?' + urlParams;
 	
-	// console.log(" >>> API URL ");
-	// console.log(requestUrl);
+	// console.log(" >>> API URL :: " + requestUrl);
 
 	return fetch(requestUrl)
 		.then(function(response) { 
