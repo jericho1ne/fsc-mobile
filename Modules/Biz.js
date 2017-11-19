@@ -10,7 +10,7 @@ var User = require("./User.js");
 // Gets replaced as soon as getLocation() + fetchData() returns
 var itemList = Observable();
 
-itemList.add({"name": "Coffee Fucking Shop", "id": 100 });
+itemList.add({"name": "Searching Nearby...", "id": 100 });
 
 function setItemList(new_items) {
 	itemList.replaceAll(new_items); 

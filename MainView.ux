@@ -50,17 +50,22 @@
 
 			Maps.searchNear(lat, lon, args.data.composite_address);
 		}
+		
 
 		module.exports = {
 			// Data
 			userLocation: User.location,
- 			itemList: Biz.itemList,
+			userLat: User.lat,
+			userLon: User.lon,
+			zoomLevel: User.zoomLevel,
 
+ 			itemList: Biz.itemList,
+			
 			// Methods
 			callPhoneNumber: callPhoneNumber,
 			getDirections: getDirections,
 			searchMap: searchMap,
-		};
+		};		
 	</JavaScript>
 
 	<DockPanel>
@@ -127,6 +132,9 @@
 							<EventCard layoutTarget="contentPlaceholder">
 								<Selectable Value="{id}" />
 								<WhileSelected>
+									<JavaScript>
+										console.log(" Get business details ");
+									</JavaScript>
 									<!-- Block background scroll while detail is up -->
 									<Change mainScrollView.UserScroll="false" DelayBack="0" />
 									<!-- <Move 
@@ -151,11 +159,7 @@
 		
 					<JavaScript>
 						console.log(" Now on MapView. ");
-						console.log(userLocation);
-						// console.log(JSON.stringify(userLocation);
-
-						// console.log(JSON.stringify(itemList[0]));
-
+					
 						// myMapView.setMarkers([
 						// 	{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },
 						// 	{ latitude: 34.02818, longitude: -118.47837, label: "Good Boy Bob" },
@@ -166,17 +170,7 @@
 					</JavaScript>
 				</WhileActive>
 				<!-- <H1Text>Welcome to Page 2</H1Text> -->
-				<NativeViewHost Width="100%" Height="100%" Margin="0" Padding="0">
-					<MapView ux:Name="myMapView" Latitude="34.04" Longitude="-118.37" Zoom="11">
-						<Each Items="{itemList}">
-							<MapMarker 
-								Latitude="{coordinates.latitude}" 
-								Longitude="{coordinates.longitude}" 
-								Label="{name}"
-							/>
-						</Each>
-					</MapView>
-				</NativeViewHost>
+				<PageMapView Alignment="Left" Margin="0" />
 				
 			</Page>
 

@@ -133,7 +133,7 @@
 	<Rectangle Layer="Background" Color="#fff" CornerRadius="10" 
 		Margin="0,10,0,20" 
 	>
-		<Shadow Size="3" Distance="1" Color="#777" />
+		<Shadow Size="1" Distance="1" Color="#bbb" />
 	</Rectangle>
 	<!-- Margin: Left, Top, Right, Bottom -->
 	<StackPanel Margin="20,0,20,40" ItemSpacing="8" Padding="0">

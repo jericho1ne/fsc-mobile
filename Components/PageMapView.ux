@@ -1,0 +1,13 @@
+<NativeViewHost ux:Class="PageMapView" Width="100%" Height="100%" Margin="0" Padding="0">
+	<MapView ux:Name="myMapView" Latitude="{userLat}" Longitude="{userLon}" Zoom="{zoomLevel}">
+
+		<Each Items="{itemList}">
+			<MapMarker 
+				Latitude="{coordinates.latitude}" 
+				Longitude="{coordinates.longitude}" 
+				Label="{name}"
+			/>
+		</Each>
+	</MapView>
+
+</NativeViewHost>

@@ -1,8 +1,9 @@
 {
+  "Name": "FndSmCoffee",
   "RootNamespace":"",
   "Packages": [
-  	"Fuse",
-  	"FuseJS",
+    "Fuse",
+    "FuseJS",
     "Fuse.Maps",
     "Fuse.Launcher",
     "Fuse.GeoLocation"
@@ -16,5 +17,6 @@
     "Assets/*.ttf",
     "Assets/*.otf",
     "Assets/EventImages/*.jpg:Bundle"
-  ]
+  ],
+  "Icon" : "app-icon.png",
 }

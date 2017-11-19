@@ -42,7 +42,6 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 			// Remove crappy coffee shops
 			var legitCoffeeShops = Biz.stripCoffeeShops(data);
 			Biz.setItemList(legitCoffeeShops);
-			Common.log(Biz.itemList);
 		});
 
 }).catch((fail) => {

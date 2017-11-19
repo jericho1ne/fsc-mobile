@@ -6,25 +6,41 @@ var Common = require("./Common.js");
 
 
 // User variables that keep updating throughout the life of app
-var latitude = Observable(39.4);
-var longitude = Observable(-111.5);
+var latitude = Observable(34.0422);
+var longitude = Observable(-118.3437);
+var zoomLevel = Observable(10);
 
-// Return only the latest lat / lon
-var userLocation = latitude.combineLatest(longitude, function(lat, lon) {
+// Return only the latest lat / lon and zoom level
+// var location = latitude.combineLatest(longitude, zoomLevel, function(latitude, longitude, zoomLevel) {
+// 	return {
+// 		lat: latitude,
+// 		lon: longitude,
+// 		zoom: zoomLevel
+// 	};
+// });
+
+var location = Observable(function() {
 	return {
-		latitude: lat,
-		longitude: lon
+		lat: latitude.value,
+		lon: longitude.value,
+		zoom: zoomLevel.value
 	};
 });
 
 function setLocation(location) {
 	// Common.log(location);
-	latitude.add(location.latitude);
-	longitude.add(location.longitude);
+	latitude.value = location.latitude;
+	longitude.value = location.longitude;
+	zoomLevel.value = 14;
+	// latitude.add(location.latitude);
+	// longitude.add(location.longitude);
+	
+	// latitude.replaceAt(0, location.latitude);
+	// longitude.replaceAt(0, location.longitude);
 }
 
 function getLocation() {
-	return userLocation;
+	return location;
 }
 
 module.exports = {
@@ -33,6 +49,8 @@ module.exports = {
 	getLocation: getLocation,
 
 	// Data
-	location: userLocation,
-	// itemList: itemList,
+	location: location,
+	lat: latitude,
+	lon: longitude,
+	zoomLevel: zoomLevel
 };
