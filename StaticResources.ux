@@ -5,7 +5,6 @@
 	<Font ux:Global="MontserratRegular" File="Assets/Montserrat-Light.otf" />
 	<Font ux:Global="MontserratBold" File="Assets/Montserrat-Regular.otf" />
 	
-
 	<!-- COLORS -->
 	<!-- Blue -->
 	<float4 ux:Global="PrimaryColor" ux:Value="#84C2D6" />

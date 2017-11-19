@@ -1,16 +1,21 @@
 /**
- * Provides a clean way to print data to console
- * @param  {[type]} items [description]
- * @return {[type]}       [description]
+ * Fuse + Custom JS modules
  */
-function log(items) {
-	items.forEach((item) => {
-		for (var propName in item) {
-			console.log(propName + ' : ' + item[propName]);
-		}
-		console.log(' ------------------------------------------------ ');
-	});
+var Observable = require("FuseJS/Observable");
+var Common = require("./Common.js");
+var User = require("./User.js");
+
+
+// `itemList` changes based on user location.
+// Gets replaced as soon as getLocation() + fetchData() returns
+var itemList = Observable();
+
+itemList.add({"name": "Coffee Fucking Shop", "id": 100 });
+
+function setItemList(new_items) {
+	itemList.replaceAll(new_items); 
 }
+
 
 /**
  * Ajax call to data source
@@ -39,7 +44,6 @@ function fetchData(endpoint, urlParams) {
 					// sort by proximity (closest first)
 					return parseFloat(a.distance) - parseFloat(b.distance);
 				});
-
 				// Convert meters to miles, 
 				// customize display values
 				items.forEach((item) => {
@@ -100,8 +104,13 @@ function stripCoffeeShops(items) {
 	return goodCoffeeShops;
 } // End stripCoffeeShops()
 
+
 module.exports = {
+	// Data
+	itemList: itemList,
+
+	// Methods
+	setItemList: setItemList, 
 	fetchData: fetchData,
 	stripCoffeeShops: stripCoffeeShops,
-	log: log,
 };

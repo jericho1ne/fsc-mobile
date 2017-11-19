@@ -12,7 +12,7 @@
   },
   "Includes": [
     "*",
-    "js/*.js:Bundle",
+    "Modules/*.js:Bundle",
     "Assets/*.ttf",
     "Assets/*.otf",
     "Assets/EventImages/*.jpg:Bundle"

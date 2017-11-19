@@ -1,22 +1,20 @@
+/**
+ * Fuse + Custom JS modules
+ */
 var GeoLocation = require("FuseJS/GeoLocation");
 var Observable = require("FuseJS/Observable");
-var Common = require("./common.js");
-
-// Item list changes based on location and needs; gets replaced as soon as 
-// fetchData() returns
-var itemList = Observable();
+var Common 	= require("./Common.js");
+var User 	= require("./User.js");
+var Biz 	= require("./Biz.js");
 
 // Get location (time out after a certain wait time)
-var userLocation = Observable();
-var timeout_ms = 6000;
+const timeout_ms = 6000;
 
 // Get location, then hit the Yelp API for results
 GeoLocation.getLocation(timeout_ms).then((location) => {
 	// TODO: keep an eye on location, periodically calling
 	// getLocation(); update itemList if location has changed.
-	userLocation.value = JSON.stringify(location);
-	userLocation.lat = location.latitude;
-	userLocation.lon = location.longitude;
+	User.setLocation(location);
 
 	// Make the API call for nearby businesses
 	var urlParams = 
@@ -39,14 +37,12 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 
 	// Api method returns a promise containing 
 	// nearby coffee shops
-	Common.fetchData('search', urlParams)
+	Biz.fetchData('search', urlParams)
 		.then((data) => {
 			// Remove crappy coffee shops
-			var legitCoffeeShops = Common.stripCoffeeShops(data);
-			// console.log(">>>>>>>>>>>>>>>>");
-			// console.log(JSON.stringify(data[0]));
-			// console.log(">>>>>>>>>>>>>>>>");
-			itemList.replaceAll(legitCoffeeShops);
+			var legitCoffeeShops = Biz.stripCoffeeShops(data);
+			Biz.setItemList(legitCoffeeShops);
+			Common.log(Biz.itemList);
 		});
 
 }).catch((fail) => {
@@ -56,6 +52,5 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 module.exports = {
 	// Methods
 	// Data
-	itemList: itemList,
-	// callPhoneNumber: Common.callPhoneNumber,
+	itemList: Biz.itemList,
 };

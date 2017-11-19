@@ -121,6 +121,9 @@
 							Margin="2,10,2,10"
 						/>
 					</Grid>
+
+					<SmallHeaderText>Reviews</SmallHeaderText>
+
 				</StackPanel>
 			</ScrollView>
 		</DockPanel>

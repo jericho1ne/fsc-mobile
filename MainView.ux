@@ -1,18 +1,26 @@
 <App Background="#F5F5F5">
 	<!-- Assets and Styles are in StaticResources.ux-->
 
-	<iOS.StatusBarConfig Style="Light" />
+	<iOS.StatusBarConfig Style="Dark" Animation="Slide" IsVisible="True" />
+	<Android.StatusBarConfig Color="#222" IsVisible="True" />
 
-	<JavaScript File="js/main.js" />
+	<!-- <JavaScript File="Modules/main.js" /> -->
+	<!-- <JavaScript File="Modules/common.js" /> -->
 
 	<Panel ux:Name="contentPlaceholder" />
 	
 	<JavaScript>
-		console.log('*** loaded ***');
-		// Route telephone number cliks to Dial app
-		var InterApp = require("FuseJS/InterApp");
-		// Route clicks on place address to Maps
+		/**
+		 * Fuse + Custom JS modules
+		 */
+		var InterApp = require("FuseJS/InterApp");	// Route telephone number cliks to Dial app 
 		var Maps = require("FuseJS/Maps");
+		var Common 	= require("./Modules/Common.js");
+		var Main 	= require("./Modules/Main.js");
+		var User 	= require("./Modules/User.js");
+		var Biz 	= require("./Modules/Biz.js");
+		
+		console.log('*** loaded ***');
 
 		/**
 		 * On phone number click, route to telephone app
@@ -44,6 +52,10 @@
 		}
 
 		module.exports = {
+			// Data
+			userLocation: User.location,
+ 			itemList: Biz.itemList,
+
 			// Methods
 			callPhoneNumber: callPhoneNumber,
 			getDirections: getDirections,
@@ -63,7 +75,7 @@
 				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
 					<string ux:Property="Text" />
 					<Text Value="{ReadProperty Text}" 
-						Color="PrimaryColor" Font="MontserratRegular" Alignment="Center" />
+						Color="PrimaryColor" Font="MontserratBold" FontSize="14" Alignment="Center" />
 				</Panel>
 				<Rectangle ux:Name="indicator" Color="#FF9A9A"
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
@@ -117,11 +129,11 @@
 								<WhileSelected>
 									<!-- Block background scroll while detail is up -->
 									<Change mainScrollView.UserScroll="false" DelayBack="0" />
-									<Move 
+									<!-- <Move 
 										Target="statusAndAppBar" Y="-1" 
 										RelativeTo="Size" Duration=".5" 
 										Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" 
-									/>
+									/> -->
 								</WhileSelected>
 							</EventCard>
 						</Each>
@@ -136,32 +148,36 @@
 			<Page ux:Name="page2" Background="#abb7b7">
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page2Tab" />
+		
+					<JavaScript>
+						console.log(" Now on MapView. ");
+						console.log(userLocation);
+						// console.log(JSON.stringify(userLocation);
+
+						// console.log(JSON.stringify(itemList[0]));
+
+						// myMapView.setMarkers([
+						// 	{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },
+						// 	{ latitude: 34.02818, longitude: -118.47837, label: "Good Boy Bob" },
+						// 	{ latitude: 34.0614, longitude: -118.3109858, label: "Document Coffee Bar" },
+						// 	{ latitude: 34.07239, longitude: -118.3672, label: "Verve Coffee Roasters" },
+						// 	{ latitude: 34.0388, longitude: -118.23605, label: "The Wheelhouse" }
+						// ]);
+					</JavaScript>
 				</WhileActive>
 				<!-- <H1Text>Welcome to Page 2</H1Text> -->
 				<NativeViewHost Width="100%" Height="100%" Margin="0" Padding="0">
 					<MapView ux:Name="myMapView" Latitude="34.04" Longitude="-118.37" Zoom="11">
-						
-						<MapMarker 
-							Latitude="34.07239" 
-							Longitude="-118.3672" 
-							Label="Verve Coffee Roasters"
-						/>
-						<MapMarker 
-							Latitude="34.0388" 
-							Longitude="-118.23605" 
-							Label="The Wheelhouse"
-						/>
+						<Each Items="{itemList}">
+							<MapMarker 
+								Latitude="{coordinates.latitude}" 
+								Longitude="{coordinates.longitude}" 
+								Label="{name}"
+							/>
+						</Each>
 					</MapView>
 				</NativeViewHost>
-				<JavaScript>
-					myMapView.setMarkers([
-						{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },
-						{ latitude: 34.02818, longitude: -118.47837, label: "Good Boy Bob" },
-						{ latitude: 34.0614, longitude: -118.3109858, label: "Document Coffee Bar" },
-						{ latitude: 34.07239, longitude: -118.3672, label: "Verve Coffee Roasters" },
-						{ latitude: 34.0388, longitude: -118.23605, label: "The Wheelhouse" }
-					]);
-				</JavaScript>
+				
 			</Page>
 
 			<!-- About Page -->
@@ -171,7 +187,7 @@
 				</WhileActive>
 				
 				<StackPanel Alignment="TopLeft" Height="80" Opacity="1">
-					<H1Text>Artisanal Coffee Near You.</H1Text>
+					<H1Text FontSize="26">Artisanal Coffee Near You.</H1Text>
 					
 					<ParagraphText>
 						FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
