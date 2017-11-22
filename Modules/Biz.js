@@ -27,17 +27,17 @@ function fetchData(endpoint, urlParams) {
 	var requestUrl = 
 		'https://api.findsomecoffee.com/' 
 		+ endpoint + '?' + urlParams;
-	
-	// console.log(" >>> API URL :: " + requestUrl);
+		
+	console.log(" >>> API URL :: " + requestUrl);
 
 	return fetch(requestUrl)
 		.then(function(response) { 
 			return response.json();
 		})
 		.then(function(response) {
-			if (typeof response.businesses === 'object') {
-				var items = response.businesses;
-				// log(items);
+			if (typeof response === 'object') {
+				var items = response;
+				// Common.log(items);
 
 				// Sort based on proximity
 				items.sort(function(a, b) {		
@@ -83,21 +83,7 @@ function stripCoffeeShops(items) {
 	items.forEach((item, index) => {
 		const itemName = item.name.trim().toLowerCase();
 		const imgUrl = item.image_url.trim();
-
-		if (itemName.indexOf('starbucks') == -1 &&
-			itemName.indexOf('dunkin donuts') == -1 &&
-			itemName.indexOf('biggby') == -1 &&
-			itemName.indexOf('dunkin\' donuts') == -1 &&
-			itemName.indexOf('coffee bean and tea') == -1 &&
-			itemName.indexOf('coffee bean & tea') == -1 &&
-			itemName.indexOf('peet\'s') == -1 &&
-			itemName.indexOf('caribou') == -1 &&
-			itemName.indexOf('tim horton') == -1 && 
-			itemName.indexOf('boba') == -1 && 
-			itemName.indexOf('deli') == -1 &&
-			item.rating > 3 &&
-			imgUrl !== ''
-		) {
+		if (imgUrl !== '') {
 			goodCoffeeShops.push(item);
 		}
 	});

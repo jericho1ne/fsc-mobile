@@ -19,14 +19,14 @@
 		var Main 	= require("./Modules/Main.js");
 		var User 	= require("./Modules/User.js");
 		var Biz 	= require("./Modules/Biz.js");
-		
-		console.log('*** loaded ***');
-
+	
 		/**
 		 * On phone number click, route to telephone app
 		 */
 		function callPhoneNumber(args) {
 			console.log('*** callPhoneNumber ***');
+			console.log(JSON.stringify(args.data));
+
 			InterApp.launchUri("tel:" + args.data.phone);
 		}
 
@@ -43,6 +43,7 @@
 
 		function searchMap(args) {
 			console.log('*** searchMap ***');
+			Common.log(args);
 			const lat = args.data.coordinates.latitude;
 			const lon = args.data.coordinates.longitude;
 			console.log(lat + " , " + lon);
@@ -158,7 +159,7 @@
 					<Set indicator.LayoutMaster="page2Tab" />
 		
 					<JavaScript>
-						console.log(" Now on MapView. ");
+						// console.log(" Now on MapView. ");
 					
 						// myMapView.setMarkers([
 						// 	{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },

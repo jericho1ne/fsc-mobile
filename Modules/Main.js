@@ -18,7 +18,7 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 
 	// Make the API call for nearby businesses
 	var urlParams = 
-		`term=coffee&` + 
+		`term=coffee-and-tea&` + 
 
 		// Need either location OR lat/lon
 		// `location=Los Angeles, CA&` +
@@ -34,13 +34,16 @@ GeoLocation.getLocation(timeout_ms).then((location) => {
 
 		// Always set a limit!
 		`limit=30`;
-
+	
 	// Api method returns a promise containing 
 	// nearby coffee shops
 	Biz.fetchData('search', urlParams)
 		.then((data) => {
+			// Common.log(data);
 			// Remove crappy coffee shops
 			var legitCoffeeShops = Biz.stripCoffeeShops(data);
+
+			// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
 			Biz.setItemList(legitCoffeeShops);
 		});
 

@@ -31,7 +31,7 @@ function setLocation(location) {
 	// Common.log(location);
 	latitude.value = location.latitude;
 	longitude.value = location.longitude;
-	zoomLevel.value = 14;
+	zoomLevel.value = 13;
 	// latitude.add(location.latitude);
 	// longitude.add(location.longitude);
 	
