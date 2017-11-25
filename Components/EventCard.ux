@@ -1,4 +1,4 @@
-<StackPanel ux:Class="EventCard" ImageHeight="220">
+<StackPanel ux:Class="EventCard" ImageHeight="210" Margin="12,10,12,10">
 	<float ux:Property="ImageHeight" />
 	<Panel ux:Dependency="layoutTarget" />
 
@@ -19,15 +19,11 @@
 		<Change content.Opacity="0.5" Duration="0.5" DelayBack="0" />
 		<Move Target="content" Y="30" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
 	
-		<Scale Target="plusButton" Factor="0.01" Delay="0" Duration="0.2" 
-			DelayBack="0.25" DurationBack="0.55" 
+		<!-- <Scale Target="plusButton" Factor="0.01" Delay="0" Duration="0.2" 
+			DelayBack="0.25" DurationBack="0.35" 
 			Easing="CubicInOut" 
 		/>
-		<Rotate Target="plusButton" 
-			Degrees="-90" Delay="0" Duration="0.5" DelayBack="0.25" DurationBack="1.1" 
-			EasingBack="CubicIn" 
-		/>
-		<Change plusButton.Opacity="0" Duration="0.2" DelayBack="0.2" DurationBack="0.3" />
+		<Change plusButton.Opacity="0" Duration="0.2" DelayBack="0.2" DurationBack="0.2" /> -->
 		
 		<Change detailNavigationBar.Opacity="0" Duration="0.2" Delay="0" />
 		<Change detailNavigationBar.HitTestMode="None" />
@@ -49,7 +45,6 @@
 							<ToggleSelection Mode="RemoveOnly" />
 						</Clicked>
 					</BackButton>
-
 				</StackPanel>
 			
 				<Panel>
@@ -69,12 +64,12 @@
 					
 					<!-- Show Image -->
 					<Rectangle ux:Name="image" Layer="Background" CornerRadius="10,10,0,0" Padding="0">
-						<PlusButton ux:Name="plusButton" 
+						<!-- <PlusButton ux:Name="plusButton" 
 							HitTestMode="LocalBounds"
 							Clicked="{shareViaSms}"
 							Layer="Overlay" Alignment="BottomLeft"
 							Anchor="0%,40%" Margin="10,0" 
-						/>
+						/> -->
 						<SolidColor Color="#333" />
 						<!-- PHOTO -->
 						<ImageFill Url="{image_url}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
@@ -146,12 +141,12 @@
 	
 	<!-- Info / Default view (Bottom Rectangle) -->
 	<Rectangle Layer="Background" Color="#fff" CornerRadius="10" 
-		Margin="0,10,0,20" 
+		Margin="0,10,0,0" 
 	>
 		<Shadow Size="1" Distance="1" Color="#bbb" />
 	</Rectangle>
 	<!-- Margin: Left, Top, Right, Bottom -->
-	<StackPanel Margin="20,0,20,40" ItemSpacing="8" Padding="0">
+	<StackPanel Margin="20,0,20,20" ItemSpacing="8" Padding="0">
 		<!-- Distance from business -->
 		<SmallHeaderText Value="{distance}" TextWrapping="Wrap" Alignment="CenterLeft">
 		</SmallHeaderText>

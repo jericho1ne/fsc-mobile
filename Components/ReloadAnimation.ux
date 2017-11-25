@@ -1,0 +1,33 @@
+<Panel ux:Class="ReloadAnimation" ClipToBounds="True" Margin="0,0,0,0">
+	
+	<Image ux:Class="Cog" MaxHeight="100" MaxWidth="120" Alignment="Center" />
+	<Cog ux:Class="SmallCog" Color="PrimaryColor" File="../Assets/cog1_white.png" Width="36" Height="36" />
+
+	<!-- places all cog wheels and move rotates them so they fit together -->
+	<Panel ux:Name="cogPanel" Background="#fafafa" Alignment="Top" Height="0" MinHeight="0">
+		<!-- Center Cog -->
+		<SmallCog ux:Name="cog1">
+			<Rotation ux:Name="cog1Rotation" />
+		</SmallCog>
+	</Panel>
+
+	<!-- set the hight of cogPanel so it stays open while loading -->
+	<WhileTrue ux:Name="retainSpace">
+		<Change cogPanel.MinHeight="75" Duration="0" DurationBack="0.3" Easing="CircularIn" />
+	</WhileTrue>
+
+	<!-- Rotate the wheels as we pull down -->
+	<ScrollingAnimation Range="SnapMin">
+		<Change cogPanel.Height="100" Duration="0.75" />
+	</ScrollingAnimation>
+
+	<PullToReload IsLoading="{isLoading}" ReloadHandler="{reloadHandler}">
+		<State ux:Binding="Pulling">
+			<!-- animate elements while pulling here -->
+		</State>
+		<State ux:Binding="Loading">
+			<Change retainSpace.Value="true" DurationBack="0.5" />
+			<Spin Target="cog1" Frequency="0.53125" />
+		</State>
+	</PullToReload>
+</Panel>

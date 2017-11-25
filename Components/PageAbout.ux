@@ -1,0 +1,21 @@
+<ScrollView ux:Class="PageAbout" ClipToBounds="false" LayoutMode="PreserveVisual">
+	<StackPanel
+		Alignment="TopLeft" Height="80" Opacity="1"
+	>
+		<Image Width="100%" StretchMode="Uniform" Margin="0">
+			<FileImageSource File="../Assets/verve.jpg" />
+		</Image>
+		<StackPanel Padding="20,10">
+			<H1Text FontSize="26">Stop and smell the roast.</H1Text>
+			
+			<ParagraphText>FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
+			</ParagraphText>
+
+			<ParagraphText>Next time you grab a coffee, don't rush out of the door with a to-go cup.  Instead, take some time out of your busy day to sit down and enjoy their coffee in a cup or mug. Ask the barista a question or two, tell them what your favorite coffee drink is.
+			</ParagraphText>
+
+			<ParagraphText>Maybe next time you walk they'll greet you and say “you have to try what I’m making today.”  
+			</ParagraphText>
+		</StackPanel>
+	</StackPanel>
+</ScrollView>

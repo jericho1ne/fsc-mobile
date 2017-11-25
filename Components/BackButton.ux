@@ -1,9 +1,14 @@
 <Panel ux:Class="BackButton" HitTestMode="LocalBoundsAndChildren">
-	<Image Width="40" Height="40" StretchMode="Uniform" Margin="10">
+	<FlatButton 
+		Text="GO BACK" 
+		HitTestMode="LocalBounds"
+		Width="100%"
+		Margin="10,14,0,0"
+	/>
+	<!-- <Image Width="40" Height="40" StretchMode="Uniform" Margin="10">
 		<MultiDensityImageSource>
 			<FileImageSource File="../Assets/ic_arrow_back_24dp_1x.png" Density="1" />
 			<FileImageSource File="../Assets/ic_arrow_back_24dp_2x.png" Density="2" />
-			<!-- <FileImageSource File="../Assets/ic_arrow_back_24dp_3x.png" Density="3" /> -->
-		</MultiDensityImageSource>
-	</Image>
+		</MultiDensityImageSource> 
+	</Image> -->
 </Panel>

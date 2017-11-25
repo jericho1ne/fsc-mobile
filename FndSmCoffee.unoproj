@@ -12,7 +12,7 @@
     "Orientations": "Portrait"
   },
   "Includes": [
-    "*",
+    "*.ux",
     "Modules/*.js:Bundle",
     "Assets/*.ttf",
     "Assets/*.otf",
@@ -23,16 +23,17 @@
     "Icons": {
       "iPhone_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
       "iPhone_29_3x": "Assets/AppIcons/Icon-Small@3x.png",
-      "iPhone_40_2x": "Assets/AppIcons/Icon-Small-40@2x.png",
-      "iPhone_40_3x": "Assets/AppIcons/Icon@2x.png",
-      "iPhone_60_2x": "Assets/AppIcons/Icon-60@2x.png",
-      "iPhone_60_3x": "Assets/AppIcons/Icon-60@3x.png",
+      "iPhone_40_1x": "Assets/AppIcons/Icon-40.png",
+      "iPhone_40_2x": "Assets/AppIcons/Icon-40@2x.png",
+      "iPhone_40_3x": "Assets/AppIcons/Icon-40@3x.png",
+      "iPhone_60_2x": "Assets/AppIcons/Icon-Small-60@2x.png",
+      "iPhone_60_3x": "Assets/AppIcons/Icon-Small-60@3x.png",
       "iPad_29_1x": "Assets/AppIcons/Icon-Small.png",
       "iPad_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
-      "iPad_40_1x": "Assets/AppIcons/Icon-Small-40.png",
-      "iPad_40_2x": "Assets/AppIcons/Icon-Small-40@2x.png",
-      "iPad_76_1x": "Assets/AppIcons/Icon-76.png",
-      "iPad_76_2x": "Assets/AppIcons/Icon-76@2x.png"
+      "iPad_40_1x": "Assets/AppIcons/Icon-40.png",
+      "iPad_40_2x": "Assets/AppIcons/Icon-40@2x.png",
+      "iPad_76_1x": "Assets/AppIcons/Icon-Small-76.png",
+      "iPad_76_2x": "Assets/AppIcons/Icon-Small-76@2x.png"
     }
   },
   "Android": {

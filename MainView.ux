@@ -13,20 +13,22 @@
 		/**
 		 * Fuse + Custom JS modules
 		 */
+		var Observable = require("FuseJS/Observable");
 		var InterApp = require("FuseJS/InterApp");	// Route telephone number cliks to Dial app 
 		var Maps = require("FuseJS/Maps");
 		var Common 	= require("./Modules/Common.js");
 		var Main 	= require("./Modules/Main.js");
 		var User 	= require("./Modules/User.js");
 		var Biz 	= require("./Modules/Biz.js");
-	
+		
+		var isLoading = Observable(false);
+		
+		Main.getCoffeeShopsNearby();
 		/**
 		 * On phone number click, route to telephone app
 		 */
 		function callPhoneNumber(args) {
-			console.log('*** callPhoneNumber ***');
-			console.log(JSON.stringify(args.data.phone));
-
+			// console.log('*** callPhoneNumber ***' + JSON.stringify(args.data.phone));
 			InterApp.launchUri("tel:" + args.data.phone);
 		}
 
@@ -42,10 +44,9 @@
 		// }
 
 		function shareViaSms(args) {
-			console.log('****** shareViaSMS ***');
 			const sms_link = 
 				`sms:1-408-555-1212;body=${args.data.composite_address}`;
-			console.log(JSON.stringify(sms_link));
+			// console.log('****** shareViaSMS ***' + JSON.stringify(sms_link));
 			InterApp.launchUri(JSON.stringify(sms_link));
 		}
 
@@ -56,13 +57,31 @@
 			Maps.searchNear(lat, lon, args.data.composite_address);
 		}
 		
+		/**
+		 * Actions to take once pull-to-refresh is completed
+		 * @return nothing
+		 */
+		function endLoading(){
+			isLoading.value = false;
+		}
+
+		/**
+		 * Get new businesses nearby when position has changed
+		 * @return nothing
+		 */
+		function reloadHandler(){
+			Biz.itemList.replaceAll([{"name": "Searching Nearby...", "id": 100 }]);
+			Main.getCoffeeShopsNearby();
+			isLoading.value = true;
+			setTimeout(endLoading, 2500);
+		}
+
 		module.exports = {
 			// Data
 			userLocation: User.location,
 			userLat: User.lat,
 			userLon: User.lon,
 			zoomLevel: User.zoomLevel,
-
  			itemList: Biz.itemList,
 			
 			// Methods
@@ -70,6 +89,9 @@
 			// getDirections: getDirections,
 			searchMap: searchMap,
 			shareViaSms: shareViaSms,
+			// Pull to refresh
+			isLoading: isLoading,
+			reloadHandler: reloadHandler
 		};		
 	</JavaScript>
 
@@ -78,10 +100,10 @@
 		<BottomBarBackground Dock="Bottom" />
 		
 		<!-- NAVIGATION TABS -->
-		<Panel ux:Name="statusAndAppBar" Dock="Top">
+		<Panel ux:Name="statusAndAppBar" Dock="Top" Margin="0" Padding="0">
 
 			<!-- Inactive Nav Tab Color -->
-			<Grid ColumnCount="4" Height="40" Background="#53C1CC">
+			<Grid ColumnCount="3" Height="40" Background="#53C1CC" Margin="0">
 				<!-- STATIC RESOURCES -->
 				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
 				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
@@ -90,7 +112,7 @@
 					<Text Value="{ReadProperty Text}" 
 						Color="PrimaryColor" Font="MontserratBold" FontSize="16" Alignment="Center" />
 				</Panel>
-				<Rectangle ux:Name="indicator" Color="TertiaryColor"
+				<Rectangle ux:Name="indicator" Color="AccentColor"
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
 					<LayoutAnimation>
@@ -112,13 +134,13 @@
 						</Clicked>
 					</Tab>
 				</Panel>
-				<Panel ux:Name="page3Tab">
+				<!-- <Panel ux:Name="page3Tab">
 					<Tab Text="Blog">
 						<Clicked>
 							<Set navigation.Active="page3" />
 						</Clicked>
 					</Tab>
-				</Panel>
+				</Panel> -->
 				<Panel ux:Name="page4Tab">
 					<Tab Text="About">
 						<Clicked>
@@ -132,14 +154,19 @@
 		<PageControl ux:Name="navigation">
 
 			<!-- List View -->
-			<Page ux:Name="page1" Background="#eee" Padding="10,0">
+			<Page ux:Name="page1" Background="#fafafa" Padding="0,0" Margin="0,0">
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
 
 				<!-- List of coffee shops (scrollable) -->
-				<ScrollView ux:Name="mainScrollView" ClipToBounds="false" LayoutMode="PreserveVisual">
-					<StackPanel Margin="0,10,0,15">
+				<!-- SnapMinTransform keeps view from scrolling too far, revealing App bg -->
+				<ScrollView ux:Name="mainScrollView" SnapMinTransform="false"
+					ClipToBounds="false" LayoutMode="PreserveVisual">
+					<StackPanel Margin="0,0,0,0">
+						<!-- Pull to Refresh UX element -->
+						<ReloadAnimation Dock="Top" />
+
 						<Selection MinCount="0" MaxCount="1" />
 							
 						<!-- Loop through items -->
@@ -171,7 +198,6 @@
 		
 					<JavaScript>
 						// console.log(" Now on MapView. ");
-					
 						// myMapView.setMarkers([
 						// 	{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },
 						// 	{ latitude: 34.02818, longitude: -118.47837, label: "Good Boy Bob" },
@@ -186,34 +212,19 @@
 			</Page>
 	
 			<!-- Blog -->
-			<Page ux:Name="page3" Background="#abb7b7">
+			<!-- <Page ux:Name="page3" Background="#abb7b7">
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page3Tab" />
-					<JavaScript>
-						console.log(" Now on Blog view. ");
-					</JavaScript>
 				</WhileActive>
 				<PageBlog Alignment="Left" Margin="0" />
-			</Page>
+			</Page> -->
 
 			<!-- About Page -->
-			<Page ux:Name="page4" Background="#f2f1ef" Padding="20,20">
+			<Page ux:Name="page4" Background="#f2f1ef" Padding="0,0">
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page4Tab" />
 				</WhileActive>
-				
-				<StackPanel Alignment="TopLeft" Height="80" Opacity="1">
-					<H1Text FontSize="26">Stop and smell the roast.</H1Text>
-					
-					<ParagraphText>FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
-					</ParagraphText>
-
-					<ParagraphText>Next time you grab a coffee, don't rush out of the door with a to-go cup.  Instead, take some time out of your busy day to sit down and enjoy their coffee in a cup or mug. Ask the barista a question or two, tell them what your favorite coffee drink is.
-					</ParagraphText>
-
-					<ParagraphText>Maybe next time you walk they'll greet you and say “you _have_ to try what I’m making today.”  
-					</ParagraphText>
-				</StackPanel>
+				<PageAbout Alignment="Left" Margin="0" />
 			</Page>
 		</PageControl>
 
