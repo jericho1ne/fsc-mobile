@@ -44,11 +44,12 @@
 			<Panel Dock="Top" Height="{ReadProperty ImageHeight}">
 				<StackPanel ux:Name="detailNavigationBar" Alignment="Top">
 					<StatusBarBackground />
-					<BackButton Alignment="Left" Margin="0,30,0,0">
+					<BackButton Alignment="Left" Margin="0,40,0,0">
 						<Clicked>
 							<ToggleSelection Mode="RemoveOnly" />
 						</Clicked>
 					</BackButton>
+
 				</StackPanel>
 			
 				<Panel>
@@ -60,6 +61,7 @@
 					<StackPanel Margin="20,20,40,20" Alignment="BottomLeft">
 						<!-- Business Name -->
 						<Text Value="{name}" 
+							Font="MontserratBold"
 							Color="#fff" FontSize="20" TextWrapping="Wrap"
 							Alignment="CenterLeft" 
 						/>
@@ -68,8 +70,10 @@
 					<!-- Show Image -->
 					<Rectangle ux:Name="image" Layer="Background" CornerRadius="10,10,0,0" Padding="0">
 						<PlusButton ux:Name="plusButton" 
+							HitTestMode="LocalBounds"
+							Clicked="{shareViaSms}"
 							Layer="Overlay" Alignment="BottomLeft"
-							Anchor="0%,50%" Margin="10,0" 
+							Anchor="0%,40%" Margin="10,0" 
 						/>
 						<SolidColor Color="#333" />
 						<!-- PHOTO -->
@@ -89,20 +93,20 @@
 					<Grid Columns="1*,auto">
 						<!-- PHONE NUMBER (hide if blank) -->
 						<WhileString Value="{phone}" Equals="" Invert="true">
-							<Text 
-								Color="#212121" 
-								FontSize="16" 
-								Alignment="VerticalCenter"
-								Font="RobotoMedium"
-							>Call</Text>
+								<Text 
+									Color="#212121" 
+									FontSize="16" 
+									Alignment="VerticalCenter"
+									Font="MontserratBold"
+								>Call</Text>
 
-							<FlatButton 
-								Text="{phone}" 
-								HitTestMode="LocalBounds" 
-								Clicked="{callPhoneNumber}"
-								Width="100%"
-								Margin="2,10,2,10"
-							/>
+								<FlatButton 
+									Text="{phone}" 
+									HitTestMode="LocalBounds"
+									Clicked="{callPhoneNumber}"
+									Width="100%"
+									Margin="2,10,2,10"
+								/>							
 						</WhileString>
 
 						<!-- MAP DIRECTIONS -->
@@ -110,7 +114,7 @@
 							Color="#212121" 
 							FontSize="16" 
 							Alignment="VerticalCenter"
-							Font="RobotoMedium"
+							Font="MontserratBold"
 						>Visit</Text>
 						<FlatButton 
 							HitTestMode="LocalBounds" 
@@ -123,7 +127,18 @@
 					</Grid>
 
 					<SmallHeaderText>Reviews</SmallHeaderText>
-
+						<Each Items="{reviews}">
+							<Rectangle Color="#18f3" CornerRadius="2">
+								<Stroke Width="1" Color="PrimaryColor" />
+							</Rectangle>
+							<Text 
+								Color="#212121" 
+								FontSize="12" 
+								Alignment="VerticalCenter"
+								TextWrapping="Wrap"
+								Font="MontserratLight"
+							>{text}</Text>
+						</Each>
 				</StackPanel>
 			</ScrollView>
 		</DockPanel>
@@ -140,8 +155,8 @@
 		<!-- Distance from business -->
 		<SmallHeaderText Value="{distance}" TextWrapping="Wrap" Alignment="CenterLeft">
 		</SmallHeaderText>
-		<BodyText Value="{rating} stars" Font="RobotoMedium" Margin="0" />
-		<BodyText Value="{review_count} reviews" Font="RobotoMedium" Margin="0" />
+		<BodyText Value="{rating} stars" Margin="0" />
+		<BodyText Value="{review_count} reviews" Margin="0" />
 		<!-- <TextButton Alignment="Right" Text="ADD TO CALENDAR" /> -->
 	</StackPanel>
 	

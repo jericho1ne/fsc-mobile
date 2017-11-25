@@ -25,7 +25,7 @@
 		 */
 		function callPhoneNumber(args) {
 			console.log('*** callPhoneNumber ***');
-			console.log(JSON.stringify(args.data));
+			console.log(JSON.stringify(args.data.phone));
 
 			InterApp.launchUri("tel:" + args.data.phone);
 		}
@@ -35,24 +35,27 @@
 		 * @param  {[type]} args [description]
 		 * @return {[type]}      [description]
 		 */
-		function getDirections(args) {
-			console.log('*** getDirections ***');
-			console.log(JSON.stringify(args.data.mapsURL));
-			InterApp.launchUri(JSON.stringify(args.data.mapsURL));
+		// function getDirections(args) {
+		// 	console.log('*** getDirections ***');
+		// 	console.log(JSON.stringify(args.data.mapsURL));
+		// 	InterApp.launchUri(JSON.stringify(args.data.mapsURL));
+		// }
+
+		function shareViaSms(args) {
+			console.log('****** shareViaSMS ***');
+			const sms_link = 
+				`sms:1-408-555-1212;body=${args.data.composite_address}`;
+			console.log(JSON.stringify(sms_link));
+			InterApp.launchUri(JSON.stringify(sms_link));
 		}
 
 		function searchMap(args) {
-			console.log('*** searchMap ***');
-			Common.log(args);
 			const lat = args.data.coordinates.latitude;
 			const lon = args.data.coordinates.longitude;
-			console.log(lat + " , " + lon);
-			console.log(args.data.composite_address);
-
+			//console.log('*** searchMap ***' + lat + " , " + lon + " || " + args.data.composite_address);
 			Maps.searchNear(lat, lon, args.data.composite_address);
 		}
 		
-
 		module.exports = {
 			// Data
 			userLocation: User.location,
@@ -64,8 +67,9 @@
 			
 			// Methods
 			callPhoneNumber: callPhoneNumber,
-			getDirections: getDirections,
+			// getDirections: getDirections,
 			searchMap: searchMap,
+			shareViaSms: shareViaSms,
 		};		
 	</JavaScript>
 
@@ -75,15 +79,18 @@
 		
 		<!-- NAVIGATION TABS -->
 		<Panel ux:Name="statusAndAppBar" Dock="Top">
-			<Grid ColumnCount="3" Height="34" Background="#84C2D6">
+
+			<!-- Inactive Nav Tab Color -->
+			<Grid ColumnCount="4" Height="40" Background="#53C1CC">
 				<!-- STATIC RESOURCES -->
 				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
 				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
 					<string ux:Property="Text" />
+					<!-- Nav Tab text label -->
 					<Text Value="{ReadProperty Text}" 
-						Color="PrimaryColor" Font="MontserratBold" FontSize="14" Alignment="Center" />
+						Color="PrimaryColor" Font="MontserratBold" FontSize="16" Alignment="Center" />
 				</Panel>
-				<Rectangle ux:Name="indicator" Color="#FF9A9A"
+				<Rectangle ux:Name="indicator" Color="TertiaryColor"
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
 					<LayoutAnimation>
@@ -106,9 +113,16 @@
 					</Tab>
 				</Panel>
 				<Panel ux:Name="page3Tab">
-					<Tab Text="About">
+					<Tab Text="Blog">
 						<Clicked>
 							<Set navigation.Active="page3" />
+						</Clicked>
+					</Tab>
+				</Panel>
+				<Panel ux:Name="page4Tab">
+					<Tab Text="About">
+						<Clicked>
+							<Set navigation.Active="page4" />
 						</Clicked>
 					</Tab>
 				</Panel>
@@ -133,9 +147,6 @@
 							<EventCard layoutTarget="contentPlaceholder">
 								<Selectable Value="{id}" />
 								<WhileSelected>
-									<JavaScript>
-										console.log(" Get business details ");
-									</JavaScript>
 									<!-- Block background scroll while detail is up -->
 									<Change mainScrollView.UserScroll="false" DelayBack="0" />
 									<!-- <Move 
@@ -172,26 +183,35 @@
 				</WhileActive>
 				<!-- <H1Text>Welcome to Page 2</H1Text> -->
 				<PageMapView Alignment="Left" Margin="0" />
-				
+			</Page>
+	
+			<!-- Blog -->
+			<Page ux:Name="page3" Background="#abb7b7">
+				<WhileActive Threshold="0.5">
+					<Set indicator.LayoutMaster="page3Tab" />
+					<JavaScript>
+						console.log(" Now on Blog view. ");
+					</JavaScript>
+				</WhileActive>
+				<PageBlog Alignment="Left" Margin="0" />
 			</Page>
 
 			<!-- About Page -->
-			<Page ux:Name="page3" Background="#f2f1ef" Padding="20,20">
+			<Page ux:Name="page4" Background="#f2f1ef" Padding="20,20">
 				<WhileActive Threshold="0.5">
-					<Set indicator.LayoutMaster="page3Tab" />
+					<Set indicator.LayoutMaster="page4Tab" />
 				</WhileActive>
 				
 				<StackPanel Alignment="TopLeft" Height="80" Opacity="1">
-					<H1Text FontSize="26">Artisanal Coffee Near You.</H1Text>
+					<H1Text FontSize="26">Stop and smell the roast.</H1Text>
 					
-					<ParagraphText>
-						FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
+					<ParagraphText>FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood. 
 					</ParagraphText>
-					<ParagraphText>
-						No coffee shop gets a review after one or two visits. We visit our baristas until they smile when we walk in and say “you _have_ to try what I’m making today.” 
+
+					<ParagraphText>Next time you grab a coffee, don't rush out of the door with a to-go cup.  Instead, take some time out of your busy day to sit down and enjoy their coffee in a cup or mug. Ask the barista a question or two, tell them what your favorite coffee drink is.
 					</ParagraphText>
-					<ParagraphText>
-						Soon, you'll have the ability to filter by preferred coffee bean profile and "Barista Availability".  After all, knowing which days you can rely on your favorite barista is paramount.
+
+					<ParagraphText>Maybe next time you walk they'll greet you and say “you _have_ to try what I’m making today.”  
 					</ParagraphText>
 				</StackPanel>
 			</Page>

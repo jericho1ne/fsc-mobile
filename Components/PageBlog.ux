@@ -1,0 +1,19 @@
+<NativeViewHost ux:Class="PageBlog">
+	<JavaScript>
+		module.exports = {
+		    onPageLoad : function(res) {
+		        console.log("WebView loaded.");
+		       	console.log(JSON.parse(res.json).url);
+			}
+		};
+    </JavaScript>
+	<WebView ux:Name="myWebView" Dock="Fill" Url="http://blog.findsomecoffee.com">
+		<PageLoaded>
+            <EvaluateJS Handler="{onPageLoad}">
+                return {
+                    url : document.location.href
+                };
+            </EvaluateJS>
+        </PageLoaded>
+	</WebView>
+</NativeViewHost>

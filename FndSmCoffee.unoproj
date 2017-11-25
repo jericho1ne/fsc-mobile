@@ -18,7 +18,7 @@
     "Assets/*.otf",
     "Assets/EventImages/*.jpg:Bundle"
   ],
-  "Icon" : "Assets/app-icon.png",
+  "Icon" : "Assets/AppIcons/app-icon.png",
   "iOS": {
     "Icons": {
       "iPhone_29_2x": "Assets/AppIcons/Icon-Small@2x.png",

@@ -1,4 +1,4 @@
-<Panel ux:Class="PlusButton" Width="36" Height="36">
+<Panel ux:Class="PlusButton" Width="38" Height="38">
 	<Rectangle Color="AccentColor" Width="2" Height="16" />
 	<Rectangle Color="AccentColor" Width="16" Height="2" />
 	<Circle Layer="Background" Color="White">

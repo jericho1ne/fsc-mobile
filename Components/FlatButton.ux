@@ -2,8 +2,8 @@
 	<string ux:Property="Text" />
 	<Text Value="{ReadProperty Text}" 
 		Color="White" 
-		Font="RobotoMedium" 
+		Font="MontserratBold" 
 		FontSize="14" 
-		Margin="20,10" Alignment="VerticalCenter" />
+		Margin="20,10" Alignment="Center" />
 	<Shadow Distance="1" Size="2" Color="#999" />
 </Rectangle>
