@@ -1,4 +1,5 @@
 <App Background="#F5F5F5">
+	<NativeViewHost>
 	<!-- Assets and Styles are in StaticResources.ux-->
 
 	<iOS.StatusBarConfig Style="Dark" Animation="Slide" IsVisible="True" />
@@ -103,7 +104,7 @@
 		<Panel ux:Name="statusAndAppBar" Dock="Top" Margin="0" Padding="0">
 
 			<!-- Inactive Nav Tab Color -->
-			<Grid ColumnCount="3" Height="40" Background="#53C1CC" Margin="0">
+			<Grid ColumnCount="4" Height="40" Background="#53C1CC" Margin="0">
 				<!-- STATIC RESOURCES -->
 				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
 				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
@@ -134,13 +135,13 @@
 						</Clicked>
 					</Tab>
 				</Panel>
-				<!-- <Panel ux:Name="page3Tab">
+				<Panel ux:Name="page3Tab">
 					<Tab Text="Blog">
 						<Clicked>
 							<Set navigation.Active="page3" />
 						</Clicked>
 					</Tab>
-				</Panel> -->
+				</Panel>
 				<Panel ux:Name="page4Tab">
 					<Tab Text="About">
 						<Clicked>
@@ -212,12 +213,12 @@
 			</Page>
 	
 			<!-- Blog -->
-			<!-- <Page ux:Name="page3" Background="#abb7b7">
+			<Page ux:Name="page3" Background="#abb7b7">
 				<WhileActive Threshold="0.5">
 					<Set indicator.LayoutMaster="page3Tab" />
 				</WhileActive>
-				<PageBlog Alignment="Left" Margin="0" />
-			</Page> -->
+				<PageBlog Margin="0" MinHeight="300"/>
+			</Page>
 
 			<!-- About Page -->
 			<Page ux:Name="page4" Background="#f2f1ef" Padding="0,0">
@@ -232,5 +233,5 @@
 	
 	
 
-	
+	</NativeViewHost>
 </App>
