@@ -19,7 +19,7 @@ function getCoffeeShopsNearby() {
 
 		// Make the API call for nearby businesses
 		var urlParams = 
-			`term=coffee-and-tea&` + 
+			`term=coffee-tea&` + 
 
 			// Need either location OR lat/lon
 			// `location=Los Angeles, CA&` +
@@ -35,6 +35,8 @@ function getCoffeeShopsNearby() {
 
 			// Always set a limit!
 			`limit=30`;
+
+		//Common.log(urlParams);
 		
 		// Api method returns a promise containing 
 		// nearby coffee shops

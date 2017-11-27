@@ -101,7 +101,7 @@
 		<BottomBarBackground Dock="Bottom" />
 		
 		<!-- NAVIGATION TABS -->
-		<Panel ux:Name="statusAndAppBar" Dock="Top" Margin="0" Padding="0">
+		<Panel Dock="Top" Margin="0" Padding="0">
 
 			<!-- Inactive Nav Tab Color -->
 			<Grid ColumnCount="4" Height="40" Background="#53C1CC" Margin="0">

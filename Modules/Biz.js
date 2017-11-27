@@ -37,7 +37,7 @@ function fetchData(endpoint, urlParams) {
 		.then(function(response) {
 			if (typeof response === 'object') {
 				var items = response;
-				// Common.log(items);
+				// Common.log(items[0]);
 
 				// Sort based on proximity
 				items.sort(function(a, b) {		

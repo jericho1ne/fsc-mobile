@@ -1,7 +1,6 @@
 <Panel ux:Class="BackButton" HitTestMode="LocalBoundsAndChildren">
 	<FlatButton 
 		Text="GO BACK" 
-		HitTestMode="LocalBounds"
 		Width="100%"
 		Margin="10,14,0,0"
 	/>
