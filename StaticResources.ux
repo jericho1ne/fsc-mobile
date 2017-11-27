@@ -27,7 +27,8 @@
 		Color="PrimaryColor" Margin="0,15,0,0" 
 	/>
 	<Text ux:Class="BodyText" 
-		Font="MontserratRegular" FontSize="14" 
+		Font="MontserratRegular" 
+		FontSize="14" 
 		Color="#263238" 
 		TextWrapping="Wrap" 
 	/>
@@ -46,7 +47,7 @@
 	<Text ux:Class="ParagraphText" 
 		Font="MontserratLight"
 		FontSize="12" TextColor="#000" 
-		TextWrapping="Wrap" TextAlignment="Left" Alignment="TopLeft"
+		TextWrapping="Wrap"
 		Margin="0,10"
 		LineSpacing="8"
 	/>

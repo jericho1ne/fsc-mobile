@@ -117,7 +117,7 @@
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
 					<LayoutAnimation>
-						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.1" Easing="BackIn"/>
+						<Move RelativeTo="WorldPositionChange" X="1.25" Duration="0.25" Easing="BackIn"/>
 					</LayoutAnimation>
 				</Rectangle>
 
@@ -156,7 +156,7 @@
 
 			<!-- List View -->
 			<Page ux:Name="page1" Background="#fafafa" Padding="0,0" Margin="0,0">
-				<WhileActive Threshold="0.5">
+				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
 
@@ -194,7 +194,7 @@
 
 			<!-- Map View -->
 			<Page ux:Name="page2" Background="#abb7b7">
-				<WhileActive Threshold="0.5">
+				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page2Tab" />
 		
 					<JavaScript>
@@ -214,15 +214,15 @@
 	
 			<!-- Blog -->
 			<Page ux:Name="page3" Background="#abb7b7">
-				<WhileActive Threshold="0.5">
+				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page3Tab" />
 				</WhileActive>
 				<PageBlog Margin="0" MinHeight="300"/>
 			</Page>
 
 			<!-- About Page -->
-			<Page ux:Name="page4" Background="#f2f1ef" Padding="0,0">
-				<WhileActive Threshold="0.5">
+			<Page ux:Name="page4" Background="#fff" Padding="0,0" Margin="0,0">
+				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page4Tab" />
 				</WhileActive>
 				<PageAbout Alignment="Left" Margin="0" />
