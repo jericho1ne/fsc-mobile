@@ -23,7 +23,8 @@
 		var Biz 	= require("./Modules/Biz.js");
 		
 		var isLoading = Observable(false);
-		
+		var modalVisible = Observable(false);
+
 		Main.getCoffeeShopsNearby();
 		/**
 		 * On phone number click, route to telephone app
@@ -64,17 +65,22 @@
 		 */
 		function endLoading(){
 			isLoading.value = false;
+			modalVisible.value = false;
+			
+
 		}
 
 		/**
 		 * Get new businesses nearby when position has changed
 		 * @return nothing
 		 */
-		function reloadHandler(){
+		function reloadHandler() {
+			modalVisible.value = true;
+			console.log(" >>> reloadHandler <<< ");
 			Biz.itemList.replaceAll([{"name": "Searching Nearby...", "id": 100 }]);
 			Main.getCoffeeShopsNearby();
 			isLoading.value = true;
-			setTimeout(endLoading, 2500);
+			setTimeout(endLoading, 1900);
 		}
 
 		module.exports = {
@@ -92,6 +98,7 @@
 			shareViaSms: shareViaSms,
 			// Pull to refresh
 			isLoading: isLoading,
+			modalVisible: modalVisible,
 			reloadHandler: reloadHandler
 		};		
 	</JavaScript>
@@ -159,6 +166,22 @@
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
+					
+				<!-- Pup up modal -->
+				<WhileTrue Value="{modalVisible}">
+					<Change msgModal.Opacity=".9" Duration=".35" />
+				    
+				</WhileTrue>
+				<StackPanel ux:Name="msgModal" Opacity="0"
+					Background="#eee" Width="90%" Height="200" 
+				    Alignment="Center" Padding="20" Layer="Overlay">
+					<Text 
+						Color="#212121" 
+						FontSize="16" 
+						Alignment="VerticalCenter"
+						Font="MontserratBold"
+					>Loaded!</Text>
+			    </StackPanel>
 
 				<!-- List of coffee shops (scrollable) -->
 				<!-- SnapMinTransform keeps view from scrolling too far, revealing App bg -->

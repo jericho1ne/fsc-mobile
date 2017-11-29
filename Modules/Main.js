@@ -34,7 +34,7 @@ function getCoffeeShopsNearby() {
 			`sort_by=distance&` +
 
 			// Always set a limit!
-			`limit=30`;
+			`limit=22`;
 
 		//Common.log(urlParams);
 		
