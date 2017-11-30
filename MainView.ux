@@ -24,6 +24,7 @@
 		
 		var isLoading = Observable(false);
 		var modalVisible = Observable(false);
+		var modalText = Observable('Try again');
 
 		Main.getCoffeeShopsNearby();
 		/**
@@ -66,8 +67,6 @@
 		function endLoading(){
 			isLoading.value = false;
 			modalVisible.value = false;
-			
-
 		}
 
 		/**
@@ -75,7 +74,10 @@
 		 * @return nothing
 		 */
 		function reloadHandler() {
+			// Set modal text, then open it
+			modalText.value = "GTFO, it's this easy??";
 			modalVisible.value = true;
+			
 			console.log(" >>> reloadHandler <<< ");
 			Biz.itemList.replaceAll([{"name": "Searching Nearby...", "id": 100 }]);
 			Main.getCoffeeShopsNearby();
@@ -96,6 +98,8 @@
 			// getDirections: getDirections,
 			searchMap: searchMap,
 			shareViaSms: shareViaSms,
+			modalText: modalText,
+
 			// Pull to refresh
 			isLoading: isLoading,
 			modalVisible: modalVisible,
@@ -169,18 +173,21 @@
 					
 				<!-- Pup up modal -->
 				<WhileTrue Value="{modalVisible}">
-					<Change msgModal.Opacity=".9" Duration=".35" />
-				    
+					<Change msgModal.Opacity="1" Duration=".35" />
 				</WhileTrue>
 				<StackPanel ux:Name="msgModal" Opacity="0"
-					Background="#eee" Width="90%" Height="200" 
-				    Alignment="Center" Padding="20" Layer="Overlay">
-					<Text 
-						Color="#212121" 
-						FontSize="16" 
-						Alignment="VerticalCenter"
-						Font="MontserratBold"
-					>Loaded!</Text>
+					Width="90%" Height="200" 
+				    Alignment="Center" Layer="Overlay">
+				    <Rectangle Padding="20" CornerRadius="10" Width="100%" Height="200">
+						<SolidColor Color="#eee" />
+						<Text 
+							Color="#212121" 
+							FontSize="16" 
+							Alignment="VerticalCenter"
+							Font="MontserratBold"
+						>{modalText}</Text>
+					</Rectangle>
+
 			    </StackPanel>
 
 				<!-- List of coffee shops (scrollable) -->
