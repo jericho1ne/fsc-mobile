@@ -1,12 +1,7 @@
-<App Background="#F5F5F5">
-	<NativeViewHost>
+<App Background="#f2f1ef">
 	<!-- Assets and Styles are in StaticResources.ux-->
-
 	<iOS.StatusBarConfig Style="Dark" Animation="Slide" IsVisible="True" />
-	<Android.StatusBarConfig Color="#222" IsVisible="True" />
-
-	<!-- <JavaScript File="Modules/main.js" /> -->
-	<!-- <JavaScript File="Modules/common.js" /> -->
+	<Android.StatusBarConfig Color="#222" IsVisible="False" />
 
 	<Panel ux:Name="contentPlaceholder" />
 	
@@ -16,17 +11,19 @@
 		 */
 		var Observable = require("FuseJS/Observable");
 		var InterApp = require("FuseJS/InterApp");	// Route telephone number cliks to Dial app 
-		var Maps = require("FuseJS/Maps");
+		var Maps 	= require("FuseJS/Maps");
 		var Common 	= require("./Modules/Common.js");
 		var Main 	= require("./Modules/Main.js");
 		var User 	= require("./Modules/User.js");
 		var Biz 	= require("./Modules/Biz.js");
 		
-		var isLoading = Observable(false);
-		var modalVisible = Observable(false);
-		var modalText = Observable('Try again');
+		var modalText = Observable('searching nearby . . .');
+	
+		/**
+		 * Gets user location, all nearby coffee shops, displays in List and Map view
+		 */
+		Main.getCoffeeShopsNearby().then(function() { /* This fires too quickly... */ });
 
-		Main.getCoffeeShopsNearby();
 		/**
 		 * On phone number click, route to telephone app
 		 */
@@ -35,29 +32,51 @@
 			InterApp.launchUri("tel:" + args.data.phone);
 		}
 
-		/**
-		 * Get directions to the place
-		 * @param  {[type]} args [description]
-		 * @return {[type]}      [description]
-		 */
-		// function getDirections(args) {
-		// 	console.log('*** getDirections ***');
-		// 	console.log(JSON.stringify(args.data.mapsURL));
-		// 	InterApp.launchUri(JSON.stringify(args.data.mapsURL));
-		// }
+		function goToIG(args) {
+			// console.log('*** callPhoneNumber ***' + JSON.stringify(args.data.phone));
+			InterApp.launchUri("instagram://user?username=findsomecoffee");
+		}
 
 		function shareViaSms(args) {
 			const sms_link = 
 				`sms:1-408-555-1212;body=${args.data.composite_address}`;
 			// console.log('****** shareViaSMS ***' + JSON.stringify(sms_link));
-			InterApp.launchUri(JSON.stringify(sms_link));
+			// InterApp.launchUri(JSON.stringify(sms_link));
 		}
 
-		function searchMap(args) {
+		function getDirections(args) {
 			const lat = args.data.coordinates.latitude;
 			const lon = args.data.coordinates.longitude;
-			//console.log('*** searchMap ***' + lat + " , " + lon + " || " + args.data.composite_address);
+			// console.log('*** getDirections ***' + lat + " , " + lon + " || " + args.data.composite_address);
 			Maps.searchNear(lat, lon, args.data.composite_address);
+		}
+
+		function refreshMap(args) {
+			// console.log('*** refreshMap ***');
+			// console.log(User.lat + ', ' + User.lon);
+			// Trigger "loading" modal
+			Biz.isLoading.value = true;
+			// Make the API call for nearby businesses
+			var urlParams = 
+				`term=coffee-tea&` + 
+				// Need either `location` || (`lat` && `lon`)
+				`lat=${User.lat.value}&` + 
+				`lon=${User.lon.value}&` +
+				// List of comma delimited pricing levels (1,2,3,4)
+				`price=1,2,3,4&` +
+				// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
+				`sort_by=distance&` +
+				// Always set a limit!
+				`limit=30`;
+
+			Biz.fetchData('search', urlParams)
+				.then((data) => {
+					// Remove crappy coffee shops
+					var legitCoffeeShops = Biz.stripCoffeeShops(data);
+					// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
+					Biz.setItemList(legitCoffeeShops);
+				});
+			// Maps.searchNear(lat, lon, args.data.composite_address);
 		}
 		
 		/**
@@ -65,8 +84,7 @@
 		 * @return nothing
 		 */
 		function endLoading(){
-			isLoading.value = false;
-			modalVisible.value = false;
+			Biz.isLoading.value = false;
 		}
 
 		/**
@@ -74,14 +92,14 @@
 		 * @return nothing
 		 */
 		function reloadHandler() {
-			// Set modal text, then open it
-			modalText.value = "GTFO, it's this easy??";
-			modalVisible.value = true;
+			// console.log(" >>> reloadHandler <<< ");
 			
-			console.log(" >>> reloadHandler <<< ");
-			Biz.itemList.replaceAll([{"name": "Searching Nearby...", "id": 100 }]);
+			// Clear existingcoffee shops, run search again
+			Biz.itemList.replaceAll([]);
 			Main.getCoffeeShopsNearby();
-			isLoading.value = true;
+			
+			// Handle ui stuff
+			Biz.isLoading.value = true;
 			setTimeout(endLoading, 1900);
 		}
 
@@ -95,14 +113,14 @@
 			
 			// Methods
 			callPhoneNumber: callPhoneNumber,
-			// getDirections: getDirections,
-			searchMap: searchMap,
+			refreshMap: refreshMap,
+			getDirections: getDirections,
 			shareViaSms: shareViaSms,
+			goToIG: goToIG,
 			modalText: modalText,
 
 			// Pull to refresh
-			isLoading: isLoading,
-			modalVisible: modalVisible,
+			isLoading: Biz.isLoading,
 			reloadHandler: reloadHandler
 		};		
 	</JavaScript>
@@ -110,28 +128,33 @@
 	<DockPanel>
 		<StatusBarBackground Dock="Top" />
 		<BottomBarBackground Dock="Bottom" />
-		
-		<!-- NAVIGATION TABS -->
-		<Panel Dock="Top" Margin="0" Padding="0">
 
+		<!-- Background Image -->
+		<WhileTrue Value={isLoading}>
+			<Panel Height="100%" Layer="Background">
+				<ImageFill File="Assets/fsc-icon-portrait.png" 
+					StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1"/>
+			</Panel>
+		</WhileTrue>
+
+		<!-- NAVIGATION TABS -->
+		<Panel ux:Name="menuBar" 
+			Dock="Top" 
+			Height="42" Margin="0" Padding="0" 
+			Opacity="1" Background="#53C1CC"
+		>
 			<!-- Inactive Nav Tab Color -->
-			<Grid ColumnCount="4" Height="40" Background="#53C1CC" Margin="0">
+			<Grid ColumnCount="3" Margin="0" Padding="0" Layer="Overlay">
 				<!-- STATIC RESOURCES -->
 				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
-				<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
-					<string ux:Property="Text" />
-					<!-- Nav Tab text label -->
-					<Text Value="{ReadProperty Text}" 
-						Color="PrimaryColor" Font="MontserratBold" FontSize="16" Alignment="Center" />
-				</Panel>
+				
 				<Rectangle ux:Name="indicator" Color="AccentColor"
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
 					<LayoutAnimation>
-						<Move RelativeTo="WorldPositionChange" X="1.25" Duration="0.25" Easing="BackIn"/>
+						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.5" Easing="BackIn"/>
 					</LayoutAnimation>
 				</Rectangle>
-
 				<Panel ux:Name="page1Tab">
 					<Tab Text="List">
 						<Clicked>
@@ -146,13 +169,13 @@
 						</Clicked>
 					</Tab>
 				</Panel>
-				<Panel ux:Name="page3Tab">
+				<!-- <Panel ux:Name="page3Tab">
 					<Tab Text="Blog">
 						<Clicked>
 							<Set navigation.Active="page3" />
 						</Clicked>
 					</Tab>
-				</Panel>
+				</Panel> -->
 				<Panel ux:Name="page4Tab">
 					<Tab Text="About">
 						<Clicked>
@@ -162,39 +185,28 @@
 				</Panel>
 			</Grid>
 		</Panel>
+
 		<!-- PAGE CONTROL - CHANGES ON TAB SELECTION -->
 		<PageControl ux:Name="navigation">
 
 			<!-- List View -->
-			<Page ux:Name="page1" Background="#fafafa" Padding="0,0" Margin="0,0">
+			<Page ux:Name="page1" Padding="0" Margin="0">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
 					
-				<!-- Pup up modal -->
-				<WhileTrue Value="{modalVisible}">
-					<Change msgModal.Opacity="1" Duration=".35" />
+				<!-- Pop up modal -->
+				<WhileTrue Value="{isLoading}">
+					<Change searchNearbyModal.Opacity="1" Duration=".35" />
 				</WhileTrue>
-				<StackPanel ux:Name="msgModal" Opacity="0"
-					Width="90%" Height="200" 
-				    Alignment="Center" Layer="Overlay">
-				    <Rectangle Padding="20" CornerRadius="10" Width="100%" Height="200">
-						<SolidColor Color="#eee" />
-						<Text 
-							Color="#212121" 
-							FontSize="16" 
-							Alignment="VerticalCenter"
-							Font="MontserratBold"
-						>{modalText}</Text>
-					</Rectangle>
-
-			    </StackPanel>
+				
+				<NotificationModal ux:Name="searchNearbyModal" />
 
 				<!-- List of coffee shops (scrollable) -->
 				<!-- SnapMinTransform keeps view from scrolling too far, revealing App bg -->
-				<ScrollView ux:Name="mainScrollView" SnapMinTransform="false"
+				<ScrollView ux:Name="itemScrollView" SnapMinTransform="false"
 					ClipToBounds="false" LayoutMode="PreserveVisual">
-					<StackPanel Margin="0,0,0,0">
+					<StackPanel Margin="0,0,0,100">
 						<!-- Pull to Refresh UX element -->
 						<ReloadAnimation Dock="Top" />
 
@@ -202,16 +214,11 @@
 							
 						<!-- Loop through items -->
 						<Each Items="{itemList}">
-							<EventCard layoutTarget="contentPlaceholder">
+							<EventCard layoutTarget="contentPlaceholder" Margin="0,0,0,20">
 								<Selectable Value="{id}" />
 								<WhileSelected>
 									<!-- Block background scroll while detail is up -->
-									<Change mainScrollView.UserScroll="false" DelayBack="0" />
-									<!-- <Move 
-										Target="statusAndAppBar" Y="-1" 
-										RelativeTo="Size" Duration=".5" 
-										Delay="0.1" Easing="QuarticOut" EasingBack="QuarticIn" 
-									/> -->
+									<Change itemScrollView.UserScroll="false" DelayBack="0" />
 								</WhileSelected>
 							</EventCard>
 						</Each>
@@ -226,7 +233,6 @@
 			<Page ux:Name="page2" Background="#abb7b7">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page2Tab" />
-		
 					<JavaScript>
 						// console.log(" Now on MapView. ");
 						// myMapView.setMarkers([
@@ -243,12 +249,12 @@
 			</Page>
 	
 			<!-- Blog -->
-			<Page ux:Name="page3" Background="#abb7b7">
+			<!-- <Page ux:Name="page3" Background="#abb7b7">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page3Tab" />
 				</WhileActive>
 				<PageBlog Margin="0" MinHeight="300"/>
-			</Page>
+			</Page> -->
 
 			<!-- About Page -->
 			<Page ux:Name="page4" Background="#fff" Padding="0,0" Margin="0,0">
@@ -260,8 +266,4 @@
 		</PageControl>
 
 	</DockPanel>
-	
-	
-
-	</NativeViewHost>
 </App>

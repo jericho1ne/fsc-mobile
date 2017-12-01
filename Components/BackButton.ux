@@ -2,7 +2,6 @@
 	<FlatButton 
 		Text="GO BACK" 
 		Width="100%"
-		Margin="10,14,0,0"
 	/>
 	<!-- <Image Width="40" Height="40" StretchMode="Uniform" Margin="10">
 		<MultiDensityImageSource>

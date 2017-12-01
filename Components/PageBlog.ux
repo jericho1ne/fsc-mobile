@@ -7,7 +7,7 @@
 			}
 		};
 	</JavaScript>
-	<WebView ux:Name="myWebView" MinHeight="400" Dock="Fill" Url="http://blog.findsomecoffee.com">
+	<!-- <WebView ux:Name="myWebView" MinHeight="400" Dock="Fill" Url="http://blog.findsomecoffee.com">
 		<PageLoaded>
 			<EvaluateJS Handler="{onPageLoad}">
 			return {
@@ -15,5 +15,5 @@
 			};
 		</EvaluateJS>
 		</PageLoaded>
-	</WebView>
+	</WebView> -->
 </NativeViewHost>

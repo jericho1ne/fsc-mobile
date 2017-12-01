@@ -5,17 +5,17 @@ var Observable = require("FuseJS/Observable");
 var Common = require("./Common.js");
 var User = require("./User.js");
 
+var isLoading = Observable(true);
 
 // `itemList` changes based on user location.
 // Gets replaced as soon as getLocation() + fetchData() returns
 var itemList = Observable();
 
-itemList.add({"name": "Searching Nearby...", "id": 100 });
-
 function setItemList(new_items) {
 	itemList.replaceAll(new_items); 
+	// Hide "loading" modal
+	isLoading.value = false;
 }
-
 
 /**
  * Ajax call to data source
@@ -37,7 +37,6 @@ function fetchData(endpoint, urlParams) {
 		.then(function(response) {
 			if (typeof response === 'object') {
 				var items = response;
-				// Common.log(items[0]);
 
 				// Sort based on proximity
 				items.sort(function(a, b) {		
@@ -94,6 +93,7 @@ function stripCoffeeShops(items) {
 module.exports = {
 	// Data
 	itemList: itemList,
+	isLoading: isLoading,
 
 	// Methods
 	setItemList: setItemList, 

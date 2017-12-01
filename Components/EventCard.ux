@@ -1,50 +1,42 @@
-<StackPanel ux:Class="EventCard" ImageHeight="210" Margin="12,10,12,10">
+<StackPanel ux:Class="EventCard" ImageHeight="260">
 	<float ux:Property="ImageHeight" />
 	<Panel ux:Dependency="layoutTarget" />
 
 	<OnBackButton>
 		<ToggleSelection Mode="RemoveOnly" />
 	</OnBackButton>
-				
+
 	<WhileSelected>
 		<Change imageAndContent.LayoutMaster="layoutTarget" DelayBack="0" Delay="0" />
 		<BringToFront />
-		
-		<Change image.CornerRadius="0" Duration="0.1" DelayBack="0.08" />
-		<Change image.Margin="0" Duration="0.2" Delay="0" DelayBack="0" Easing="CubicInOut" />
+		<Change bizImage.CornerRadius="0" Duration="0.1" DelayBack="0" />
+		<Change bizImage.Margin="0" Duration="0.2" Delay="0" DelayBack="0" Easing="CubicInOut" />
 	</WhileSelected>
 	
 	<WhileSelected Invert="true">
 		<Change contentScrollView.Opacity="0.4" Duration="0.3" DelayBack="0" />
 		<Change content.Opacity="0.5" Duration="0.5" DelayBack="0" />
-		<Move Target="content" Y="30" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
-	
-		<!-- <Scale Target="plusButton" Factor="0.01" Delay="0" Duration="0.2" 
-			DelayBack="0.25" DurationBack="0.35" 
-			Easing="CubicInOut" 
-		/>
-		<Change plusButton.Opacity="0" Duration="0.2" DelayBack="0.2" DurationBack="0.2" /> -->
-		
-		<Change detailNavigationBar.Opacity="0" Duration="0.2" Delay="0" />
-		<Change detailNavigationBar.HitTestMode="None" />
+		<Move Target="content" Y="20" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
+		<Change hiddenObjects.Opacity="0" Duration="0.2" Delay="0" />
+		<Change hiddenObjects.HitTestMode="None" />
 	</WhileSelected>
 	
 	<Panel ux:Name="contentLimitPanel" Height="{ReadProperty ImageHeight}">
-		<DockPanel ux:Name="imageAndContent" ClipToBounds="true" HitTestMode="LocalBoundsAndChildren">
+		<DockPanel ux:Name="imageAndContent" ClipToBounds="true">
 			<LayoutAnimation>
 				<Move X="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="QuadraticInOut" />
 				<Move Y="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="SinusoidalIn" />
 				<Resize X="1" Y="1" RelativeTo="SizeChange" DelayBack="0" Duration="0.15" Easing="QuadraticIn" />
 			</LayoutAnimation>
 			
-			<Panel Dock="Top" Height="{ReadProperty ImageHeight}">
-				<!-- BackButton Original location  -->
-
+			<Panel Dock="Top" Height="{ReadProperty ImageHeight}"  HitTestMode="LocalBoundsAndChildren">
 				<!-- "Go Back" button -->
-				<StackPanel ux:Name="detailNavigationBar">
-					<BackButton Alignment="BottomLeft" Margin="0,10,0,0" 
-						Anchor="0%,40%"
-						Layer="Overlay" 
+				<StackPanel ux:Name="hiddenObjects" Alignment="Top">
+					<StatusBarBackground />
+					<BackButton ux:Name="backButton" 
+						Alignment="BottomLeft"
+						Margin="12,60,0,0"
+						Opacity="0.9"
 					>
 						<Clicked>
 							<ToggleSelection Mode="RemoveOnly" />
@@ -56,10 +48,8 @@
 					<Clicked>
 						<ToggleSelection Mode="AddOnly" />
 					</Clicked>
-					
-
 					<!-- Business Name and such-->
-					<StackPanel Margin="20,20,40,20" Alignment="BottomLeft">
+					<StackPanel Padding="16,0,10,16" Alignment="BottomLeft">
 						<!-- Business Name -->
 						<Text Value="{name}" 
 							Font="MontserratBold"
@@ -69,49 +59,44 @@
 					</StackPanel>
 
 					<!-- Show Image -->
-					<Rectangle ux:Name="image" Layer="Background" CornerRadius="10,10,0,0" Padding="0">
+					<Rectangle ux:Name="bizImage" Layer="Background" 
+						CornerRadius="0" Margin="0" Padding="10"
+					>
 						<!-- <PlusButton ux:Name="plusButton" 
-							HitTestMode="LocalBounds"
+							HitTestMode="LocalBoundsAndChildren"
 							Clicked="{shareViaSms}"
 							Layer="Overlay" Alignment="BottomLeft"
-							Anchor="0%,40%" Margin="10,0" 
+							Anchor="0%,50%" Margin="10,0" 
 						/> -->
-						<SolidColor Color="#333" />
+						
+						<SolidColor Color="PrimaryColor" Opacity="0.7" />
 						<!-- PHOTO -->
 						<ImageFill Url="{image_url}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
 						<LinearGradient>
-							<GradientStop Color="0,0,0, 0.0" Offset=".5" />
-							<GradientStop Color="0,0,0, 0.45" Offset="1" />
+							<GradientStop Color="0,0,0, 0.0" Offset=".65" />
+							<GradientStop Color="0,0,0, 0.65" Offset="1" />
 						</LinearGradient>
 					</Rectangle>
-					
 				</Panel>
-
-
-			
 			</Panel>
 			
 			<!-- Info / Detail view (bottom white rectangle) -->
 			<ScrollView ux:Name="contentScrollView" Background="#fff">
-				<StackPanel ux:Name="content" Margin="20,40,20,20" ItemSpacing="10">
+				<StackPanel ux:Name="content" Padding="20,0,20,0" Margin="0,20" ItemSpacing="12">
 					<SmallHeaderText>Info</SmallHeaderText>
 					<Grid Columns="1*,auto">
 						<!-- PHONE NUMBER (hide if blank) -->
 						<WhileString Value="{phone}" Equals="" Invert="true">
-								<Text 
-									Color="#212121" 
-									FontSize="16" 
-									Alignment="VerticalCenter"
-									Font="MontserratBold"
-								>Call</Text>
-
-								<FlatButton 
-									Text="{phone}" 
-									HitTestMode="LocalBounds"
-									Clicked="{callPhoneNumber}"
-									Width="100%"
-									Margin="2,10,2,10"
-								/>							
+							<Text 
+								Color="#212121" 
+								FontSize="16" 
+								Alignment="VerticalCenter"
+								Font="MontserratBold"
+							>Call</Text>
+							<FlatButton 
+								Text="{phone}" 
+								Clicked="{callPhoneNumber}" 
+							/>							
 						</WhileString>
 
 						<!-- MAP DIRECTIONS -->
@@ -122,18 +107,14 @@
 							Font="MontserratBold"
 						>Visit</Text>
 						<FlatButton 
-							HitTestMode="LocalBounds" 
-							Clicked="{searchMap}"
-							Alignment="Center" 
 							Text="DIRECTIONS" 
-							Width="100%"
-							Margin="2,10,2,10"
+							Clicked="{getDirections}"
 						/>
 					</Grid>
 
 					<SmallHeaderText>Reviews</SmallHeaderText>
 						<Each Items="{reviews}">
-							<Rectangle Color="#18f3" CornerRadius="2">
+							<Rectangle Color="#18f3">
 								<Stroke Width="1" Color="PrimaryColor" />
 							</Rectangle>
 							<Text 
@@ -150,13 +131,14 @@
 	</Panel>
 	
 	<!-- Info / Default view (Bottom Rectangle) -->
-	<Rectangle Layer="Background" Color="#fff" CornerRadius="10" 
-		Margin="0,10,0,0" 
+	<Rectangle Layer="Background" Color="#fff" CornerRadius="0" 
+		Margin="0"
 	>
-		<Shadow Size="1" Distance="1" Color="#bbb" />
+		<Shadow Size="10" Distance="2" Color="#bbb" Angle="135" />
 	</Rectangle>
+
 	<!-- Margin: Left, Top, Right, Bottom -->
-	<StackPanel Margin="20,0,20,20" ItemSpacing="8" Padding="0">
+	<StackPanel Margin="20,0,0,20" ItemSpacing="10" Padding="0,16,0,0">
 		<!-- Distance from business -->
 		<SmallHeaderText Value="{distance}" TextWrapping="Wrap" Alignment="CenterLeft">
 		</SmallHeaderText>
@@ -164,6 +146,4 @@
 		<BodyText Value="{review_count} reviews" Margin="0" />
 		<!-- <TextButton Alignment="Right" Text="ADD TO CALENDAR" /> -->
 	</StackPanel>
-	
-	
 </StackPanel>

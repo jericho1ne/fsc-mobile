@@ -12,7 +12,7 @@ const timeout_ms = 6000;
 
 function getCoffeeShopsNearby() {
 	// Get location, then hit the Yelp API for results
-	GeoLocation.getLocation(timeout_ms).then((location) => {
+	return GeoLocation.getLocation(timeout_ms).then((location) => {
 		// TODO: keep an eye on location, periodically calling
 		// getLocation(); update itemList if location has changed.
 		User.setLocation(location);
@@ -20,29 +20,18 @@ function getCoffeeShopsNearby() {
 		// Make the API call for nearby businesses
 		var urlParams = 
 			`term=coffee-tea&` + 
-
-			// Need either location OR lat/lon
-			// `location=Los Angeles, CA&` +
+			// Need either `location` || (`lat` && `lon`)
 			`lat=${location.latitude}&` + 
 			`lon=${location.longitude}&` +
-
 			// List of comma delimited pricing levels (1,2,3,4)
 			`price=1,2,3,4&` +
-			
-			// Defaults to best_match if not provided
-			//   { best_match, rating, review_count, distance }
+			// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
 			`sort_by=distance&` +
-
 			// Always set a limit!
-			`limit=22`;
+			`limit=33`;
 
-		//Common.log(urlParams);
-		
-		// Api method returns a promise containing 
-		// nearby coffee shops
 		Biz.fetchData('search', urlParams)
 			.then((data) => {
-				// Common.log(data);
 				// Remove crappy coffee shops
 				var legitCoffeeShops = Biz.stripCoffeeShops(data);
 

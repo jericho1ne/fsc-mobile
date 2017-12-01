@@ -1,0 +1,12 @@
+<StackPanel ux:Class="NotificationModal"
+	Opacity="0"	Width="100%" 
+	Alignment="TopCenter" Layer="Overlay"
+	Margin="0,120"
+>
+	<Rectangle Padding="20" CornerRadius="1" Width="100%" Height="100%" Opacity=".88">
+		<SolidColor Color="PrimaryColor" />
+		<SmallHeaderText Value="{modalText}" TextWrapping="Wrap" 
+			Color="#fff" Alignment="Center"
+		/>
+	</Rectangle>
+</StackPanel>

@@ -4,7 +4,7 @@
 	<Cog ux:Class="SmallCog" Color="PrimaryColor" File="../Assets/cog1_white.png" Width="48" Height="48" />
 
 	<!-- places all cog wheels and move rotates them so they fit together -->
-	<Panel ux:Name="cogPanel" Background="#fafafa" Alignment="Top" Height="0" MinHeight="0">
+	<Panel ux:Name="cogPanel" Alignment="Top" Height="0" MinHeight="0">
 		<!-- Center Cog -->
 		<SmallCog ux:Name="cog1">
 			<Rotation ux:Name="cog1Rotation" />

@@ -13,6 +13,7 @@
   },
   "Includes": [
     "*.ux",
+    "Components/*.ux",
     "Modules/*.js:Bundle",
     "Assets/*.ttf",
     "Assets/*.otf",

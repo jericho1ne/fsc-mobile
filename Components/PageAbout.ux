@@ -1,22 +1,30 @@
-<ScrollView ux:Class="PageAbout" ClipToBounds="false" SnapMinTransform="false" LayoutMode="PreserveScrollPosition">
-
-	<StackPanel	Height="80" Opacity="1">
+<ScrollView ux:Class="PageAbout" Height="100%" 
+	ClipToBounds="false" SnapMinTransform="false" LayoutMode="PreserveVisual"
+>
+	<StackPanel	Opacity="1" Margin="0,0,0,130">
 		<Image Width="100%" StretchMode="Uniform" Margin="0">
 			<FileImageSource File="../Assets/verve.jpg" />
 		</Image>
 
-		<StackPanel Padding="20,10,20,10">
+		<StackPanel Padding="20,10,20,10" Margin="0,0,0,50">
 			<H1Text FontSize="21">Stop and smell the roast.</H1Text>
 			
 			<ParagraphText>FindSomeCoffee is your guidebook to the best local artisanal coffee. Whether your drink of choice is a pour-over, cortado, nitro cold brew, or a raktajino - we will help you find the best cup of coffee in your neighborhood.</ParagraphText>
 
 			<ParagraphText>Take some time out of your busy day to sit down and enjoy your brew in a cup or mug. Ask the barista a question or two, tell them what your favorite coffee drink is. Maybe next time you walk they'll greet you and say “you have to try what I’m making today.”</ParagraphText>
-
-			<Panel Height="80">
-				<Image Width="100%" StretchMode="Uniform" Margin="0">
+			
+			<Panel Height="90">
+				<Image Width="100%" StretchMode="Uniform" Margin="10,0,0,0">
 					<FileImageSource File="../Assets/fsc-icon.png" />
 				</Image>
 			</Panel>
+			
+			<FlatButton 
+				Text="@findsomecoffee" 
+				HitTestMode="LocalBoundsAndChildren"
+				Clicked="{goToIG}"
+				Margin="0,30,0,0"
+			/>
 		</StackPanel>
 	</StackPanel>
 </ScrollView>
