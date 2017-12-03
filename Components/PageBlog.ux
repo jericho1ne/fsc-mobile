@@ -1,19 +1,33 @@
-<NativeViewHost ux:Class="PageBlog" Height="800">
-	<JavaScript>
-		module.exports = {
-			onPageLoad : function(res) {
-				console.log("WebView loaded.");
-				console.log(JSON.parse(res.json).url);
-			}
-		};
-	</JavaScript>
-	<!-- <WebView ux:Name="myWebView" MinHeight="400" Dock="Fill" Url="http://blog.findsomecoffee.com">
-		<PageLoaded>
-			<EvaluateJS Handler="{onPageLoad}">
-			return {
-				url : document.location.href
-			};
-		</EvaluateJS>
-		</PageLoaded>
-	</WebView> -->
-</NativeViewHost>
+<ScrollView ux:Class="PageBlog" Height="100%" 
+	ClipToBounds="false" SnapMinTransform="false" LayoutMode="PreserveVisual"
+	Background="#fafafa"
+>
+	<StackPanel	Opacity="1" Margin="0,0,0,40">
+		<Each Items="{blogPosts}">
+
+			<StackPanel Padding="0,10,0,10" Margin="0,0,0,10" Background="#fafafa">
+				<Panel Height="230">
+					<ImageFill Url="{img}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
+				</Panel>
+
+				<StackPanel Height="100%" Margin="0" Padding="20,0,20,30" ItemSpacing="0">
+					<H1Text FontSize="21" Padding="0" Margin="0,20,0,10">{title}</H1Text>
+					
+					<ParagraphText>{description}</ParagraphText>
+					
+					<FlatButton 
+						Text="READ FULL POST" 
+						HitTestMode="LocalBoundsAndChildren"
+						Clicked="{readBlogPost}"
+						Margin="0,10,0,0"
+					/>
+					<Rectangle Layer="Background" Color="#fff" CornerRadius="0" 
+						Margin="0"
+					>
+						<Shadow Size="10" Distance="2" Color="#bbb" Angle="135" />
+					</Rectangle>
+				</StackPanel>
+			</StackPanel>
+		</Each>
+	</StackPanel>
+</ScrollView>

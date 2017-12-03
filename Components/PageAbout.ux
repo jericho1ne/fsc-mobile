@@ -23,7 +23,7 @@
 				Text="@findsomecoffee" 
 				HitTestMode="LocalBoundsAndChildren"
 				Clicked="{goToIG}"
-				Margin="0,30,0,0"
+				Margin="40,30,40,0"
 			/>
 		</StackPanel>
 	</StackPanel>

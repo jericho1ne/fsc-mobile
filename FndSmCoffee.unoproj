@@ -21,6 +21,9 @@
   ],
   "Icon" : "Assets/AppIcons/app-icon.png",
   "iOS": {
+    "PList": {
+      "NSLocationWhenInUseUsageDescription": "We use your location to search for good coffee shops nearby."
+    },
     "Icons": {
       "iPhone_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
       "iPhone_29_3x": "Assets/AppIcons/Icon-Small@3x.png",

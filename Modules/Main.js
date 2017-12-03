@@ -6,6 +6,7 @@ var Observable = require("FuseJS/Observable");
 var Common 	= require("./Common.js");
 var User 	= require("./User.js");
 var Biz 	= require("./Biz.js");
+var Blog 	= require("./Blog.js");
 
 // Get location (time out after a certain wait time)
 const timeout_ms = 6000;
