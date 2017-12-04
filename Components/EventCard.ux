@@ -69,7 +69,7 @@
 							Anchor="0%,50%" Margin="10,0" 
 						/> -->
 						
-						<SolidColor Color="PrimaryColor" Opacity="0.7" />
+						<SolidColor Color="LightGray" Opacity="0.7" />
 						<!-- PHOTO -->
 						<ImageFill Url="{image_url}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
 						<LinearGradient>

@@ -1,4 +1,4 @@
-<App Background="#000">
+<App Background="#fff">
 	<!-- Assets and Styles are in StaticResources.ux-->
 	<iOS.StatusBarConfig Style="Dark" Animation="Slide" IsVisible="True" />
 	<Android.StatusBarConfig Color="#222" IsVisible="False" />	
@@ -21,7 +21,7 @@
 		 * 1) Get user location, all nearby coffee shops, displays in List and Map view
 		 * 2) Get blog posts
 		 */
-		//Main.getCoffeeShopsNearby().then(function() { /* This fires too quickly... */ });
+		Main.getCoffeeShopsNearby().then(function() { /* This fires too quickly... */ });
 		Blog.fetchData();
 		
 		function refreshMap(args) {
@@ -40,7 +40,7 @@
 				// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
 				`sort_by=distance&` +
 				// Always set a limit (limit further on API side if need be)
-				`limit=30`;
+				`limit=34`;
 
 			Biz.fetchData('search', urlParams)
 				.then((data) => {
@@ -64,9 +64,7 @@
 		 * @return nothing
 		 */
 		function reloadHandler() {
-			// console.log(" >>> reloadHandler <<< ");
-			
-			// Clear existingcoffee shops, run search again
+			// Clear existing coffee shops, run search again
 			Biz.itemList.replaceAll([]);
 			Main.getCoffeeShopsNearby();
 			
@@ -86,8 +84,6 @@
  			blogPosts: Blog.blogPosts,
 			modalText: modalText,
 
-
-			
 			// Methods
 			callPhoneNumber: Common.callPhoneNumber,
 			getDirections: Common.getDirections,
@@ -112,7 +108,8 @@
 		<Panel ux:Name="menuBar" 
 			Dock="Top" 
 			Height="42" Margin="0" Padding="0" 
-			Opacity="1" Background="#fff"
+			Opacity="1"
+			Background="#2e9faa"
 		>
 			<!-- Inactive Nav Tab Color -->
 			<Grid ColumnCount="4" Margin="0" Padding="0" Layer="Overlay">
@@ -161,7 +158,7 @@
 		<PageControl ux:Name="navigation">
 
 			<!-- List View -->
-			<Page ux:Name="page1" Padding="0" Margin="0" Background="#D2EFFA">
+			<Page ux:Name="page1" Padding="0" Margin="0" Background="#fff">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page1Tab" />
 				</WhileActive>
@@ -184,7 +181,7 @@
 					<!-- ScrollableList of coffee shops -->
 					<!-- SnapMinTransform keeps view from scrolling too far, revealing App bg -->
 					<ScrollView ux:Name="itemScrollView" SnapMinTransform="false"
-						ClipToBounds="false" LayoutMode="PreserveVisual" Background="#fafafa">
+						ClipToBounds="false" LayoutMode="PreserveVisual">
 						<StackPanel Margin="0,0,0,100">
 							<!-- Pull to Refresh UX element -->
 							<ReloadAnimation Dock="Top" />
@@ -227,7 +224,7 @@
 			</Page>
 	
 			<!-- Blog -->
-			<Page ux:Name="page3" Background="#abb7b7">
+			<Page ux:Name="page3">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page3Tab" />
 				</WhileActive>

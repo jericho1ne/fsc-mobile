@@ -1,4 +1,4 @@
-<ScrollView ux:Class="PageBlog" Height="100%" 
+<ScrollView ux:Class="PageBlog" Height="100%" Margin="10,0" 
 	ClipToBounds="false" SnapMinTransform="false" LayoutMode="PreserveVisual"
 	Background="#fafafa"
 >
@@ -6,13 +6,12 @@
 		<Each Items="{blogPosts}">
 
 			<StackPanel Padding="0,10,0,10" Margin="0,0,0,10" Background="#fafafa">
-				<Panel Height="230">
+				<Panel Height="210">
 					<ImageFill Url="{img}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
 				</Panel>
 
 				<StackPanel Height="100%" Margin="0" Padding="20,0,20,30" ItemSpacing="0">
 					<H1Text FontSize="21" Padding="0" Margin="0,20,0,10">{title}</H1Text>
-					
 					<ParagraphText>{description}</ParagraphText>
 					
 					<FlatButton 
