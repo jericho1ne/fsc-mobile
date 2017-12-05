@@ -1,59 +1,67 @@
 {
-  "Name": "FndSmCoffee",
-  "RootNamespace":"",
-  "Version": "1.0.3",
-  "Code": "1",
-  "Packages": [
-    "Fuse",
-    "FuseJS",
-    "Fuse.Maps",
-    "Fuse.Launcher",
-    "Fuse.GeoLocation"
-  ],
-  "Mobile": {
-    "Orientations": "Portrait"
-  },
-  "Includes": [
-    "*.ux",
-    "Components/*.ux",
-    "Modules/*.js:Bundle",
-    "Assets/*.ttf",
-    "Assets/*.otf",
-    "Assets/EventImages/*.jpg:Bundle"
-  ],
-  "Icon" : "Assets/AppIcons/app-icon.png",
-  "iOS": {
-    "PList": {
-      "NSLocationWhenInUseUsageDescription": "We use your location to search for good coffee shops nearby."
-    },
-    "Icons": {
-      "iPhone_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
-      "iPhone_29_3x": "Assets/AppIcons/Icon-Small@3x.png",
-      "iPhone_40_1x": "Assets/AppIcons/Icon-40.png",
-      "iPhone_40_2x": "Assets/AppIcons/Icon-40@2x.png",
-      "iPhone_40_3x": "Assets/AppIcons/Icon-40@3x.png",
-      "iPhone_60_2x": "Assets/AppIcons/Icon-Small-60@2x.png",
-      "iPhone_60_3x": "Assets/AppIcons/Icon-Small-60@3x.png",
-      "iPad_29_1x": "Assets/AppIcons/Icon-Small.png",
-      "iPad_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
-      "iPad_40_1x": "Assets/AppIcons/Icon-40.png",
-      "iPad_40_2x": "Assets/AppIcons/Icon-40@2x.png",
-      "iPad_76_1x": "Assets/AppIcons/Icon-Small-76.png",
-      "iPad_76_2x": "Assets/AppIcons/Icon-Small-76@2x.png"
-    }
-  },
-  "Android": {
-    "ApplicationLabel": "$(Name)",
-    "VersionCode": "$(Code)",
-    "VersionName": "1.0.0",
-    "Description": "Find good coffee nearby",
-    "Icons": {
-      "LDPI": "$(Icon)",
-      "MDPI": "$(Icon)",
-      "HDPI": "$(Icon)",
-      "XHDPI": "$(Icon)",
-      "XXHDPI": "$(Icon)",
-      "XXXHDPI": "$(Icon)"
-    }
-  },
+	"Name": "FndSmCoffee",
+	"RootNamespace":"",
+	"Version": "1.0.3",
+	"Code": "1",
+	"Packages": [
+		"Fuse",
+		"FuseJS",
+		"Fuse.Maps",
+		"Fuse.Launcher",
+		"Fuse.GeoLocation"
+	],
+	"Mobile": {
+		"Orientations": "Portrait"
+	},
+	"Includes": [
+		"*.ux",
+		"Components/*.ux",
+		"Modules/*.js:Bundle",
+		"Assets/*.ttf",
+		"Assets/*.otf",
+		"Assets/EventImages/*.jpg:Bundle"
+	],
+	"Icon" : "Assets/AppIcons/app-icon.png",
+	"iOS": {
+		"DisplayName": "Find Some Coffee",
+		"DeploymentTarget": "9.0",
+		"PList": {
+			"NSLocationWhenInUseUsageDescription": "We use your location to search for good coffee shops nearby."
+		},
+		"Icons": {
+			"iPhone_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
+			"iPhone_29_3x": "Assets/AppIcons/Icon-Small@3x.png",
+			"iPhone_40_1x": "Assets/AppIcons/Icon-40.png",
+			"iPhone_40_2x": "Assets/AppIcons/Icon-40@2x.png",
+			"iPhone_40_3x": "Assets/AppIcons/Icon-40@3x.png",
+			"iPhone_60_2x": "Assets/AppIcons/Icon-Small-60@2x.png",
+			"iPhone_60_3x": "Assets/AppIcons/Icon-Small-60@3x.png",
+			"iPad_29_1x": "Assets/AppIcons/Icon-Small.png",
+			"iPad_29_2x": "Assets/AppIcons/Icon-Small@2x.png",
+			"iPad_40_1x": "Assets/AppIcons/Icon-40.png",
+			"iPad_40_2x": "Assets/AppIcons/Icon-40@2x.png",
+			"iPad_76_1x": "Assets/AppIcons/Icon-Small-76.png",
+			"iPad_76_2x": "Assets/AppIcons/Icon-Small-76@2x.png"
+		}
+	},
+	"Android": {
+		"ApplicationLabel": "$(Name)",
+		"VersionCode": "$(Code)",
+		"VersionName": "1.0.0",
+		"Description": "Find good coffee nearby",
+		"Geo": {
+			"ApiKey": "AIzaSyDNUyBdIRLemZ7IRRtwLhbxCgSCbNsUEm8"
+		},
+		"GooglePlay": {
+			"SenderID": "111781901112"
+		},
+		"Icons": {
+			"LDPI": "$(Icon)",
+			"MDPI": "$(Icon)",
+			"HDPI": "$(Icon)",
+			"XHDPI": "$(Icon)",
+			"XXHDPI": "$(Icon)",
+			"XXXHDPI": "$(Icon)"
+		}
+	},
 }

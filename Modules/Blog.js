@@ -28,13 +28,17 @@ function fetchData(endpoint, urlParams) {
 	if (typeof urlParams !== 'undefined') {
 		requestUrl += `?${urlParams}`;
 	}
-	// console.log(" >>> BLOG API URL :: " + requestUrl);
+	console.log(" >>> BLOG API URL :: " + requestUrl);
 	// 
 	return fetch(requestUrl)
 		.then(function(response) { 
+			console.log(" >>> HERE 1 ");
+			Common.log(response);
 			return response.json();
 		})
 		.then(function(response) {
+			console.log(" >>> HERE 2 ");
+
 			if (typeof response === 'object') {
 				var items = response;
 				//Common.log(items);
