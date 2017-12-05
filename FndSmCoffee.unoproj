@@ -1,6 +1,8 @@
 {
   "Name": "FndSmCoffee",
   "RootNamespace":"",
+  "Version": "1.0.3",
+  "Code": "1",
   "Packages": [
     "Fuse",
     "FuseJS",
@@ -42,7 +44,7 @@
   },
   "Android": {
     "ApplicationLabel": "$(Name)",
-    "VersionCode": "$(VersionCount)",
+    "VersionCode": "$(Code)",
     "VersionName": "1.0.0",
     "Description": "Find good coffee nearby",
     "Icons": {
