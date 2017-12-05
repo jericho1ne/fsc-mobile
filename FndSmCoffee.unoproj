@@ -1,14 +1,15 @@
 {
-	"Name": "FndSmCoffee",
+	"Name": "Find Some Coffee",
 	"RootNamespace":"",
-	"Version": "1.0.3",
-	"Code": "1",
+	"Version": "1.1.0",
+	"Code": "7",
 	"Packages": [
 		"Fuse",
 		"FuseJS",
 		"Fuse.Maps",
 		"Fuse.Launcher",
-		"Fuse.GeoLocation"
+		"Fuse.GeoLocation",
+		"Fuse.Android",
 	],
 	"Mobile": {
 		"Orientations": "Portrait"
@@ -24,7 +25,7 @@
 	"Icon" : "Assets/AppIcons/app-icon.png",
 	"iOS": {
 		"DisplayName": "Find Some Coffee",
-		"DeploymentTarget": "9.0",
+		"DeploymentTarget": "8.0",
 		"PList": {
 			"NSLocationWhenInUseUsageDescription": "We use your location to search for good coffee shops nearby."
 		},
@@ -42,18 +43,28 @@
 			"iPad_40_2x": "Assets/AppIcons/Icon-40@2x.png",
 			"iPad_76_1x": "Assets/AppIcons/Icon-Small-76.png",
 			"iPad_76_2x": "Assets/AppIcons/Icon-Small-76@2x.png"
+		},
+		"FacebookAppID": "2398897493670253",
+		"FacebookDisplayName": "Find Some Coffee",
+		"CFBundleURLTypes": {
+			"CFBundleURLSchemes": [
+				"fb2398897493670253"
+			]
 		}
 	},
 	"Android": {
 		"ApplicationLabel": "$(Name)",
+		"VersionName": "$(Version)",
 		"VersionCode": "$(Code)",
-		"VersionName": "1.0.0",
 		"Description": "Find good coffee nearby",
 		"Geo": {
-			"ApiKey": "AIzaSyDNUyBdIRLemZ7IRRtwLhbxCgSCbNsUEm8"
+			"ApiKey": ""
 		},
-		"GooglePlay": {
-			"SenderID": "111781901112"
+		"Key": {
+			"Alias": "application",
+			"AliasPassword": "_fscMobile!",
+			"Store": "release.keystore",
+			"StorePassword": "_fscMobile!"
 		},
 		"Icons": {
 			"LDPI": "$(Icon)",

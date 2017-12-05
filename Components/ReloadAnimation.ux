@@ -1,13 +1,6 @@
 <Panel ux:Class="ReloadAnimation" ClipToBounds="True" 
-	Margin="0,0,0,0" Background="#FF9A9A"
+	Margin="0,-20,0,0" Background="#FF9A9A"
 >
-	
-	<Image ux:Class="Cog" MaxHeight="140" MaxWidth="120" Alignment="Center" />
-	<Cog ux:Class="SmallCog" 
-		Color="#fff" File="../Assets/cog1_white.png" 
-		Width="36" Height="36" 
-	/>
-
 	<!-- places all cog wheels and move rotates them so they fit together -->
 	<Panel ux:Name="cogPanel" Alignment="Top" Height="0" MinHeight="0">
 		<!-- Center Cog -->
@@ -18,13 +11,13 @@
 
 	<!-- set the hight of cogPanel so it stays open while loading -->
 	<WhileTrue ux:Name="retainSpace">
-		<Change cogPanel.MinHeight="100" 
-			Duration="0" DurationBack="0.35" Easing="CircularIn" />
+		<Change cogPanel.MinHeight="140" 
+			Duration="0" DurationBack="0.5" Easing="CircularIn" />
 	</WhileTrue>
 
 	<!-- Rotate the wheels as we pull down -->
 	<ScrollingAnimation Range="SnapMin">
-		<Change cogPanel.Height="120" Duration="0.5" />
+		<Change cogPanel.Height="150" Duration="0.5" />
 	</ScrollingAnimation>
 
 	<PullToReload IsLoading="{isLoading}" ReloadHandler="{reloadHandler}">

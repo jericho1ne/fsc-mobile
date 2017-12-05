@@ -4,12 +4,16 @@
 		"selected_items":
 		[
 			[
-				"max-",
-				"max-width"
+				"backgrou",
+				"background-color"
 			],
 			[
-				"backgrou",
-				"background-size"
+				"long",
+				"longitude〔variable〕"
+			],
+			[
+				"max-",
+				"max-width"
 			],
 			[
 				"overflow-y",
@@ -18,10 +22,6 @@
 			[
 				"text-",
 				"text-decoration: 〔property〕"
-			],
-			[
-				"long",
-				"longitude"
 			],
 			[
 				"border",
@@ -284,10 +284,28 @@
 	"buffers":
 	[
 		{
-			"file": "data.js",
+			"file": "MainView.ux",
 			"settings":
 			{
-				"buffer_size": 1242,
+				"buffer_size": 6459,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "FndSmCoffee.unoproj",
+			"settings":
+			{
+				"buffer_size": 1877,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "StaticResources.ux",
+			"settings":
+			{
+				"buffer_size": 2197,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -301,12 +319,16 @@
 	"command_palette":
 	{
 		"height": 375.0,
-		"last_filter": "fuse",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
 				"fuse",
-				"Build With: Fuse"
+				"Fuse: Documentation"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
 			],
 			[
 				"co",
@@ -347,10 +369,6 @@
 			[
 				"col",
 				"Color Picker"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"i",
@@ -460,20 +478,96 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/mpeteu/Sites/fsc-mobile"
+		"/Users/mpeteu/Sites/fsc-mobile",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules"
 	],
 	"file_history":
 	[
-		"/Users/mpeteu/Sites/fsc-mobile/Components/TextButton.ux",
-		"/Users/mpeteu/Sites/fsc-mobile/MainView.ux",
-		"/Users/mpeteu/Sites/fsc-mobile/Components/BackButton.ux",
-		"/Users/mpeteu/Sites/dynamic-tab-bar/offline-data.json",
-		"/Users/mpeteu/Sites/fsc-mobile/FSC-mobile.unoproj",
+		"/Users/mpeteu/Dropbox/Home-and-Life/Monetary/Taxes/2017/Citibank/Citi-Savings-427.CSV",
+		"/Users/mpeteu/Sites/client-work/meisnech-squarespace-custom.css",
+		"/Users/mpeteu/Sites/client-work/meisnech-squarespace-blog.css",
+		"/Users/mpeteu/Sites/client-work/wildpony-shop-isle-custom.css",
+		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/utilities.txt",
+		"/Users/mpeteu/Dropbox/Home-and-Life/Monetary/Taxes/2017/Citibank/Citi-Checking-862.CSV",
+		"/Users/mpeteu/Dropbox/Home-and-Life/Monetary/Taxes/2017/Citibank/DoubleCash-Unbilled.csv",
+		"/Users/mpeteu/Downloads/Unbilled.csv",
+		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/pwd.txt",
+		"/Users/mpeteu/Local-Projects/Wild-Pony/Wordpress/update-woocommerce-template.txt",
+		"/Users/mpeteu/Dropbox/Travel/Kauai/transportation.txt",
+		"/Users/mpeteu/Local-Projects/Wild-Pony/admin.txt",
+		"/Users/mpeteu/Local-Projects/Wild-Pony/Wordpress/custom-css.css",
+		"/Users/mpeteu/Local-Projects/Wild-Pony/wordpress-commands copy.txt",
+		"/Volumes/Kingston64GB/day-night-switch/build/Local/Preview/cache/DotNetDll/Preview/data/_trailer/dl.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/ReloadAnimFeed.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/ReloadAnimation.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/Feed.js",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/Main.js",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/Common.js",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/PageMapView.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/FlatButton.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/EventCard.ux",
+		"/Users/mpeteu/Dropbox/Projects/Meisnech-Inc/Admin/admin.txt",
+		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/travel.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/AdvancedModal.ux",
 		"/Users/mpeteu/Sites/fsc-mobile/StaticResources.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/FndSmCoffee.unoproj",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/PageFeed.ux",
+		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/dev.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/Biz.js",
+		"/Users/mpeteu/Sites/fsc-mobile/Assets/feed-data.json",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/PageBlog.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/PageAbout.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/User.js",
+		"/Users/mpeteu/cminstaller/log.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/build/Android/Preview/app/src/main/AndroidManifest.xml",
+		"/Users/mpeteu/Local-Projects/Find-Some-Coffee/IG_API.txt",
+		"/Users/mpeteu/Local-Projects/Android/twrp-3.2.0-0-klte.img.html",
+		"/Users/mpeteu/Local-Projects/Android/S5-stock.pit",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/NotificationModal.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/Blog.js",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/TabIndicator.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/StatusAndAppBar.ux",
+		"/Users/mpeteu/Sites/material-transition/StaticResources.ux",
+		"/Users/mpeteu/Downloads/vinyl-store/VinylStore.unoproj",
+		"/Users/mpeteu/Desktop/Android Preview Log.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/build/debug-readout.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/build/Android/Preview/app/build.gradle",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/PageListView.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/_MEDIA/Generated-Images-and-JSON/LaunchImage.launchimage/Contents.json",
+		"/Users/mpeteu/Sites/fsc-mobile/build/iOS/Release/FndSmCoffee/Images.xcassets/AppIcon.appiconset/Contents.json",
+		"/Users/mpeteu/Sites/fsc-mobile/build/iOS/Release/FndSmCoffee/Images.xcassets/LaunchImage.launchimage/Contents.json",
+		"/Users/mpeteu/Local-Projects/Find-Some-Coffee/mobile-app/_xcAssets/Original-Launch-Images/LaunchImage.launchimage/Contents.json",
+		"/Users/mpeteu/Library/Application Support/Sublime Text 3/Packages/Fuse/UserGuide.txt",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/BackButton.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/PlusButton.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/_StatusAndAppBar.ux",
+		"/Users/mpeteu/Sites/tabs-layoutmaster/MainView.ux",
+		"/Users/mpeteu/Downloads/pull-to-reload/PullToReload.unoproj",
+		"/Users/mpeteu/Downloads/pull-to-reload/MainView.ux",
+		"/Users/mpeteu/Downloads/pull-to-reload/CogWheelReload.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/FSC-mobile.sublime-project",
+		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/Logo/create-app-icons.jsx",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/TextButton.ux",
+		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/media/logo-vector/create-app-icons.jsx",
+		"/Users/mpeteu/Sites/fsc-mobile/Assets/Contents.json",
+		"/Users/mpeteu/Sites/fsc-mobile/FSC-mobile.unoproj",
+		"/Users/mpeteu/Sites/fsc-mobile/MainView.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/UserData.js",
+		"/Users/mpeteu/Sites/fsc-mobile/js/common.js",
+		"/Users/mpeteu/Sites/fsc-mobile/Modules/main.js",
+		"/Users/mpeteu/Sites/fsc-mobile/js/main.js",
+		"/Users/mpeteu/Sites/alternative-dropdown/MainView.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/Components/HamburgerIcon.ux",
+		"/Users/mpeteu/Sites/fsc-mobile/js/data.js",
+		"/Users/mpeteu/.ssh/github_rsa",
+		"/Users/mpeteu/.ssh/id_rsa",
+		"/Users/mpeteu/Sites/fsc-mobile/.gitignore",
 		"/Users/mpeteu/Sites/fsc-mobile/data.js",
+		"/Users/mpeteu/Sites/fsc-mobile/js.js",
+		"/Users/mpeteu/Downloads/blog-findsomecoffee-com_20171113T233826Z_ExternalLinks_SampleLinks.csv",
+		"/Users/mpeteu/Sites/dynamic-tab-bar/offline-data.json",
 		"/Users/mpeteu/Sites/dynamic-tab-bar/dynamic-tab-bar.sublime-project",
 		"/Users/mpeteu/Sites/dynamic-tab-bar/js/presets.js",
-		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/pwd.txt",
 		"/Users/mpeteu/Sites/findsomecoffee/index.html",
 		"/Users/mpeteu/Sites/findsomecoffee/dist/index.html",
 		"/Users/mpeteu/Sites/findsomecoffee/api/cities/index.php",
@@ -505,7 +599,6 @@
 		"/Users/mpeteu/Sites/mygiddi/tomo/index.html",
 		"/Users/mpeteu/Sites/mygiddi/tomo/tomo-snippet.json",
 		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/home+insurance.txt",
-		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/travel.txt",
 		"/Users/mpeteu/Downloads/Data/coderunner-serials.txt",
 		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/data-sources/categories.json",
 		"/Users/mpeteu/Sites/findsomecoffee/api/business/index.php",
@@ -517,91 +610,18 @@
 		"/Users/mpeteu/Sites/findsomecoffee/build/vue-loader.conf.js",
 		"/private/etc/apache2/httpd.conf",
 		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/data-sources.txt",
-		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/admin.txt",
-		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/Juicer.io/juicer.css",
-		"/Users/mpeteu/Sites/findsomecoffee/sitemap.xml",
-		"/Users/mpeteu/Sites/findsomecoffee/api/.htaccess",
-		"/Users/mpeteu/Sites/findsomecoffee/dist/embed.css",
-		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/Juicer.io/feed.html",
-		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/Juicer.io/juicer-feed.html",
-		"/Users/mpeteu/Downloads/styles.css",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/cities/index.php",
-		"/Users/mpeteu/Sites/findsomecoffee/src/components/About.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/dist/assets/js/app.94cc7d6caf4df4492c40.js",
-		"/Users/mpeteu/Sites/findsomecoffee/dist/assets/js/app.51261cf8a792d0e5112a.js",
-		"/Users/mpeteu/Sites/vue-js-modal/demo/client_side_rendering/src/App.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/.editorconfig",
-		"/Users/mpeteu/Sites/findsomecoffee/node_modules/vue-js-modal/src/Dialog.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/node_modules/vue-js-modal/src/Modal.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/src/components/DemoLoginModal.vue",
-		"/Users/mpeteu/Sites/vue-js-modal/src/Modal.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/node_modules/vue-star-rating/src/star-rating.vue",
-		"/Users/mpeteu/Sites/vue-js-modal/src/index.js",
-		"/Users/mpeteu/Sites/vue-js-modal/demo/client_side_rendering/index.html",
-		"/Users/mpeteu/Sites/vue-js-modal/demo/client_side_rendering/src/main.js",
-		"/Users/mpeteu/Sites/vue-js-modal/demo/client_side_rendering/src/components/DogProfileModal.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/search/.htaccess",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/business/.htaccess",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/lib/common.php",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/search/index.php",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/lib/Yelp.php",
-		"/Users/mpeteu/Sites/findsomecoffee/api-php/business/index.php",
-		"/Users/mpeteu/Sites/findsomecoffee/deploy-ui.sh",
-		"/Users/mpeteu/Sites/findsomecoffee/app/public/.htaccess",
-		"/Users/mpeteu/Sites/findsomecoffee/app/app.js",
-		"/Users/mpeteu/Sites/findsomecoffee/_test/search/index.php",
-		"/Users/mpeteu/Sites/findsomecoffee/_test/cities/index.php",
-		"/Users/mpeteu/Sites/laughing-frog/lf-pricing/index.html",
-		"/Users/mpeteu/Sites/findsomecoffee/_test/index.php",
-		"/Users/mpeteu/Sites/findsomecoffee/_test/Yelp.php",
-		"/Users/mpeteu/Dev/MiddleOfJune/MainView.ux",
-		"/Users/mpeteu/Desktop/Yelp-API-v3.txt",
-		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/dev.txt",
-		"/Users/mpeteu/Sites/laughing-frog/lf-pricing/price-tile-styles.css",
-		"/Users/mpeteu/Sites/laughing-frog/original-pricing-page/index.html",
-		"/Users/mpeteu/Sites/laughing-frog/original-pricing-page/price-tile-styles.css",
-		"/Users/mpeteu/Sites/laughing-frog/light-on-lotus-pricing/index.html",
-		"/Users/mpeteu/Sites/laughing-frog/media/original-pricing-page/index.html",
-		"/Users/mpeteu/Downloads/bootstrap-3.3.6-dist/Data/[ZippyMovieZ.Com] Lion (2015) - Telugu -1CDRip - PDVD RIP - h264 - AC3 - 700MB - ZippyMovieZ ExCluSiVE/Torrent Downloaded From ZippyMovieZ.Com.txt",
-		"/Users/mpeteu/Dev/MiddleOfJune/Pages/ViewShow.js",
-		"/Users/mpeteu/Dev/MiddleOfJune/Modules/Context.js",
-		"/Users/mpeteu/Dev/MiddleOfJune/Modules/Backend.js",
-		"/Users/mpeteu/Dev/MiddleOfJune/MiddleOfJune.unoproj",
-		"/Users/mpeteu/Sites/moj-fuse/MiddleOfJune/Components/customButton.Panel.ux",
-		"/Users/mpeteu/Dev/dynamic-tab-bar/dynamic-tab-bar.unoproj",
-		"/Users/mpeteu/Sites/findsomecoffee/src/globals.php",
-		"/Users/mpeteu/Sites/findsomecoffee/src/getCoffeeShops.php",
-		"/Users/mpeteu/Sites/findsomecoffee/src/assets/cities.json",
-		"/Users/mpeteu/Dropbox/Home-and-Life/pwd/utilities.txt",
-		"/Users/mpeteu/Sites/findsomecoffee/src/lib/yelp-api.php",
-		"/Users/mpeteu/Sites/findsomecoffee/dist/static/js/app.6595e56386bf4a2d5007.js",
-		"/Users/mpeteu/Sites/findsomecoffee/app/package.json",
-		"/Users/mpeteu/Sites/findsomecoffee/src/lib/common.php",
-		"/Users/mpeteu/Sites/fof/app/assets/php/lib/constants.php",
-		"/Users/mpeteu/Sites/findsomecoffee/src/components/StarRating.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/src/router/index.js",
-		"/Users/mpeteu/Sites/findsomecoffee/dist/static/js/app.a131ad8c54a1ab12b954.js",
-		"/Users/mpeteu/Sites/findsomecoffee/dist/static/js/vendor.9aa2a5da635a736322d6.js",
-		"/Users/mpeteu/Sites/findsomecoffee/config/prod.env.js",
-		"/Users/mpeteu/Dropbox/Home-and-Life/Balcony-Storage.txt",
-		"/private/var/folders/xp/q7rn8vp919z840cx02hff9y80000gn/T/65c8e2d7-babf-4f3c-b9ec-ce60f6e38c65/var/www/html/findsomecoffee/vue/index.html",
-		"/Users/mpeteu/Sites/findsomecoffee/config/dev.env.js",
-		"/Users/mpeteu/Sites/findsomecoffee/node_modules/vue-awesome/components/Icon.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/src/components/Index.vue",
-		"/Users/mpeteu/Sites/findsomecoffee/src/css/main.css",
-		"/Users/mpeteu/Sites/findsomecoffee/src/assets/data.json",
-		"/Users/mpeteu/Sites/findsomecoffee/src/js/main.js",
-		"/Users/mpeteu/Sites/findsomecoffee/src/js/common.js"
+		"/Users/mpeteu/Dropbox/Projects/Find-Some-Coffee/admin.txt"
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 24.0
 	},
 	"find_in_files":
 	{
 		"height": 98.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -609,19 +629,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"TextButton",
-			"FileSystem",
-			"ticketPrice",
-			"file",
-			"JavaScript",
-			"data.",
-			".js",
-			".json",
-			"col1_pos",
-			"loadDummyItems",
-			"json",
-			"var",
-			"nearby"
+			"alligraffi",
+			"module",
+			"2017/12",
+			"url",
+			"module",
+			"160",
+			"17px",
+			"16px",
+			"module",
+			"OLORS\n\n  Dark blue #32373c\n  Page background #fafaff \n*/",
+			"pan.out-of",
+			"* \n  COLORS\n\n  Dark blue #32373c\n  Page background #fafaff \n*/",
+			"module",
+			"gra",
+			"font-alt",
+			"blog",
+			"robo",
+			"navbar-custom",
+			"bilbo",
+			"rideallcity",
+			"gmail",
+			"rideall",
+			".btn.btn-b",
+			"150",
+			".page-template-",
+			"page-temp",
+			"lowercase",
+			"text-transform",
+			"not",
+			"before",
+			"woocommerce-page",
+			"letter-spacing",
+			"55",
+			"10px 0",
+			"/single-product/add-to-car",
+			"loop/add-to-cart.php",
+			"yahoo",
+			"[mpeteu@atlas templates]$ ",
+			"[mpeteu@atlas templates]$",
+			"2e9faa",
+			"Margin=\"0,0,0.5,0\"",
+			"shadow",
+			"Tab",
+			"margin",
+			"list",
+			"120",
+			"VisualPlaceholder",
+			" TextAlignment=\"Center\"",
+			"refreshMapButton",
+			"flat",
+			"android",
+			"refreshMapButton",
+			"center",
+			"clicked",
+			"Rectangle",
+			"mariott",
+			"console.log",
+			"<NativeViewHost>",
+			"150",
+			"AccentColor",
+			"30",
+			"26",
+			"search",
+			"flatbu",
+			"loadFeed",
+			"rout",
+			"placed",
+			"click",
+			"clickr",
+			"Stack",
+			"Panel",
+			"client",
+			"Auto",
+			"36",
+			"refreshMap",
+			"reloadHandler",
+			"reload",
+			"code",
+			"juicer",
+			"-",
+			"getDirections",
+			"console",
+			"feedIsLoading",
+			"setFeedItems",
+			"loadFeed",
+			"feedIsLoading",
+			"reloadFeed",
+			"feedIsLoading",
+			"feedLoading",
+			"endLoading",
+			"isLoading",
+			"cog1",
+			"SmallCog",
+			"assets",
+			"\t<Image ux:Class=\"Cog\" MaxHeight=\"140\" MaxWidth=\"120\" Alignment=\"Center\" />\n\t<Image ux:Class=\"Cog\" MaxHeight=\"140\" MaxWidth=\"120\" Alignment=\"Center\" />\nsmallCog",
+			"\t<Image ux:Class=\"Cog\" MaxHeight=\"140\" MaxWidth=\"120\" Alignment=\"Center\" />\nsmallCog",
+			"smallCog",
+			"mage ux:Class=\"Co",
+			"Cog",
+			"cog",
+			"cog2",
+			"SmallCog",
+			"reloadFeed",
+			"cog",
+			"reload",
+			"reloadFeed",
+			"loadFeed",
+			"Common",
+			"reloadHandler",
+			"ReloadHandler",
+			"numClicked",
+			"&gt;",
+			"&lt;",
+			"&quot;",
+			"/&gt;",
+			"refreshmap",
+			"main.",
+			"reloadHandler",
+			"reload",
+			"Selection",
+			"pull to",
+			"gs",
+			"search near",
+			"Maps",
+			"getDirections",
+			"goToIG",
+			"fetchdata",
+			"Maps."
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -639,24 +774,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "data.js",
+					"file": "MainView.ux",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1242,
+						"buffer_size": 6459,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1053,
-								1053
+								2379,
+								2379
 							]
 						],
 						"settings":
@@ -665,7 +800,39 @@
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"syntax": "Packages/Fuse/UX.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1080.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "FndSmCoffee.unoproj",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1877,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								118,
+								118
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Fuse/Unoproj.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -674,17 +841,49 @@
 					},
 					"stack_index": 0,
 					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "StaticResources.ux",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2197,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								551,
+								551
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Fuse/UX.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 77.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
 				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 26.0
+		"height": 24.0
 	},
 	"input":
 	{
-		"height": 38.0
+		"height": 39.0
 	},
 	"layout":
 	{
@@ -711,7 +910,7 @@
 	"menu_visible": true,
 	"output.FuseBuildResults":
 	{
-		"height": 32.0
+		"height": 33.0
 	},
 	"output.find_results":
 	{
@@ -725,7 +924,7 @@
 	"project": "FSC-mobile.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 44.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -735,6 +934,238 @@
 		"selected_items":
 		[
 			[
+				"unopro",
+				"FndSmCoffee.unoproj"
+			],
+			[
+				"stati",
+				"StaticResources.ux"
+			],
+			[
+				"reload",
+				"Components/ReloadAnimation.ux"
+			],
+			[
+				"event",
+				"Components/EventCard.ux"
+			],
+			[
+				"static",
+				"StaticResources.ux"
+			],
+			[
+				"flatbo",
+				"Components/FlatButton.ux"
+			],
+			[
+				"resour",
+				"StaticResources.ux"
+			],
+			[
+				"mapview",
+				"Components/PageMapView.ux"
+			],
+			[
+				"main",
+				"MainView.ux"
+			],
+			[
+				"pagemap",
+				"Components/PageMapView.ux"
+			],
+			[
+				"mapview.ux",
+				"Components/PageMapView.ux"
+			],
+			[
+				"pageblog",
+				"Components/PageBlog.ux"
+			],
+			[
+				"page",
+				"Components/PageAbout.ux"
+			],
+			[
+				"c",
+				"Modules/Common.js"
+			],
+			[
+				"user",
+				"Modules/User.js"
+			],
+			[
+				"biz",
+				"Modules/Biz.js"
+			],
+			[
+				"androidmanifest.xml",
+				"build/Android/Preview/app/src/main/AndroidManifest.xml"
+			],
+			[
+				"biz.j",
+				"Modules/Biz.js"
+			],
+			[
+				"blog",
+				"Modules/Blog.js"
+			],
+			[
+				"common",
+				"Modules/Common.js"
+			],
+			[
+				"blogux",
+				"Components/PageBlog.ux"
+			],
+			[
+				"blogs",
+				"Modules/Blog.js"
+			],
+			[
+				"co",
+				"Modules/Common.js"
+			],
+			[
+				"blog.j",
+				"Modules/Blog.js"
+			],
+			[
+				"biz.",
+				"Modules/Biz.js"
+			],
+			[
+				"pageblo",
+				"Components/PageBlog.ux"
+			],
+			[
+				"tab",
+				"Components/TabIndicator.ux"
+			],
+			[
+				"relo",
+				"Components/ReloadAnimation.ux"
+			],
+			[
+				"pagema",
+				"Components/PageMapView.ux"
+			],
+			[
+				"blog.ux",
+				"Components/PageBlog.ux"
+			],
+			[
+				"blog.",
+				"Modules/Blog.js"
+			],
+			[
+				"build/android/preview/app/build.gradle",
+				"build/Android/Preview/app/build.gradle"
+			],
+			[
+				"even",
+				"Components/EventCard.ux"
+			],
+			[
+				"moda",
+				"Components/NotificationModal.ux"
+			],
+			[
+				"about",
+				"Components/PageAbout.ux"
+			],
+			[
+				"flatbut",
+				"Components/FlatButton.ux"
+			],
+			[
+				"flat",
+				"Components/FlatButton.ux"
+			],
+			[
+				"plus",
+				"Components/PlusButton.ux"
+			],
+			[
+				"back",
+				"Components/BackButton.ux"
+			],
+			[
+				"ack",
+				"Components/BackButton.ux"
+			],
+			[
+				"ev",
+				"Components/EventCard.ux"
+			],
+			[
+				"statusandappbar",
+				"Components/StatusAndAppBar.ux"
+			],
+			[
+				"sta",
+				"StaticResources.ux"
+			],
+			[
+				"main.",
+				"Modules/Main.js"
+			],
+			[
+				"eventca",
+				"Components/EventCard.ux"
+			],
+			[
+				"flatbutton",
+				"Components/FlatButton.ux"
+			],
+			[
+				"backbut",
+				"Components/BackButton.ux"
+			],
+			[
+				"plusbutton",
+				"Components/PlusButton.ux"
+			],
+			[
+				"main.js",
+				"Modules/Main.js"
+			],
+			[
+				".js",
+				"Modules/Biz.js"
+			],
+			[
+				"status",
+				"Components/StatusAndAppBar.ux"
+			],
+			[
+				"text",
+				"Components/TextButton.ux"
+			],
+			[
+				"resou",
+				"StaticResources.ux"
+			],
+			[
+				"user.",
+				"Modules/User.js"
+			],
+			[
+				"unopr",
+				"FSC-mobile.unoproj"
+			],
+			[
+				"como",
+				"Modules/Common.js"
+			],
+			[
+				"staticresources.ux",
+				"StaticResources.ux"
+			],
+			[
+				"un",
+				"FSC-mobile.unoproj"
+			],
+			[
 				"inde",
 				"index.html"
 			],
@@ -743,20 +1174,12 @@
 				"api/cities/index.php"
 			],
 			[
-				"main",
-				"src/main.js"
-			],
-			[
 				"index.",
 				"config/index.js"
 			],
 			[
 				"con",
 				"build/webpack.prod.conf.js"
-			],
-			[
-				"main.",
-				"src/main.js"
 			],
 			[
 				"app.v",
@@ -865,10 +1288,6 @@
 			[
 				"social",
 				"src/components/Social.vue"
-			],
-			[
-				".js",
-				"src/main.js"
 			],
 			[
 				"main.j",
@@ -987,10 +1406,6 @@
 				".editorconfig"
 			],
 			[
-				"main.js",
-				"src/main.js"
-			],
-			[
 				"router",
 				"src/VueRouter/index.js"
 			],
@@ -1019,10 +1434,6 @@
 				"api-php/search/index.php"
 			],
 			[
-				"about",
-				"src/components/About.vue"
-			],
-			[
 				"glob",
 				"globals.php"
 			],
@@ -1031,220 +1442,8 @@
 				"globals.php"
 			],
 			[
-				"common",
-				"lib/common.php"
-			],
-			[
 				"common.php",
 				"lib/common.php"
-			],
-			[
-				"glo",
-				"globals.php"
-			],
-			[
-				"getcoffeeshops",
-				"getCoffeeShops.php"
-			],
-			[
-				"vuerouter",
-				"VueRouter/index.js"
-			],
-			[
-				"hello",
-				"components/Hello.vue"
-			],
-			[
-				"getcof",
-				"getCoffeeShops.php"
-			],
-			[
-				"app.js",
-				"app.js"
-			],
-			[
-				".css",
-				"css/main.css"
-			],
-			[
-				"template",
-				"templates/item-thumb.html"
-			],
-			[
-				"templ",
-				"templates/detail-modal.html"
-			],
-			[
-				"item",
-				"templates/item-thumb.html"
-			],
-			[
-				"com",
-				"js/common.js"
-			],
-			[
-				"commo",
-				"lib/common.php"
-			],
-			[
-				"cmo",
-				"js/common.js"
-			],
-			[
-				"galle",
-				"gallery.html"
-			],
-			[
-				"gall",
-				"js/gallery.js"
-			],
-			[
-				"custom-",
-				"css/custom-inputs.css"
-			],
-			[
-				"common.",
-				"app/js/common.js"
-			],
-			[
-				"srcgallery",
-				"src/gallery.html"
-			],
-			[
-				"gallery.",
-				"src/gallery.html"
-			],
-			[
-				"galley",
-				"app/gallery.html"
-			],
-			[
-				"src/main.css",
-				"src/css/main.css"
-			],
-			[
-				"main.cs",
-				"src/css/main.css"
-			],
-			[
-				"srccommon.",
-				"src/js/common.js"
-			],
-			[
-				"agency.less",
-				"src/less/agency.less"
-			],
-			[
-				"gulp",
-				"gulpfile.js"
-			],
-			[
-				"modules",
-				"node_modules/openurl/.idea/modules.xml"
-			],
-			[
-				"srcindex",
-				"src/index.html"
-			],
-			[
-				"index.h",
-				"app/index.html"
-			],
-			[
-				"agenc",
-				"src/less/agency.less"
-			],
-			[
-				"agency.les",
-				"src/less/agency.less"
-			],
-			[
-				".",
-				".editorconfig"
-			],
-			[
-				"main.css",
-				"src/css/main.css"
-			],
-			[
-				"agency.",
-				"src/js/agency.js"
-			],
-			[
-				"variables.l",
-				"src/less/variables.less"
-			],
-			[
-				"varia.less",
-				"node_modules/bootstrap/less/variables.less"
-			],
-			[
-				".less",
-				"src/less/variables.less"
-			],
-			[
-				"agen",
-				"src/less/agency.less"
-			],
-			[
-				"data",
-				"src/css/datatables.css"
-			],
-			[
-				"datatabes",
-				"src/css/datatables.css"
-			],
-			[
-				"agency.min.js",
-				"src/js/agency.min.js"
-			],
-			[
-				"mixins.less",
-				"src/less/mixins.less"
-			],
-			[
-				"boostrap",
-				"node_modules/bootstrap/less/bootstrap.less"
-			],
-			[
-				"scss/agency.scss",
-				"src/scss/agency.scss"
-			],
-			[
-				"datata",
-				"styles/datatables.css"
-			],
-			[
-				".edi",
-				".editorconfig"
-			],
-			[
-				"homepag",
-				"Pages/HomePage.js"
-			],
-			[
-				"homepage.js",
-				"Pages/HomePage.js"
-			],
-			[
-				"odules/context.js",
-				"Modules/Context.js"
-			],
-			[
-				"hikes",
-				"js/hikes.js"
-			],
-			[
-				"hikes.",
-				"js/hikes.js"
-			],
-			[
-				"srcbootstrap",
-				"src/vendor/bootstrap/css/bootstrap.css"
-			],
-			[
-				"bootst",
-				"node_modules/bootstrap/less/bootstrap.less"
 			]
 		],
 		"width": 0.0
@@ -1274,8 +1473,8 @@
 	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
-	"side_bar_width": 181.0,
+	"side_bar_visible": false,
+	"side_bar_width": 198.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

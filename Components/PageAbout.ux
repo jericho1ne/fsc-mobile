@@ -18,7 +18,6 @@
 					<FileImageSource File="../Assets/fsc-icon.png" />
 				</Image>
 			</Panel>
-			
 			<FlatButton 
 				Text="@findsomecoffee" 
 				HitTestMode="LocalBoundsAndChildren"

@@ -1,0 +1,36 @@
+<StackPanel ux:Class="AdvancedModal">
+
+	<Rectangle 
+		Color="Black" Width="50" Height="50" Alignment="TopRight"
+	>
+		<Text Value="toggle modal" TextWrapping="Wrap" Alignment="Center" TextAlignment="Center" TextColor="White" />
+		<Tapped>
+			<Toggle Target="modalState"/>
+			<Scale Factor="1.2" Duration=".1" />
+		</Tapped>
+	</Rectangle>
+
+	<Panel ux:Name="theApp" Width="100%" Height="100%" Visibility="Collapsed"  >
+		<Panel ux:Name="modalParent" Width="100%" Height="100%" >                         
+			<!--Translation used to set the modal out of view,  -->
+			<Translation ux:Name="modalTrans" Y="1" RelativeTo="Size"/>
+			<!--The modal -->
+			<Rectangle ux:Name="modal" Width="80%" Height="50%" CornerRadius="15" >
+				<Text Value="Modal popup" Alignment="Center" TextAlignment="Center" FontSize="25" />
+				<SolidColor Color="White"/>
+				<Rectangle ux:Name="modalOpacity" Color="White" Layer="Background" Opacity="0" CornerRadius="15" >
+					<DropShadow Size="55" Distance="1" Spread="0.03" Color="Black" Angle="330" />
+				</Rectangle>
+			</Rectangle>
+		</Panel>
+		<!--Page background, that changes opacity when modal in taken into view -->
+		<SolidColor ux:Name="modalBackground" Color="Black" Opacity="0"/>
+		<WhileTrue ux:Name="modalState">
+			<Move Target="modalParent" Y="-1" RelativeTo="Size" Duration=".3" Easing="BackOut" />
+			<Change theApp.Visibility="Visible"/>
+			<Change modalBackground.Opacity=".25" Duration=".3" />
+			<Change modalOpacity.Opacity=".3" Duration=".3" />
+		</WhileTrue>
+	</Panel>
+
+</StackPanel>

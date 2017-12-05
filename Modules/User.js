@@ -4,7 +4,6 @@
 var Observable = require("FuseJS/Observable");
 var Common = require("./Common.js");
 
-
 // User variables that keep updating throughout the life of app
 var latitude = Observable(34.0422);
 var longitude = Observable(-118.3437);
@@ -28,10 +27,13 @@ var location = Observable(function() {
 });
 
 function setLocation(location) {
+	// console.log(" >>>>>> setLocation :: ");
 	// Common.log(location);
+	
 	latitude.value = location.latitude;
 	longitude.value = location.longitude;
 	zoomLevel.value = 12;
+	
 	// latitude.add(location.latitude);
 	// longitude.add(location.longitude);
 	

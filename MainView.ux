@@ -13,44 +13,28 @@
 		var Main 	= require("./Modules/Main.js");
 		var User 	= require("./Modules/User.js");
 		var Biz 	= require("./Modules/Biz.js");
-		var Blog 	= require("./Modules/Blog.js");
+		var Feed 	= require("./Modules/Feed.js");
 		
-		var modalText = Observable('searching nearby . . .');
-	
-		/**
-		 * 1) Get user location, all nearby coffee shops, displays in List and Map view
-		 * 2) Get blog posts
-		 */
-		Main.getCoffeeShopsNearby().then(function() { /* This fires too quickly... */ });
-		Blog.fetchData();
-		
-		function refreshMap(args) {
-			// console.log('*** refreshMap ***');
-			// console.log(User.lat + ', ' + User.lon);
-			// Trigger "loading" modal
-			Biz.isLoading.value = true;
-			// Make the API call for nearby businesses
-			var urlParams = 
-				`term=coffee-tea&` + 
-				// Need either `location` || (`lat` && `lon`)
-				`lat=${User.lat.value}&` + 
-				`lon=${User.lon.value}&` +
-				// List of comma delimited pricing levels (1,2,3,4)
-				`price=1,2,3,4&` +
-				// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
-				`sort_by=distance&` +
-				// Always set a limit (limit further on API side if need be)
-				`limit=34`;
+		var modalText = Observable('searching nearby . . .'); 
 
-			Biz.fetchData('search', urlParams)
-				.then((data) => {
-					// Remove crappy coffee shops
-					var legitCoffeeShops = Biz.stripCoffeeShops(data);
-					// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
-					Biz.setItemList(legitCoffeeShops);
-				});
-		}
-		
+		/**
+		 * Go and grab:
+		 * 
+		 * 1) User location, then all nearby coffee shops, displays in List and Map view
+		 * 2) Blog + Instagram photos
+		 */
+		Main.getCoffeeShopsNearby();
+		Feed.loadFeed();	
+
+		// Common.fetchData(Common.FSC_API_URL, 'blog', '').then((response) => {
+		// 	if (typeof response === 'object') {
+		// 		var items = response;
+		// 		Feed.setItemList(items);
+		// 	} else {
+		// 		console.log(" (x) Unable to get Blog posts.");
+		// 	}
+		// });
+
 		/**
 		 * Actions to take once pull-to-refresh is completed
 		 * @return nothing
@@ -59,29 +43,18 @@
 			Biz.isLoading.value = false;
 		}
 
-		/**
-		 * Get new businesses nearby when position has changed
-		 * @return nothing
-		 */
-		function reloadHandler() {
-			// Clear existing coffee shops, run search again
-			Biz.itemList.replaceAll([]);
-			Main.getCoffeeShopsNearby();
-			
-			// Handle ui stuff
-			Biz.isLoading.value = true;
-			// Manual cutoff 
-			// setTimeout(endLoading, 1750);
-		}
-
 		module.exports = {
 			// Data
 			userLocation: User.location,
 			userLat: User.lat,
 			userLon: User.lon,
 			zoomLevel: User.zoomLevel,
+ 			
  			itemList: Biz.itemList,
- 			blogPosts: Blog.blogPosts,
+ 			
+ 			blogPosts: Feed.blogPosts,
+ 			feedItems: Feed.feedItems,
+
 			modalText: modalText,
 
 			// Methods
@@ -90,11 +63,16 @@
 			shareViaSms: Common.shareViaSms,
 			goToIG: Common.goToIG,
 			readBlogPost: Common.readBlogPost,
-			refreshMap: refreshMap,
+			getPostDetail: Common.getPostDetail,
+			
+			placed: Main.placed,
+			refreshMap: Main.refreshMap,
 
 			// Pull to refresh
 			isLoading: Biz.isLoading,
-			reloadHandler: reloadHandler
+			feedIsLoading: Feed.feedIsLoading,
+			reloadHandler: Main.reloadHandler,
+			reloadFeed: Feed.reloadFeed,
 		};		
 	</JavaScript>
 
@@ -102,20 +80,15 @@
 		<StatusBarBackground Dock="Top" />
 		<BottomBarBackground Dock="Bottom" />
 	
-		<Panel ux:Name="contentPlaceholder" />
-
 		<!-- NAVIGATION TABS -->
-		<Panel ux:Name="menuBar" 
-			Dock="Top" 
-			Height="42" Margin="0" Padding="0" 
-			Opacity="1"
-			Background="#2e9faa"
+		<!-- Everything inside `menuBar` is auto-hidden when biz is clicked -->
+		<StackPanel ux:Name="menuBar"
+			Orientation="Horizontal" 
+			Dock="Bottom" Height="40" Padding="0" 
+			Opacity="1" Background="#82cde6"
 		>
 			<!-- Inactive Nav Tab Color -->
-			<Grid ColumnCount="4" Margin="0" Padding="0" Layer="Overlay">
-				<!-- STATIC RESOURCES -->
-				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
-				
+			<Grid ColumnCount="3" Margin="0" Padding="0" Layer="Overlay">
 				<Rectangle ux:Name="indicator" Color="AccentColor"
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
@@ -123,6 +96,7 @@
 						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.5" Easing="BackIn"/>
 					</LayoutAnimation>
 				</Rectangle>
+
 				<Panel ux:Name="page1Tab">
 					<Tab Text="List">
 						<Clicked>
@@ -137,22 +111,23 @@
 						</Clicked>
 					</Tab>
 				</Panel>
-				<Panel ux:Name="page3Tab">
+				<!-- <Panel ux:Name="page3Tab">
 					<Tab Text="Blog">
 						<Clicked>
 							<Set navigation.Active="page3" />
 						</Clicked>
 					</Tab>
-				</Panel>
-				<Panel ux:Name="page4Tab">
-					<Tab Text="About">
+				</Panel> -->
+				<Panel ux:Name="page4Tab" Margin="0">
+					<Tab Text="Feed">
 						<Clicked>
 							<Set navigation.Active="page4" />
 						</Clicked>
 					</Tab>
 				</Panel>
 			</Grid>
-		</Panel>
+		</StackPanel>
+		<Panel ux:Name="contentPlaceholder" />
 
 		<!-- PAGE CONTROL - CHANGES ON TAB SELECTION -->
 		<PageControl ux:Name="navigation">
@@ -171,30 +146,46 @@
 					</Panel>
 				</WhileTrue>
 
-				<StackPanel>
+				<StackPanel Height="100%">
 					<!-- Pop up modal -->
+					<NotificationModal ux:Name="searchNearbyModal" />
 					<WhileTrue Value="{isLoading}">
 						<Change searchNearbyModal.Opacity="1" Duration=".35" />
 					</WhileTrue>
-					<NotificationModal ux:Name="searchNearbyModal" />
 
-					<!-- ScrollableList of coffee shops -->
-					<!-- SnapMinTransform keeps view from scrolling too far, revealing App bg -->
-					<ScrollView ux:Name="itemScrollView" SnapMinTransform="false"
-						ClipToBounds="false" LayoutMode="PreserveVisual">
-						<StackPanel Margin="0,0,0,100">
+					<!-- 
+					* SnapMinTransform="false" keeps ScrollView from going to far down when
+					pulling to refresh.
+					* Pixel Height is always required, or the ScrollView gets "stuck"
+					-->
+					<ScrollView ux:Name="itemScrollView" 
+						Height="100" Margin="0,0,0,10"
+						ClipToBounds="false" 
+						SnapMinTransform="false" 
+						SnapMaxTransform="true" 
+						LayoutMode="PreserveVisual"
+					>
+						<StackPanel Margin="0" MinHeight="20">
 							<!-- Pull to Refresh UX element -->
-							<ReloadAnimation Dock="Top" />
-
+							<ReloadAnimation Dock="Top" Margin="0"/>
 							<Selection MinCount="0" MaxCount="1" />
 								
 							<!-- Loop through items -->
 							<Each Items="{itemList}">
-								<EventCard layoutTarget="contentPlaceholder" Margin="0,0,0,20">
+								<EventCard ux:Name="eventCard" 
+									layoutTarget="contentPlaceholder" 
+									ImageHeight="240" Margin="0,0,0,40" Padding="0"
+								>
 									<Selectable Value="{id}" />
 									<WhileSelected>
 										<!-- Block background scroll while detail is up -->
 										<Change itemScrollView.UserScroll="false" DelayBack="0" />
+										<!-- <Move Target="menuBar" 
+											Y="-1.5" RelativeTo="Size" Duration="0.86" 
+											Delay="0.1" DelayBack="0" 
+											Easing="QuarticOut" EasingBack="QuarticIn"
+										/> -->
+										<!-- <Change menuBar.Opacity="0" Duration=".35" /> -->
 									</WhileSelected>
 								</EventCard>
 							</Each>
@@ -208,36 +199,27 @@
 			<Page ux:Name="page2" Background="#abb7b7">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page2Tab" />
-					<JavaScript>
-						// console.log(" Now on MapView. ");
-						// myMapView.setMarkers([
-						// 	{ latitude: 34.01680, longitude: -118.49709, label: "The Refinery" },
-						// 	{ latitude: 34.02818, longitude: -118.47837, label: "Good Boy Bob" },
-						// 	{ latitude: 34.0614, longitude: -118.3109858, label: "Document Coffee Bar" },
-						// 	{ latitude: 34.07239, longitude: -118.3672, label: "Verve Coffee Roasters" },
-						// 	{ latitude: 34.0388, longitude: -118.23605, label: "The Wheelhouse" }
-						// ]);
-					</JavaScript>
 				</WhileActive>
-				<!-- <H1Text>Welcome to Page 2</H1Text> -->
 				<PageMapView Alignment="Left" Margin="0" />
 			</Page>
 	
 			<!-- Blog -->
-			<Page ux:Name="page3">
+		<!-- 	<Page ux:Name="page3">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page3Tab" />
 				</WhileActive>
 				<PageBlog Margin="0" MinHeight="300"/>
-			</Page>
+			</Page> -->
 
-			<!-- About Page -->
+			<!-- IG Feed -->
 			<Page ux:Name="page4" Background="#fff" Padding="0,0" Margin="0,0">
 				<WhileActive Threshold="0.4">
 					<Set indicator.LayoutMaster="page4Tab" />
+					<PageFeed Margin="0" MinHeight="300"/>
 				</WhileActive>
-				<PageAbout Alignment="Left" Margin="0" />
 			</Page>
+			<!-- <PageAbout Alignment="Left" Margin="0" /> -->
+
 		</PageControl>
 
 	</DockPanel>

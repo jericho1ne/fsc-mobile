@@ -1,25 +1,55 @@
-<NativeViewHost ux:Class="PageMapView" Width="100%" Height="100%" Margin="0" Padding="0">
-	
+<NativeViewHost ux:Class="PageMapView" 
+	Width="100%" Height="100%" Margin="0" Padding="0" Background="Red"
+>
+	<!-- The Button that works on iOS device, but not Android... -->
+	<Button HitTestMode="LocalBoundsAndChildren"
+		ux:Name="refreshMapButton"
+		Clicked="{refreshMap}"
+		Width="70%"
+		Margin="0" Padding="8,10,24,0"
+		ClipToBounds="False"
+		Alignment="BottomCenter"
+		Offset="0,-40"
+		Color="AccentColor" 
+	>
+		<Text Value="SEARCH THIS AREA" 
+			Color="White" 
+			Font="MontserratBold" 
+			FontSize="14" 
+			TextAlignment="Center"
+			Width="100%" 
+			Height="100%" 
+		/>
+		<Shadow Distance="1" Size="1" Color="#777" Angle="135" />
+		<WhilePressed>
+			<Scale Factor=".96" Duration="0.125" Delay="0" Easing="QuadraticIn" />
+			<Change refreshMapButton.Color="AccentColorDark" Duration="0.15" DurationBack=".2" />
+		</WhilePressed>
+		<!-- Stupid hack for Android -->
+		<Panel ux:Name="VisualPlaceholder" Width="100%" Height="2">
+			<Text Value="" Alignment="Center" TextColor="AccentColor" FontSize=".15"/>
+	    </Panel>
+		<Clicked>
+	        <Rotate Target="VisualPlaceholder" Degrees="2" Duration="0.15"/>
+	    </Clicked>
+	</Button>
+
 	<!-- Pop up modal -->
 	<WhileTrue Value="{isLoading}">
 		<Change searchNearbyModal.Opacity="1" Duration=".35" />
 	</WhileTrue>
-	<NotificationModal ux:Name="searchNearbyModal"></NotificationModal>
 
-	<StackPanel ux:Name="searchHere" Opacity="0.8" Margin="0,0,0,20" 
-		Alignment="BottomCenter" Layer="Overlay">
-		<FlatButton 
-			Text="Search this area" 
-			HitTestMode="LocalBoundsAndChildren"
-			Clicked="{refreshMap}"
-			Width="100%"
-			Padding="26,18,26,18"
-			Margin="0,0,0,12"
-		/>
-	</StackPanel>
+	<NotificationModal ux:Name="searchNearbyModal"></NotificationModal>
 	
+	<!-- The MAP -->
 	<MapView ux:Name="myMapView" 
-		ShowMyLocation="true" Latitude="{userLat}" Longitude="{userLon}" Zoom="{zoomLevel}">
+		ShowMyLocation="true" ShowMyLocationButton="true" 
+		Latitude="{userLat}" Longitude="{userLon}" Zoom="{zoomLevel}"
+		Height="100%"
+		Width="100%"
+		AllowRotate="false"
+		Background="Blue"
+	>
 		<Each Items="{itemList}">
 			<MapMarker 
 				Latitude="{coordinates.latitude}" 

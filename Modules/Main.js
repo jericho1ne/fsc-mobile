@@ -6,10 +6,10 @@ var Observable = require("FuseJS/Observable");
 var Common 	= require("./Common.js");
 var User 	= require("./User.js");
 var Biz 	= require("./Biz.js");
-var Blog 	= require("./Blog.js");
+var Feed 	= require("./Feed.js");
 
 // Get location (time out after a certain wait time)
-const timeout_ms = 12000;
+const timeout_ms = 100000000;
 
 function getCoffeeShopsNearby() {
 	// Get location, then hit the Yelp API for results
@@ -19,25 +19,16 @@ function getCoffeeShopsNearby() {
 		User.setLocation(location);
 
 		// Make the API call for nearby businesses
+		// Need either `location` OR (`lat` && `lon`)
 		var urlParams = 
-			`term=coffee-tea&` + 
-			// Need either `location` || (`lat` && `lon`)
+			`${Common.PRESET_PARAMS}&` +
 			`lat=${location.latitude}&` + 
-			`lon=${location.longitude}&` +
-			// List of comma delimited pricing levels (1,2,3,4)
-			`price=1,2,3,4&` +
-			// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
-			`sort_by=distance&` +
-			// Always set a limit!
-			`limit=33`;
+			`lon=${location.longitude}`;
 
 		Biz.fetchData('search', urlParams)
 			.then((data) => {
-				// Remove crappy coffee shops
-				var legitCoffeeShops = Biz.stripCoffeeShops(data);
-
-				// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
-				Biz.setItemList(legitCoffeeShops);
+				// TODO: Display "nothing found" msg if array length === 0
+				Biz.setItemList(data);
 			});
 
 	}).catch((fail) => {
@@ -45,9 +36,50 @@ function getCoffeeShopsNearby() {
 	});
 }
 
+function placed(args) {
+	console.log(args.height);
+}
+
+/**
+ * Get new businesses nearby when position has changed
+ * @return nothing
+ */
+function reloadHandler(args) {
+	// Clear existing coffee shops
+	Biz.itemList.replaceAll([]);
+	// Run search again for nearby shops
+	getCoffeeShopsNearby();
+	
+	// Handle UI stuff
+	Biz.isLoading.value = true;
+
+	// Manual cutoff 
+	// setTimeout(endLoading, 1750);
+}
+
+function refreshMap(args) {
+	// Trigger "loading" modal
+	Biz.isLoading.value = true;
+
+	// Make the API call for nearby businesses
+	const urlParams = 
+		`${Common.PRESET_PARAMS}&` +
+		`lat=${User.lat.value}&` + 
+		`lon=${User.lon.value}`;
+
+	Biz.fetchData('search', urlParams)
+		.then((data) => {
+			// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
+			Biz.setItemList(data);
+		});
+}
+
 module.exports = {
 	// Methods
-	getCoffeeShopsNearby: getCoffeeShopsNearby,
+	getCoffeeShopsNearby,
+	reloadHandler, 
+	refreshMap,
+	placed,
 
 	// Data
 	itemList: Biz.itemList,

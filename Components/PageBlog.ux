@@ -1,11 +1,14 @@
-<ScrollView ux:Class="PageBlog" Height="100%" Margin="0,-12,0,0" 
-	ClipToBounds="false" SnapMinTransform="false" LayoutMode="PreserveVisual"
+<ScrollView ux:Class="PageBlog" 
+	MinHeight="100" Margin="0,-12,0,0" 
+	ClipToBounds="false" 
+	SnapMinTransform="false" 
+	SnapMaxTransform="true" 
+	LayoutMode="PreserveVisual"
 	Background="#fafafa"
 >
 	<StackPanel	Opacity="1" Margin="0,0,0,40">
 		<Each Items="{blogPosts}">
-
-			<StackPanel Padding="0,10,0,10" Margin="0,0,0,10" Background="#fafafa">
+			<StackPanel Padding="0,10,0,10" Margin="0,-10,0,10" Background="#fafafa">
 				<Panel Height="210">
 					<ImageFill Url="{img}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
 				</Panel>
@@ -23,7 +26,7 @@
 					<Rectangle Layer="Background" Color="#fff" CornerRadius="0" 
 						Margin="0"
 					>
-						<Shadow Size="10" Distance="2" Color="#bbb" Angle="135" />
+						<Shadow Size="8" Distance="2" Color="#bbb" Angle="90" />
 					</Rectangle>
 				</StackPanel>
 			</StackPanel>

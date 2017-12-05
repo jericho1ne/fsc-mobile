@@ -1,4 +1,4 @@
-<Rectangle ux:Class="FlatButton" HitTestMode="LocalBoundsAndChildren" 
+<Rectangle ux:Class="FlatButton" HitTestMode="LocalBounds" 
 	Color="AccentColor" 
 	CornerRadius="4" 
 	Padding="20,12" 
@@ -13,4 +13,8 @@
 		Width="100%" 
 	/>
 	<Shadow Distance="1" Size="1" Color="#777" Angle="135" />
+	<WhilePressed>
+		<Scale Factor=".98" Duration="0.125" Delay="0" Easing="QuadraticIn" />
+		<Change this.Color="AccentColorDark" Duration="0.125" DurationBack=".2" />
+	</WhilePressed>
 </Rectangle>

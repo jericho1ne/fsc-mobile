@@ -11,23 +11,37 @@
 	<!-- DK Blue -->
 	<float4 ux:Global="SecondaryColor" ux:Value="#1d1e48" />
 
+	<!-- Tab Bar Background Blue -->
+	<float4 ux:Global="TabBarBlue" ux:Value="#2A89A8" />
+
 	<!-- Lt Pink-->
 	<float4 ux:Global="TertiaryColor" ux:Value="#FF9A9A" />
 
 	<!-- Pinkish red -->
 	<float4 ux:Global="AccentColor" ux:Value="#E91E63" />
+	<!-- Darker pinkish red (try d81d5e vs d11c5b) -->
+	<float4 ux:Global="AccentColorDark" ux:Value="#d81d5e" />
 	
 	<!-- Page Background -->
 	<float4 ux:Global="LightGray" ux:Value="#f2f1ef" />
 	
 	<!-- Tab Panel -->
-	<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#fff">
+	<Panel ux:Class="Tab" ClipToBounds="false" Margin="0,0,0,3" Background="#2A89A8">
 		<string ux:Property="Text" />
 		<!-- Nav Tab text label -->
 		<Text Value="{ReadProperty Text}" 
-			Color="PrimaryColor" Font="MontserratBold" FontSize="16" Alignment="Center" />
+			Color="#fff" Font="MontserratBold" FontSize="16" Alignment="Center" />
 	</Panel>
+
+
+	<!-- Loading cog -->
+	<Image ux:Class="Cog" MaxHeight="140" MaxWidth="120" Alignment="Center" />
 	
+	<Cog ux:Class="SmallCog" 
+		Color="#fff" File="Assets/cog1_white.png" 
+		Width="36" Height="36" 
+	/>
+
 	<!-- Create reusable custom header text for each page -->
 	<Text ux:Class="H1Text" 
 		FontSize="22" 

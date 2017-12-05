@@ -1,0 +1,32 @@
+<Panel ux:Class="ReloadAnimFeed" ClipToBounds="True" 
+	Margin="0,-0,0,0" Background="#2e9faa"
+>
+	<!-- places all cog wheels and move rotates them so they fit together -->
+	<Panel ux:Name="cogPanel" Alignment="Top" Height="0" MinHeight="0">
+		<!-- Center Cog -->
+		<SmallCog ux:Name="feedCog">
+			<Rotation ux:Name="feedCogRotation" />
+		</SmallCog>
+	</Panel>
+
+	<!-- set the hight of cogPanel so it stays open while loading -->
+	<WhileTrue ux:Name="retainSpace">
+		<Change cogPanel.MinHeight="140" 
+			Duration="0" DurationBack="0.5" Easing="CircularIn" />
+	</WhileTrue>
+
+	<!-- Rotate the wheels as we pull down -->
+	<ScrollingAnimation Range="SnapMin">
+		<Change cogPanel.Height="140" Duration="0.5" />
+	</ScrollingAnimation>
+
+	<PullToReload IsLoading="{feedIsLoading}" ReloadHandler="{reloadFeed}">
+		<State ux:Binding="Pulling">
+			<!-- animate elements while pulling here -->
+		</State>
+		<State ux:Binding="Loading">
+			<Change retainSpace.Value="true" DurationBack="0.5" />
+			<Spin Target="feedCog" Frequency="0.5" />
+		</State>
+	</PullToReload>
+</Panel>
