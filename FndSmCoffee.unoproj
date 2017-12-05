@@ -8,7 +8,8 @@
 		"FuseJS",
 		"Fuse.Maps",
 		"Fuse.Launcher",
-		"Fuse.GeoLocation"
+		"Fuse.GeoLocation",
+		"Fuse.Android",
 	],
 	"Mobile": {
 		"Orientations": "Portrait"

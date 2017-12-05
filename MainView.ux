@@ -25,8 +25,8 @@
 		Blog.fetchData();
 		
 		function refreshMap(args) {
-			// console.log('*** refreshMap ***');
-			// console.log(User.lat + ', ' + User.lon);
+			console.log('*** refreshMap ***');
+			console.log(User.lat + ', ' + User.lon);
 			// Trigger "loading" modal
 			Biz.isLoading.value = true;
 			// Make the API call for nearby businesses

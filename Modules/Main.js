@@ -9,7 +9,7 @@ var Biz 	= require("./Biz.js");
 var Blog 	= require("./Blog.js");
 
 // Get location (time out after a certain wait time)
-const timeout_ms = 12000;
+const timeout_ms = 8000;
 
 function getCoffeeShopsNearby() {
 	// Get location, then hit the Yelp API for results
