@@ -16,7 +16,7 @@
 		var Blog 	= require("./Modules/Blog.js");
 		
 		var modalText = Observable('searching nearby . . .');
-		const MAX_RESULTS = 34;
+
 		/**
 		 * 1) Get user location, all nearby coffee shops, displays in List and Map view
 		 * 2) Get blog posts
