@@ -4,8 +4,7 @@
 >
 	<StackPanel	Opacity="1" Margin="0,0,0,40">
 		<Each Items="{blogPosts}">
-
-			<StackPanel Padding="0,10,0,10" Margin="0,0,0,10" Background="#fafafa">
+			<StackPanel Padding="0,10,0,10" Margin="0,-10,0,10" Background="#fafafa">
 				<Panel Height="210">
 					<ImageFill Url="{img}" StretchMode="UniformToFill" WrapMode="ClampToEdge"/>
 				</Panel>

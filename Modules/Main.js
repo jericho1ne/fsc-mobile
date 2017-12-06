@@ -19,25 +19,16 @@ function getCoffeeShopsNearby() {
 		User.setLocation(location);
 
 		// Make the API call for nearby businesses
+		// Need either `location` OR (`lat` && `lon`)
 		var urlParams = 
-			`term=coffee-tea&` + 
-			// Need either `location` || (`lat` && `lon`)
+			`${Common.PRESET_PARAMS}&` +
 			`lat=${location.latitude}&` + 
-			`lon=${location.longitude}&` +
-			// List of comma delimited pricing levels (1,2,3,4)
-			`price=1,2,3,4&` +
-			// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
-			`sort_by=distance&` +
-			// Always set a limit!
-			`limit=33`;
+			`lon=${location.longitude}`;
 
 		Biz.fetchData('search', urlParams)
 			.then((data) => {
-				// Remove crappy coffee shops
-				var legitCoffeeShops = Biz.stripCoffeeShops(data);
-
-				// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
-				Biz.setItemList(legitCoffeeShops);
+				// TODO: Display "nothing found" msg if array length === 0
+				Biz.setItemList(data);
 			});
 
 	}).catch((fail) => {

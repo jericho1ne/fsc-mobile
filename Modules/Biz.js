@@ -24,25 +24,24 @@ function setItemList(new_items) {
  * @return {Promise} 
  */
 function fetchData(endpoint, urlParams) {
-	var requestUrl = 
-		'https://api.findsomecoffee.com/' 
-		+ endpoint + '?' + urlParams;
+	var requestUrl = Common.BIZ_SEARCH_URL + endpoint + '?' + urlParams;
 		
-	// console.log(" >>> API URL :: " + requestUrl);
+	console.log(" >>> API URL :: " + requestUrl);
 
 	return fetch(requestUrl)
-		.then(function(response) { 
+		.then((response) => { 
 			return response.json();
 		})
-		.then(function(response) {
+		.then((response) => {
 			if (typeof response === 'object') {
 				var items = response;
 
 				// Sort based on proximity
-				items.sort(function(a, b) {		
+				items.sort((a, b) => {		
 					// sort by proximity (closest first)
 					return parseFloat(a.distance) - parseFloat(b.distance);
 				});
+
 				// Convert meters to miles, 
 				// customize display values
 				items.forEach((item) => {
@@ -64,7 +63,7 @@ function fetchData(endpoint, urlParams) {
 					 	item.composite_address;
 				});
 
-				return items;
+				return stripCoffeeShops(items);
 			} else {
 				return {};
 			}

@@ -16,38 +16,41 @@
 		var Blog 	= require("./Modules/Blog.js");
 		
 		var modalText = Observable('searching nearby . . .');
-	
+		const MAX_RESULTS = 34;
 		/**
 		 * 1) Get user location, all nearby coffee shops, displays in List and Map view
 		 * 2) Get blog posts
 		 */
-		Main.getCoffeeShopsNearby().then(function() { /* This fires too quickly... */ });
-		Blog.fetchData();
+		Main.getCoffeeShopsNearby();
+
+		Blog.fetchData().then((response) => {
+			if (typeof response === 'object') {
+				console.log(" >>> DATA RECV'D <<< ");
+				var items = response;
+				Common.log(items[0]);
+				Blog.setItemList(items);
+			} else {
+				console.log("Uh oh... Problems, Houston...");
+			}
+		});
 		
 		function refreshMap(args) {
 			console.log('*** refreshMap ***');
-			console.log(User.lat + ', ' + User.lon);
+			console.log(User.lat.value + ', ' + User.lon.value);
+
 			// Trigger "loading" modal
 			Biz.isLoading.value = true;
+
 			// Make the API call for nearby businesses
-			var urlParams = 
-				`term=coffee-tea&` + 
-				// Need either `location` || (`lat` && `lon`)
+			const urlParams = 
+				`${Common.PRESET_PARAMS}&` +
 				`lat=${User.lat.value}&` + 
-				`lon=${User.lon.value}&` +
-				// List of comma delimited pricing levels (1,2,3,4)
-				`price=1,2,3,4&` +
-				// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
-				`sort_by=distance&` +
-				// Always set a limit (limit further on API side if need be)
-				`limit=34`;
+				`lon=${User.lon.value}`;
 
 			Biz.fetchData('search', urlParams)
 				.then((data) => {
-					// Remove crappy coffee shops
-					var legitCoffeeShops = Biz.stripCoffeeShops(data);
 					// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
-					Biz.setItemList(legitCoffeeShops);
+					Biz.setItemList(data);
 				});
 		}
 		
@@ -70,6 +73,7 @@
 			
 			// Handle ui stuff
 			Biz.isLoading.value = true;
+
 			// Manual cutoff 
 			// setTimeout(endLoading, 1750);
 		}

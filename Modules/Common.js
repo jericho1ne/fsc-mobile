@@ -5,6 +5,17 @@
 // Route telephone number click to Dial app, IG links, etc
 var InterApp = require("FuseJS/InterApp");
 
+// Business search API presets
+const BIZ_SEARCH_URL = 'https://api.findsomecoffee.com/';
+const MAX_RESULTS = 34;
+const PRESET_PARAMS = 
+	`term=coffee-tea&` +
+	// List of comma delimited pricing levels (1,2,3,4)
+	`price=1,2,3,4&` +
+	// Defaults to best_match if not provided  { best_match, rating, review_count, distance }
+	`sort_by=distance&` +
+	`limit=${MAX_RESULTS}`;
+
 /**
  * Provides a clean way to print data to console
  * @param  {[type]} items [description]
@@ -61,6 +72,12 @@ function readBlogPost(args) {
 }
 
 module.exports = {
+	// Data
+	MAX_RESULTS,
+	PRESET_PARAMS,
+	BIZ_SEARCH_URL,
+
+	// Methods
 	log: log,
 	callPhoneNumber: callPhoneNumber,
 	goToIG: goToIG,

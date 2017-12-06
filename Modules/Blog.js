@@ -23,32 +23,20 @@ function setItemList(new_items) {
  * @return {Promise} 
  */
 function fetchData(endpoint, urlParams) {
-	var requestUrl = 
-		'https://api.findsomecoffee.com/blog/';
+	const requestUrl = 'https://api.findsomecoffee.com/blog/';
+	
 	if (typeof urlParams !== 'undefined') {
 		requestUrl += `?${urlParams}`;
 	}
-	console.log(" >>> BLOG API URL :: " + requestUrl);
-	// 
+	console.log(" >>> BLOG URL :: " + requestUrl);
+	
 	return fetch(requestUrl)
-		.then(function(response) { 
-			console.log(" >>> HERE 1 ");
-			Common.log(response);
+		.then((response) => { 
 			return response.json();
 		})
-		.then(function(response) {
-			console.log(" >>> HERE 2 ");
-
-			if (typeof response === 'object') {
-				var items = response;
-				//Common.log(items);
-
-				setItemList(items);
-				// return items;
-			} else {
-				return {};
-			}
-	});
+		.catch((err) => {
+        	console.log(' >>> Ajax call error in Blog.js: ' + JSON.stringify(err));
+   		});
 } // End fetchData
 
 module.exports = {
