@@ -54,8 +54,8 @@ function reloadHandler() {
 }
 
 function refreshMap(args) {
-	console.log('*** refreshMap ***');
-	console.log(User.lat.value + ', ' + User.lon.value);
+	// console.log('*** refreshMap ***');
+	// console.log(User.lat.value + ', ' + User.lon.value);
 
 	// Trigger "loading" modal
 	Biz.isLoading.value = true;

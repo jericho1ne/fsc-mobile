@@ -25,8 +25,7 @@ function setItemList(new_items) {
  */
 function fetchData(endpoint, urlParams) {
 	var requestUrl = Common.BIZ_SEARCH_URL + endpoint + '?' + urlParams;
-		
-	console.log(" >>> API URL :: " + requestUrl);
+	// console.log(" >>> API URL :: " + requestUrl);
 
 	return fetch(requestUrl)
 		.then((response) => { 
