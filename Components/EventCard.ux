@@ -35,7 +35,7 @@
 					<StatusBarBackground />
 					<BackButton ux:Name="backButton" 
 						Alignment="BottomLeft"
-						Margin="12,0,0,0"
+						Margin="12,4,0,0"
 						Opacity="0.9"
 					>
 						<Clicked>
@@ -134,7 +134,7 @@
 	<Rectangle Layer="Background" Color="#fff" CornerRadius="0,0,4,4" 
 		Margin="0"
 	>
-		<Shadow Size="10" Distance="2" Color="#bbb" Angle="135" />
+		<Shadow Size="8" Distance="2" Color="#bbb" Angle="90" />
 	</Rectangle>
 
 	<!-- Margin: Left, Top, Right, Bottom -->

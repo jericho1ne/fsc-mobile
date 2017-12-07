@@ -1,7 +1,7 @@
 <StackPanel ux:Class="NotificationModal"
 	Opacity="0"	Width="100%" 
 	Alignment="TopCenter" Layer="Overlay"
-	Margin="0,100,0,0"
+	Margin="0,200,0,0"
 	HitTestMode="None"
 >
 	<Rectangle Padding="18" 

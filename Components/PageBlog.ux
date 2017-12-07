@@ -26,7 +26,7 @@
 					<Rectangle Layer="Background" Color="#fff" CornerRadius="0" 
 						Margin="0"
 					>
-						<Shadow Size="10" Distance="2" Color="#bbb" Angle="135" />
+						<Shadow Size="8" Distance="2" Color="#bbb" Angle="90" />
 					</Rectangle>
 				</StackPanel>
 			</StackPanel>

@@ -143,19 +143,20 @@
 					</WhileTrue>
 
 					<!-- 
-					SnapMinTransform keeps view from scrolling too far, revealing App bg, 
-					A Height in pixels is always required, or the ScrollView gets "stuck"
+					- SnapMinTransform="false" keeps ScrollView from going to far down when
+					pulling to refresh.
+					- Pixel Height is always required, or the ScrollView gets "stuck"
 					-->
 					<ScrollView ux:Name="itemScrollView" 
 						Height="100" Margin="0,0,0,10"
 						ClipToBounds="false" 
-						SnapMinTransform="true" 
+						SnapMinTransform="false" 
 						SnapMaxTransform="true" 
 						LayoutMode="PreserveVisual"
 					>
-						<StackPanel Margin="0,0,0,15" MinHeight="300">
+						<StackPanel Margin="0" MinHeight="20">
 							<!-- Pull to Refresh UX element -->
-							<ReloadAnimation Dock="Top" />
+							<ReloadAnimation Dock="Top" Margin="0"/>
 							<Selection MinCount="0" MaxCount="1" />
 								
 							<!-- Loop through items -->
