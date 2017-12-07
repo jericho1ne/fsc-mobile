@@ -1,5 +1,9 @@
-<ScrollView ux:Class="PageBlog" Height="100%" Margin="0,-12,0,0" 
-	ClipToBounds="false" SnapMinTransform="false" LayoutMode="PreserveVisual"
+<ScrollView ux:Class="PageBlog" 
+	MinHeight="100" Margin="0,-12,0,0" 
+	ClipToBounds="false" 
+	SnapMinTransform="false" 
+	SnapMaxTransform="true" 
+	LayoutMode="PreserveVisual"
 	Background="#fafafa"
 >
 	<StackPanel	Opacity="1" Margin="0,0,0,40">

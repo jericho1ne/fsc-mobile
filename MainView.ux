@@ -22,37 +22,16 @@
 		 * 2) Get blog posts
 		 */
 		Main.getCoffeeShopsNearby();
-
 		Blog.fetchData().then((response) => {
 			if (typeof response === 'object') {
-				console.log(" >>> DATA RECV'D <<< ");
+				// console.log(" >>> DATA RECV'D <<< ");
 				var items = response;
-				Common.log(items[0]);
+				// Common.log(items[0]); 
 				Blog.setItemList(items);
 			} else {
 				console.log("Uh oh... Problems, Houston...");
 			}
 		});
-		
-		function refreshMap(args) {
-			console.log('*** refreshMap ***');
-			console.log(User.lat.value + ', ' + User.lon.value);
-
-			// Trigger "loading" modal
-			Biz.isLoading.value = true;
-
-			// Make the API call for nearby businesses
-			const urlParams = 
-				`${Common.PRESET_PARAMS}&` +
-				`lat=${User.lat.value}&` + 
-				`lon=${User.lon.value}`;
-
-			Biz.fetchData('search', urlParams)
-				.then((data) => {
-					// TODO: Display a "sorry" message if (legitCoffeeShops.length === 0)
-					Biz.setItemList(data);
-				});
-		}
 		
 		/**
 		 * Actions to take once pull-to-refresh is completed
@@ -60,22 +39,6 @@
 		 */
 		function endLoading(){
 			Biz.isLoading.value = false;
-		}
-
-		/**
-		 * Get new businesses nearby when position has changed
-		 * @return nothing
-		 */
-		function reloadHandler() {
-			// Clear existing coffee shops, run search again
-			Biz.itemList.replaceAll([]);
-			Main.getCoffeeShopsNearby();
-			
-			// Handle ui stuff
-			Biz.isLoading.value = true;
-
-			// Manual cutoff 
-			// setTimeout(endLoading, 1750);
 		}
 
 		module.exports = {
@@ -94,11 +57,11 @@
 			shareViaSms: Common.shareViaSms,
 			goToIG: Common.goToIG,
 			readBlogPost: Common.readBlogPost,
-			refreshMap: refreshMap,
+			refreshMap: Main.refreshMap,
 
 			// Pull to refresh
 			isLoading: Biz.isLoading,
-			reloadHandler: reloadHandler
+			reloadHandler: Main.reloadHandler
 		};		
 	</JavaScript>
 
@@ -106,20 +69,15 @@
 		<StatusBarBackground Dock="Top" />
 		<BottomBarBackground Dock="Bottom" />
 	
-		<Panel ux:Name="contentPlaceholder" />
-
 		<!-- NAVIGATION TABS -->
-		<Panel ux:Name="menuBar" 
-			Dock="Top" 
-			Height="42" Margin="0" Padding="0" 
-			Opacity="1"
-			Background="#2e9faa"
+		<!-- Everything inside `menuBar` is auto-hidden when biz is clicked -->
+		<StackPanel ux:Name="menuBar"
+			Orientation="Horizontal" 
+			Dock="Top" Height="36" Padding="0" 
+			Opacity="1" Background="#2e9faa"
 		>
 			<!-- Inactive Nav Tab Color -->
 			<Grid ColumnCount="4" Margin="0" Padding="0" Layer="Overlay">
-				<!-- STATIC RESOURCES -->
-				<!-- Needs to be part of parent statusAndAppBar in order to be auto-hidden -->
-				
 				<Rectangle ux:Name="indicator" Color="AccentColor"
 					LayoutMaster="page1Tab" Alignment="Bottom" Height="4" 
 				>
@@ -127,6 +85,7 @@
 						<Move RelativeTo="WorldPositionChange" X="1" Duration="0.5" Easing="BackIn"/>
 					</LayoutAnimation>
 				</Rectangle>
+
 				<Panel ux:Name="page1Tab">
 					<Tab Text="List">
 						<Clicked>
@@ -156,7 +115,8 @@
 					</Tab>
 				</Panel>
 			</Grid>
-		</Panel>
+		</StackPanel>
+		<Panel ux:Name="contentPlaceholder" />
 
 		<!-- PAGE CONTROL - CHANGES ON TAB SELECTION -->
 		<PageControl ux:Name="navigation">
@@ -175,30 +135,45 @@
 					</Panel>
 				</WhileTrue>
 
-				<StackPanel>
+				<StackPanel Height="100%">
 					<!-- Pop up modal -->
+					<NotificationModal ux:Name="searchNearbyModal" />
 					<WhileTrue Value="{isLoading}">
 						<Change searchNearbyModal.Opacity="1" Duration=".35" />
 					</WhileTrue>
-					<NotificationModal ux:Name="searchNearbyModal" />
 
-					<!-- ScrollableList of coffee shops -->
-					<!-- SnapMinTransform keeps view from scrolling too far, revealing App bg -->
-					<ScrollView ux:Name="itemScrollView" SnapMinTransform="false"
-						ClipToBounds="false" LayoutMode="PreserveVisual">
-						<StackPanel Margin="0,0,0,100">
+					<!-- 
+					SnapMinTransform keeps view from scrolling too far, revealing App bg, 
+					A Height in pixels is always required, or the ScrollView gets "stuck"
+					-->
+					<ScrollView ux:Name="itemScrollView" 
+						Height="100" Margin="0,0,0,10"
+						ClipToBounds="false" 
+						SnapMinTransform="true" 
+						SnapMaxTransform="true" 
+						LayoutMode="PreserveVisual"
+					>
+						<StackPanel Margin="0,0,0,15" MinHeight="300">
 							<!-- Pull to Refresh UX element -->
 							<ReloadAnimation Dock="Top" />
-
 							<Selection MinCount="0" MaxCount="1" />
 								
 							<!-- Loop through items -->
 							<Each Items="{itemList}">
-								<EventCard layoutTarget="contentPlaceholder" Margin="0,0,0,20">
+								<EventCard ux:Name="eventCard" 
+									layoutTarget="contentPlaceholder" 
+									ImageHeight="240" Margin="0,0,0,40" Padding="0"
+								>
 									<Selectable Value="{id}" />
 									<WhileSelected>
 										<!-- Block background scroll while detail is up -->
 										<Change itemScrollView.UserScroll="false" DelayBack="0" />
+										<!-- <Move Target="menuBar" 
+											Y="-1.5" RelativeTo="Size" Duration="0.86" 
+											Delay="0.1" DelayBack="0" 
+											Easing="QuarticOut" EasingBack="QuarticIn"
+										/> -->
+										<!-- <Change menuBar.Opacity="0" Duration=".35" /> -->
 									</WhileSelected>
 								</EventCard>
 							</Each>

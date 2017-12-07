@@ -1,4 +1,4 @@
-<StackPanel ux:Class="EventCard" ImageHeight="260">
+<StackPanel ux:Class="EventCard">
 	<float ux:Property="ImageHeight" />
 	<Panel ux:Dependency="layoutTarget" />
 
@@ -9,20 +9,20 @@
 	<WhileSelected>
 		<Change imageAndContent.LayoutMaster="layoutTarget" DelayBack="0" Delay="0" />
 		<BringToFront />
-		<Change bizImage.CornerRadius="0" Duration="0.1" DelayBack="0" />
-		<Change bizImage.Margin="0" Duration="0.2" Delay="0" DelayBack="0" Easing="CubicInOut" />
+		<Change bizImage.Margin="-6" Duration="0.2" Delay="0" DelayBack="0" Easing="CubicInOut" />
 	</WhileSelected>
 	
 	<WhileSelected Invert="true">
-		<Change contentScrollView.Opacity="0.4" Duration="0.3" DelayBack="0" />
+		<Change contentScrollView.Opacity="0.5" Duration="0.3" DelayBack="0" />
 		<Change content.Opacity="0.5" Duration="0.5" DelayBack="0" />
-		<Move Target="content" Y="20" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
+		<!-- Y position is the starting point of the detail text that slides in -->
+		<Move Target="content" Y="-30" Duration="0.7" DelayBack="0" Delay="0" Easing="QuadraticIn" />
 		<Change hiddenObjects.Opacity="0" Duration="0.2" Delay="0" />
 		<Change hiddenObjects.HitTestMode="None" />
 	</WhileSelected>
 	
 	<Panel ux:Name="contentLimitPanel" Height="{ReadProperty ImageHeight}">
-		<DockPanel ux:Name="imageAndContent" ClipToBounds="true">
+		<DockPanel ux:Name="imageAndContent" ClipToBounds="true" HitTestMode="LocalBoundsAndChildren">
 			<LayoutAnimation>
 				<Move X="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="QuadraticInOut" />
 				<Move Y="1" RelativeTo="WorldPositionChange" DelayBack="0" Duration="0.12" Easing="SinusoidalIn" />
@@ -35,7 +35,7 @@
 					<StatusBarBackground />
 					<BackButton ux:Name="backButton" 
 						Alignment="BottomLeft"
-						Margin="12,60,0,0"
+						Margin="12,0,0,0"
 						Opacity="0.9"
 					>
 						<Clicked>
@@ -60,7 +60,7 @@
 
 					<!-- Show Image -->
 					<Rectangle ux:Name="bizImage" Layer="Background" 
-						CornerRadius="0" Margin="0" Padding="10"
+						CornerRadius="0" Margin="0" Padding="0"
 					>
 						<!-- <PlusButton ux:Name="plusButton" 
 							HitTestMode="LocalBoundsAndChildren"
@@ -131,7 +131,7 @@
 	</Panel>
 	
 	<!-- Info / Default view (Bottom Rectangle) -->
-	<Rectangle Layer="Background" Color="#fff" CornerRadius="0" 
+	<Rectangle Layer="Background" Color="#fff" CornerRadius="0,0,4,4" 
 		Margin="0"
 	>
 		<Shadow Size="10" Distance="2" Color="#bbb" Angle="135" />

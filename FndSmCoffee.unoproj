@@ -1,7 +1,7 @@
 {
 	"Name": "FndSmCoffee",
 	"RootNamespace":"",
-	"Version": "1.0.3",
+	"Version": "1.0.4",
 	"Code": "1",
 	"Packages": [
 		"Fuse",
@@ -25,7 +25,7 @@
 	"Icon" : "Assets/AppIcons/app-icon.png",
 	"iOS": {
 		"DisplayName": "Find Some Coffee",
-		"DeploymentTarget": "9.0",
+		"DeploymentTarget": "8.0",
 		"PList": {
 			"NSLocationWhenInUseUsageDescription": "We use your location to search for good coffee shops nearby."
 		},

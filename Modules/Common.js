@@ -4,6 +4,7 @@
 
 // Route telephone number click to Dial app, IG links, etc
 var InterApp = require("FuseJS/InterApp");
+var Maps = require("FuseJS/Maps");
 
 // Business search API presets
 const BIZ_SEARCH_URL = 'https://api.findsomecoffee.com/';
@@ -43,7 +44,7 @@ function log(items) {
  * On phone number click, route to telephone app
  */
 function callPhoneNumber(args) {
-	console.log('*** callPhoneNumber ***' + JSON.stringify(args.data.phone));
+	// console.log('*** callPhoneNumber ***' + JSON.stringify(args.data.phone));
 	InterApp.launchUri("tel:" + args.data.phone);
 }
 
@@ -67,7 +68,7 @@ function getDirections(args) {
 }
 
 function readBlogPost(args) {
-	console.log('*** readBlogPost ***' + JSON.stringify(args.data.url));
+	// console.log('*** readBlogPost ***' + JSON.stringify(args.data.url));
 	InterApp.launchUri(args.data.url);
 }
 

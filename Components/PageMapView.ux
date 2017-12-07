@@ -1,11 +1,9 @@
 <NativeViewHost ux:Class="PageMapView" Width="100%" Height="100%" Margin="0" Padding="0">
-	
 	<!-- Pop up modal -->
 	<WhileTrue Value="{isLoading}">
 		<Change searchNearbyModal.Opacity="1" Duration=".35" />
 	</WhileTrue>
 	<NotificationModal ux:Name="searchNearbyModal"></NotificationModal>
-
 	<StackPanel ux:Name="searchHere" Opacity="0.8" Margin="0,0,0,20" 
 		Alignment="BottomCenter" Layer="Overlay">
 		<FlatButton 
@@ -17,7 +15,6 @@
 			Margin="0,0,0,12"
 		/>
 	</StackPanel>
-	
 	<MapView ux:Name="myMapView" 
 		ShowMyLocation="true" Latitude="{userLat}" Longitude="{userLon}" Zoom="{zoomLevel}">
 		<Each Items="{itemList}">
@@ -28,5 +25,4 @@
 			/>
 		</Each>
 	</MapView>
-
 </NativeViewHost>
